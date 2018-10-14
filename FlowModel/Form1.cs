@@ -26,5 +26,50 @@ namespace FlowModel
         {
 
         }
+
+        private void EditPanel_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btn_relacionamento_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btn_padrao_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btn_atributo_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btn_heranca_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label1_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void comboBox3_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label2_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }
