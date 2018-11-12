@@ -3,10 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace FlowModel
 {
-    class Atributo
+    class Atributo:Desenho
     {
         private string nome;
         private int x;
@@ -67,6 +68,25 @@ namespace FlowModel
         public int getTipoProprietario()
         {
             return this.tipoProprietario;
+        }
+
+        public void SeDesenhe(Form d)
+        {
+            throw new NotImplementedException();
+        }
+
+        public string QuemSou()
+        {
+            return "Atributo";
+        }
+        public void Propriedades(Panel p)
+        {
+            throw new NotImplementedException();
+        }
+
+        public bool GetArea(int x, int y)
+        {
+            throw new NotImplementedException();
         }
     }
 }

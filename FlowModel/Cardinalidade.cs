@@ -3,10 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace FlowModel
 {
-    class Cardinalidade
+    class Cardinalidade:Desenho
     {
         private int cardMin;
         private int cardMax;
@@ -54,7 +55,24 @@ namespace FlowModel
             return this.y;
         }
 
+        public void SeDesenhe(Form d)
+        {
+            throw new NotImplementedException();
+        }
 
+        public string QuemSou()
+        {
+            return "Cardinalidade";
+        }
 
+        public void Propriedades(Panel p)
+        {
+            throw new NotImplementedException();
+        }
+
+        public bool GetArea(int x, int y)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

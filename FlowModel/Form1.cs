@@ -12,6 +12,7 @@ namespace FlowModel
 {
     public partial class EditPanel : Form
     {
+        private List<Desenho> figuras;
         public EditPanel()
         {
             InitializeComponent();

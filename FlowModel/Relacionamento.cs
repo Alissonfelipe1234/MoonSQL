@@ -3,10 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace FlowModel
 {
-    class Relacionamento
+    class Relacionamento:Desenho
     {
         private string nome;
         private int x;
@@ -42,6 +43,25 @@ namespace FlowModel
         {
             if(id > -1 && id < 3)
                 this.card[id] = nova;
+        }
+
+        public void SeDesenhe(Form d)
+        {
+            throw new NotImplementedException();
+        }
+
+        public string QuemSou()
+        {
+            return "Relacionamento";
+        }
+        public void Propriedades(Panel p)
+        {
+            throw new NotImplementedException();
+        }
+
+        public bool GetArea(int x, int y)
+        {
+            throw new NotImplementedException();
         }
     }
 }
