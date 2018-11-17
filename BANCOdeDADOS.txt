@@ -1,14 +1,50 @@
-CREATE TABLE Entidade(
-    ID serial,
-    Nome varchar(255) NOT NULL,
-    integer x NOT NULL,
-    integer y NOT NULL
-)
-CREATE TABLE Relacionamento(
-    ID serial,
-    Nome varchar(255),
-    integer x,
-    integer y
+CREATE DATABASE FLOWMODEL;
+USE FLOWMODEL;
 
-    ID_Cardinalidade int
-)
+CREATE TABLE Entidade(
+    	ID serial,
+    	Nome varchar(255) NOT NULL,
+    	integer x NOT NULL,
+    	integer y NOT NULL
+);
+
+CREATE TABLE Relacionamento(
+    	ID serial NOT NULL,
+    	Nome varchar(255) NOT NULL,
+	integer x NOT NULL,
+	integer y NOT NULL,
+	
+	integer ID_Relacionamento_Cardinalidade,
+
+	CONSTRAINT ID_RC FOREIGN KEY (ID_Relacionamento_Cardinalidade)
+	REFERENCES Relacionamento_Cardinalidade(ID)
+);
+
+CREATE TABLE Relacionamento_Cardinalidade(	
+	ID serial,
+	integer qtd_cards NOT NULL,
+	integer ID_Cardinalidade1 NOT NULL,
+	integer ID_Cardinalidade2 NOT NULL,
+	integer ID_Cardinalidade3, -- FOREIGN KEY REFERENCES Entidade(ID), 
+
+	CONSTRAINT ID_C1 FOREIGN KEY (ID_Cardinalidade1)
+	REFERENCES Entidade(ID),
+	CONSTRAINT ID_C2 FOREIGN KEY (ID_Cardinalidade2)
+	REFERENCES Entidade(ID),
+	CONSTRAINT ID_C3 FOREIGN KEY (ID_Cardinalidade3)
+	REFERENCES Entidade(ID)	
+);
+
+CREATE TABLE Atributo(	
+	ID serial,
+	Nome varchar(255) NOT NULL,
+	integer x NOT NULL,
+	integer y NOT NULL,
+	integer ID_Dado NOT NULL,
+	integer ID_propriedade NOT NULL,
+	integer ID_Proprietario NOT NULL,
+	integer Tipo_Proprietario NOT NULL
+
+	CONSTRAINT ID_PE FOREIGN KEY (ID_Proprietario)
+	REFERENCES Entidade(ID) and Relacionamento(ID)
+);
