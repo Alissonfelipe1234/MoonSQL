@@ -1,0 +1,14 @@
+CREATE TABLE Entidade(
+    ID serial,
+    Nome varchar(255) NOT NULL,
+    integer x NOT NULL,
+    integer y NOT NULL
+)
+CREATE TABLE Relacionamento(
+    ID serial,
+    Nome varchar(255),
+    integer x,
+    integer y
+
+    ID_Cardinalidade int
+)
