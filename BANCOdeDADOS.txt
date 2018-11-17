@@ -47,4 +47,5 @@ CREATE TABLE Atributo(
 
 	CONSTRAINT ID_PE FOREIGN KEY (ID_Proprietario)
 	REFERENCES Entidade(ID) and Relacionamento(ID)
+	CHECK (Tipo_Proprietario = "Entidade" OR Tipo_Proprietario = "Relacionamento")
 );
