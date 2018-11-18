@@ -10,38 +10,36 @@ namespace FlowModel
 {
     class Cardinalidade:Desenho
     {
-        private int cardMin;
-        private int cardMax;
+        private string cardMin;
+        private string cardMax;
 
         private int x;
         private int y;
 
         public Cardinalidade(int x, int y)
         {
-            this.cardMin = 1;
-            this.cardMin = 1;
+            this.cardMin = "1";
+            this.cardMin = "1";
 
             this.x = x;
             this.y = y;
         }
 
-        public void setCardMin (int min)
+        public void setCardMin (string min)
         {
-            if (min == 0 || min == 1)
-                this.cardMin = min;
+            this.cardMin = min;
         }
-        public void setCardMax(int max)
+        public void setCardMax(string max)
         {
-            if (max == 1 || max == 2)
-                this.cardMax = max;
+            this.cardMax = max;
         }
 
-        public int getCardMin()
+        public string getCardMin()
         {
             return this.cardMin;
         }
 
-        public int getCardMax()
+        public string getCardMax()
         {
             return this.cardMax;
         }
@@ -58,7 +56,8 @@ namespace FlowModel
 
         public void SeDesenhe(Graphics g, Panel p)
         {
-            throw new NotImplementedException();
+            System.Drawing.SolidBrush drawBrush = new System.Drawing.SolidBrush(System.Drawing.Color.Black);
+            g.DrawString(this.getName(), new Font(new FontFamily("Arial"), 8), drawBrush, this.x, this.y);
         }
 
         public string QuemSou()
@@ -74,6 +73,11 @@ namespace FlowModel
         public bool GetArea(int x, int y)
         {
             throw new NotImplementedException();
+        }
+
+        public string getName()
+        {
+            return this.cardMin + "," + this.cardMax;
         }
     }
 }

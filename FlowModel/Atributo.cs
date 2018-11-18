@@ -36,7 +36,7 @@ namespace FlowModel
             this.propriedades.Altera(Convert.ToBoolean(status[0]), Convert.ToBoolean(status[1]), Convert.ToBoolean(status[2]), status[3], status[4]);
         }
 
-        public string getNome()
+        public string getName()
         {
             return nome;
         }

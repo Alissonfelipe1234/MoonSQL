@@ -24,7 +24,7 @@ namespace FlowModel
             this.y = Py;            
         }
 
-        public string getNome()
+        public string getName()
         {
             return this.nome;
         }
@@ -47,11 +47,13 @@ namespace FlowModel
         public void SeDesenhe(Graphics g, Panel p)
         {
             Image newImage = Image.FromFile("C:\\Users\\aliss\\Desktop\\C#\\FlowModel\\FlowModel\\resources\\Entidade.png");
-            g.DrawImage(newImage, this.x, this.y-20);
+            g.DrawImage(newImage, this.x, this.y);
             SizeF tam = g.MeasureString(this.nome, new Font(new FontFamily("Arial"), 12));
             tam.Width = tam.Width / 3;
             System.Drawing.SolidBrush drawBrush = new System.Drawing.SolidBrush(System.Drawing.Color.Black);
-            g.DrawString(this.nome, new Font(new FontFamily("Arial"), 12), drawBrush, this.x + tam.Width, this.y);
+            g.DrawString(this.nome, new Font(new FontFamily("Arial"), 12), drawBrush, this.x + tam.Width, this.y + 20);
+
+            p.Refresh();
         }
 
         public void Propriedades(Panel p)
@@ -61,7 +63,11 @@ namespace FlowModel
 
         public bool GetArea(int x, int y)
         {
-            throw new NotImplementedException();
+            if (x - this.x >= 0 && x - this.x <= 100)
+                if(y - this.y >= 0 && y - this.y <= 52)
+                    return true;
+
+            return false;
         }
     }
 }

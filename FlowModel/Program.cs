@@ -15,8 +15,9 @@ namespace FlowModel
         [STAThread]
         static void Main()
         {
+            /*
             string connString = @"Host=127.0.0.1;Username=postgres;Password=IFSP;Database=FLOWMODEL";
-
+            
             using (NpgsqlConnection conn = new NpgsqlConnection(connString))
             {
                 conn.Open();
@@ -32,9 +33,11 @@ namespace FlowModel
                     cmd.Parameters.AddWithValue("nome", nome);
                     cmd.Parameters.AddWithValue("x", x);
                     cmd.Parameters.AddWithValue("y", y);
+
                     cmd.ExecuteNonQuery();
                 }
-            }
+            } 
+            */
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             Application.Run(new EditPanel());

@@ -14,18 +14,20 @@ namespace FlowModel
         private int x;
         private int y;
         private List<Cardinalidade> card;
+        private List<Entidade> ent;
+        private int qtdEnv;
 
         public Relacionamento (string n, int Px, int Py, int qtdEntidadesEnvolvidas)
         {
             this.nome = n;
             this.x = Px;
             this.y = Py;
-            this.card = new List<Cardinalidade>();
-            for (int i = 0; i < qtdEntidadesEnvolvidas; i++)
-                this.card.Add(new Cardinalidade(Px - 50, Py));
+            this.card   = new List<Cardinalidade>();
+            this.ent    = new List<Entidade>();
+            this.qtdEnv = qtdEntidadesEnvolvidas;
         }
 
-        public string getNome ()
+        public string getName ()
         {
             return this.nome;
         }
@@ -40,18 +42,40 @@ namespace FlowModel
             return this.y;
         }
 
-        public void alteraCard (Cardinalidade nova, int id)
+        public int getQtdEnvolvidos()
         {
-            if(id > -1 && id < 3)
-                this.card[id] = nova;
+            return this.qtdEnv;
         }
 
+        public void adicionarCardinalidade (Cardinalidade nova)
+        {
+            if (this.card.Count < 3)
+                this.card.Add(nova);
+        }
+        public void relacionarEntidade(Entidade e)
+        {
+            if(this.ent.Count < 3)
+                this.ent.Add(e);
+        }
+        
         public void SeDesenhe(Graphics g, Panel p)
         {
+            Pen caneta = new Pen(new System.Drawing.SolidBrush(System.Drawing.Color.Black));
+            for (int i = 0; i < this.qtdEnv; i++)
+            {
+                this.card[i].SeDesenhe(g,p);
+                g.DrawLine(caneta, this.x + 50, this.y + 25, this.ent[i].getX()+50, this.ent[i].getY()+25);
+                this.ent[i].SeDesenhe(g,p);
+            }
+
             Image newImage = Image.FromFile("C:\\Users\\aliss\\Desktop\\C#\\FlowModel\\FlowModel\\resources\\Relacionamento.png");
             g.DrawImage(newImage, this.x, this.y);
             System.Drawing.SolidBrush drawBrush = new System.Drawing.SolidBrush(System.Drawing.Color.Black);
-            g.DrawString(this.nome, new Font(new FontFamily("Arial"), 12), drawBrush, this.x + 15, this.y + 33);
+            g.DrawString(this.nome, new Font(new FontFamily("Arial"), 10), drawBrush, this.x + 20, this.y + 37);
+
+
+
+            p.Refresh();
         }
 
         public string QuemSou()

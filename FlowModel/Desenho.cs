@@ -9,6 +9,9 @@ namespace FlowModel
 {
     interface Desenho
     {
+        string getName();
+        int getX();
+        int getY();
         void SeDesenhe(Graphics g, System.Windows.Forms.Panel p);
         string QuemSou();
         void Propriedades(System.Windows.Forms.Panel p);

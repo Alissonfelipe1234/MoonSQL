@@ -16,6 +16,9 @@ namespace FlowModel
         private Bitmap bmpImagem;
         private Graphics grpImage;
 
+        private int click;
+        private bool achou, desenhandoRelacionamento, desenhandoEntidade;
+
         public EditPanel()
         {
             InitializeComponent();
@@ -24,12 +27,22 @@ namespace FlowModel
         private void EditPanel_Load(object sender, EventArgs e)
         {
             bmpImagem = new Bitmap(713, 599);
-            pn_edit.BackgroundImage = bmpImagem;
+            pn_edit.BackgroundImage = bmpImagem;
+
             grpImage = Graphics.FromImage(bmpImagem);
             grpImage.Clear(Color.White);
 
             figuras = new List<Desenho>();
-            
+            click = 0;
+            desenhandoRelacionamento = false;
+            desenhandoEntidade = false;
+            /*
+            figuras.Add(new Entidade("TESTE1", 70, 70));
+            figuras[0].SeDesenhe(grpImage, pn_edit);
+
+            figuras.Add(new Entidade("TESTE2", 370, 70));
+            figuras[1].SeDesenhe(grpImage, pn_edit);
+            */
         }
 
         private void panel1_Paint(object sender, PaintEventArgs e)
@@ -53,12 +66,12 @@ namespace FlowModel
 
         private void btn_entidade_Click(object sender, EventArgs e)
         {
-
+            desenhandoEntidade = true;
         }
 
         private void btn_relacionamento_Click(object sender, EventArgs e)
         {
-
+            desenhandoRelacionamento = true;
         }
 
         private void btn_padrao_Click(object sender, EventArgs e)
@@ -103,13 +116,117 @@ namespace FlowModel
 
         private void pn_edit_MouseClick(object sender, MouseEventArgs e)
         {
-            string value = "Entidade";
-            if (InputBox("Nova Entidade", "Nome Entidade:", ref value) == DialogResult.OK)
+            string value = "";
+            if (desenhandoEntidade)
             {
-                figuras.Add(new Relacionamento(value, e.X, e.Y, 2));
-                figuras[figuras.Count() - 1].SeDesenhe(grpImage, pn_edit);
-                pn_edit.Refresh();
-            }           
+                value = "Entidade";
+                if (InputBox("Nova Entidade", "Nome Entidade:", ref value) == DialogResult.OK)
+                {
+                    figuras.Add(new Entidade(value, e.X, e.Y));
+                    figuras[figuras.Count-1].SeDesenhe(grpImage, pn_edit);
+                }
+                desenhandoEntidade = false;
+            }
+            if (desenhandoRelacionamento)
+            {
+                click++;
+                this.achou = false;
+                switch (click)
+                {
+                    case 1:
+                        value = "Relacionamento";
+                        string d = "2";
+                        if (InputBox("Novo Relacionamento", "Nome Relacionamento:", ref value) == DialogResult.OK)
+                        {
+                            InputBox("Numero de 2 a 3", "Quantidade de Entidades envolvidas (2 ou 3):", ref d);
+                            figuras.Add(new Relacionamento(value, e.X, e.Y, Convert.ToInt16(d)));
+                        }
+                        else
+                        {
+                            click--;
+                        }
+                        break;
+                    case 2:
+                        for (int i = 0; i < (figuras.Count) - 1; i++)
+                        {
+                            if (figuras[i].QuemSou() == "Entidade" && figuras[i].GetArea(e.X, e.Y) == true)
+                            {
+                                Relacionamento r = (Relacionamento)figuras[figuras.Count - 1];
+                                r.relacionarEntidade((Entidade)figuras[i]);
+                                /// CRIA CARDINALIDADE
+                                string cad = "1,1";
+                                InputBox("Cardinalidade", "Cardinalidade", ref cad);
+                                Cardinalidade c = new Cardinalidade(figuras[i].getX(), figuras[i].getY() + 55);
+                                string[] t = cad.Split(',');
+                                c.setCardMin(t[0]);
+                                c.setCardMax(t[1]);
+                                //////// FINALIZA
+                                r.adicionarCardinalidade(c);
+                                achou = true;
+                                break;
+                            }
+                        }
+                        if (!achou)
+                            click--;
+                        break;
+                    case 3:
+                        for (int i = 0; i < figuras.Count; i++)
+                        {
+                            if (figuras[i].QuemSou() == "Entidade" && figuras[i].GetArea(e.X, e.Y) == true)
+                            {
+                                Relacionamento r = (Relacionamento)figuras[figuras.Count - 1];
+                                r.relacionarEntidade((Entidade)figuras[i]);
+                                /// CRIA CARDINALIDADE
+                                string cad = "1,1";
+                                InputBox("Cardinalidade", "Cardinalidade", ref cad);
+                                Cardinalidade c = new Cardinalidade(figuras[i].getX(), figuras[i].getY() + 55);
+                                string[] t = cad.Split(',');
+                                c.setCardMin(t[0]);
+                                c.setCardMax(t[1]);
+                                //////// FINALIZA
+                                r.adicionarCardinalidade(c);
+                                if (r.getQtdEnvolvidos() == 2)
+                                {
+                                    r.SeDesenhe(grpImage, pn_edit);
+                                    click = 0;
+                                    desenhandoRelacionamento = false;
+                                }
+                                achou = true;
+                                break;
+                            }
+                        }
+                        if (!achou)
+                            click--;
+                        break;
+                    case 4:
+                        for (int i = 0; i < figuras.Count; i++)
+                        {
+                            if (figuras[i].QuemSou() == "Entidade" && figuras[i].GetArea(e.X, e.Y) == true)
+                            {
+                                Relacionamento r = (Relacionamento)figuras[figuras.Count - 1];
+                                r.relacionarEntidade((Entidade)figuras[i]);
+                                /// CRIA CARDINALIDADE
+                                string cad = "1,1";
+                                InputBox("Cardinalidade", "Cardinalidade", ref cad);
+                                Cardinalidade c = new Cardinalidade(figuras[i].getX(), figuras[i].getY() + 55);
+                                string[] t = cad.Split(',');
+                                c.setCardMin(t[0]);
+                                c.setCardMax(t[1]);
+                                //////// FINALIZA
+                                r.adicionarCardinalidade(c);
+                                r.SeDesenhe(grpImage, pn_edit);
+                                click = 0;
+                                desenhandoRelacionamento = false;
+
+                                achou = true;
+                                break;
+                            }
+                        }
+                        if (!achou)
+                            click--;
+                        break;
+                }
+            } 
         }
 
         public static DialogResult InputBox(string title, string promptText, ref string value)
