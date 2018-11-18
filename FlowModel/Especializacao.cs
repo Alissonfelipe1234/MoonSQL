@@ -8,20 +8,34 @@ using System.Windows.Forms;
 
 namespace FlowModel
 {
-    class Entidade:Desenho
+    class Especializacao:Desenho
     {
         private string nome;
         private int x;
         private int y;
 
+        private Entidade especializada;
+        private List<Entidade> entidades;
+
         private int id;
 
 
-        public Entidade(string n, int Px, int Py)
+        public Especializacao(string n, int Px, int Py)
         {
             this.nome = n;
             this.x = Px;
-            this.y = Py;            
+            this.y = Py;
+
+            especializada = null;
+            entidades = new List<Entidade>();
+        }
+        public Entidade getEntidadeEspecializada()
+        {
+            return this.especializada;
+        }
+        public List<Entidade> getEntidades()
+        {
+            return this.entidades;
         }
 
         public string getName()
@@ -64,7 +78,7 @@ namespace FlowModel
         public bool GetArea(int x, int y)
         {
             if (x - this.x >= 0 && x - this.x <= 100)
-                if (y - this.y >= 0 && y - this.y <= 52)
+                if(y - this.y >= 0 && y - this.y <= 40)
                     return true;
 
             return false;

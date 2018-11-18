@@ -67,10 +67,12 @@ namespace FlowModel
         private void btn_entidade_Click(object sender, EventArgs e)
         {
             desenhandoEntidade = true;
+            desenhandoRelacionamento = false;
         }
 
         private void btn_relacionamento_Click(object sender, EventArgs e)
         {
+            desenhandoEntidade = false;
             desenhandoRelacionamento = true;
         }
 
@@ -117,6 +119,18 @@ namespace FlowModel
         private void pn_edit_MouseClick(object sender, MouseEventArgs e)
         {
             string value = "";
+            if( !desenhandoEntidade && !desenhandoRelacionamento)
+            {
+                for (int i = 0; i < (figuras.Count); i++)
+                {
+                    if (figuras[i].QuemSou() == "Relacionamento" && figuras[i].GetArea(e.X, e.Y) == true)
+                    {
+                        string cad = "1,1";
+                        InputBox("Cardinalidade", "Cardinalidade", ref cad);                        
+                        break;
+                    }
+                }
+            }
             if (desenhandoEntidade)
             {
                 value = "Entidade";
@@ -187,9 +201,9 @@ namespace FlowModel
                                 r.adicionarCardinalidade(c);
                                 if (r.getQtdEnvolvidos() == 2)
                                 {
-                                    r.SeDesenhe(grpImage, pn_edit);
-                                    click = 0;
+                                    r.SeDesenhe(grpImage, pn_edit);                                    
                                     desenhandoRelacionamento = false;
+                                    click = 0;
                                 }
                                 achou = true;
                                 break;
@@ -214,9 +228,9 @@ namespace FlowModel
                                 c.setCardMax(t[1]);
                                 //////// FINALIZA
                                 r.adicionarCardinalidade(c);
-                                r.SeDesenhe(grpImage, pn_edit);
-                                click = 0;
+                                r.SeDesenhe(grpImage, pn_edit);                                
                                 desenhandoRelacionamento = false;
+                                click = 0;
 
                                 achou = true;
                                 break;

@@ -89,7 +89,11 @@ namespace FlowModel
 
         public bool GetArea(int x, int y)
         {
-            throw new NotImplementedException();
+            if (x - this.x >= 0 && x - this.x <= 100)
+                if (y - this.y >= 21 && y - this.y <= 72)
+                    return true;
+
+            return false;
         }
     }
 }

@@ -62,6 +62,8 @@
     <Compile Include="Cardinalidade.cs" />
     <Compile Include="Dados.cs" />
     <Compile Include="Desenho.cs" />
+    <Compile Include="Entidade - Cópia %282%29.cs" />
+    <Compile Include="Padrao.cs" />
     <Compile Include="Entidade.cs" />
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>

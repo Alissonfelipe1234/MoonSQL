@@ -8,20 +8,34 @@ using System.Windows.Forms;
 
 namespace FlowModel
 {
-    class Entidade:Desenho
+    class Padrao:Desenho
     {
         private string nome;
         private int x;
         private int y;
 
+        private Entidade padrao;
+        private List<Entidade> ents;
+
         private int id;
 
 
-        public Entidade(string n, int Px, int Py)
+        public Padrao(string n, int Px, int Py)
         {
             this.nome = n;
             this.x = Px;
-            this.y = Py;            
+            this.y = Py;
+
+            this.padrao = null;
+            this.ents = new List<Entidade>();
+        }
+        public Entidade getEntidadeP()
+        {
+            return this.padrao;
+        }
+        public List<Entidade> getEnts()
+        {
+            return this.ents;
         }
 
         public string getName()
@@ -39,9 +53,17 @@ namespace FlowModel
             return this.y;
         }
 
+        public void setPadrao (Entidade x)
+        {
+            this.padrao = x;
+        }
+        public void addEntidade(Entidade x)
+        {
+        }
+
         public string QuemSou()
         {
-            return "Entidade";
+            return "Padrao";
         }
 
         public void SeDesenhe(Graphics g, Panel p)
@@ -64,7 +86,7 @@ namespace FlowModel
         public bool GetArea(int x, int y)
         {
             if (x - this.x >= 0 && x - this.x <= 100)
-                if (y - this.y >= 0 && y - this.y <= 52)
+                if(y - this.y >= 0 && y - this.y <= 52)
                     return true;
 
             return false;
