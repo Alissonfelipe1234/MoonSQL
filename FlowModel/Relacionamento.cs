@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -45,9 +46,12 @@ namespace FlowModel
                 this.card[id] = nova;
         }
 
-        public void SeDesenhe(Form d)
+        public void SeDesenhe(Graphics g, Panel p)
         {
-            throw new NotImplementedException();
+            Image newImage = Image.FromFile("C:\\Users\\aliss\\Desktop\\C#\\FlowModel\\FlowModel\\resources\\Relacionamento.png");
+            g.DrawImage(newImage, this.x, this.y);
+            System.Drawing.SolidBrush drawBrush = new System.Drawing.SolidBrush(System.Drawing.Color.Black);
+            g.DrawString(this.nome, new Font(new FontFamily("Arial"), 12), drawBrush, this.x + 15, this.y + 33);
         }
 
         public string QuemSou()

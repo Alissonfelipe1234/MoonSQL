@@ -50,9 +50,12 @@
             this.pn_edit.BackColor = System.Drawing.SystemColors.ControlLightLight;
             this.pn_edit.Location = new System.Drawing.Point(178, 27);
             this.pn_edit.Name = "pn_edit";
-            this.pn_edit.Size = new System.Drawing.Size(1075, 599);
+            this.pn_edit.Size = new System.Drawing.Size(713, 599);
             this.pn_edit.TabIndex = 0;
+            this.pn_edit.Click += new System.EventHandler(this.pn_edit_Click);
             this.pn_edit.Paint += new System.Windows.Forms.PaintEventHandler(this.panel1_Paint);
+            this.pn_edit.MouseClick += new System.Windows.Forms.MouseEventHandler(this.pn_edit_MouseClick);
+            this.pn_edit.MouseMove += new System.Windows.Forms.MouseEventHandler(this.pn_edit_MouseMove);
             // 
             // btn_entidade
             // 
@@ -141,13 +144,13 @@
             // salvarComoToolStripMenuItem
             // 
             this.salvarComoToolStripMenuItem.Name = "salvarComoToolStripMenuItem";
-            this.salvarComoToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.salvarComoToolStripMenuItem.Size = new System.Drawing.Size(139, 22);
             this.salvarComoToolStripMenuItem.Text = "Salvar como";
             // 
             // salvarToolStripMenuItem1
             // 
             this.salvarToolStripMenuItem1.Name = "salvarToolStripMenuItem1";
-            this.salvarToolStripMenuItem1.Size = new System.Drawing.Size(180, 22);
+            this.salvarToolStripMenuItem1.Size = new System.Drawing.Size(139, 22);
             this.salvarToolStripMenuItem1.Text = "Salvar";
             // 
             // importarToolStripMenuItem

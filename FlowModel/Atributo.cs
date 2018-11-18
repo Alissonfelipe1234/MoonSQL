@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -70,15 +71,16 @@ namespace FlowModel
             return this.tipoProprietario;
         }
 
-        public void SeDesenhe(Form d)
-        {
-            throw new NotImplementedException();
-        }
-
         public string QuemSou()
         {
             return "Atributo";
         }
+
+        public void SeDesenhe(Graphics g, Panel p)
+        {
+            throw new NotImplementedException();
+        }
+
         public void Propriedades(Panel p)
         {
             throw new NotImplementedException();
@@ -88,5 +90,7 @@ namespace FlowModel
         {
             throw new NotImplementedException();
         }
+
+        
     }
 }

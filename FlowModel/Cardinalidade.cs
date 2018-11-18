@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -55,7 +56,7 @@ namespace FlowModel
             return this.y;
         }
 
-        public void SeDesenhe(Form d)
+        public void SeDesenhe(Graphics g, Panel p)
         {
             throw new NotImplementedException();
         }

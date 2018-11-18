@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -43,10 +44,16 @@ namespace FlowModel
             return "Entidade";
         }
 
-        public void SeDesenhe(Form d)
+        public void SeDesenhe(Graphics g, Panel p)
         {
-            throw new NotImplementedException();
+            Image newImage = Image.FromFile("C:\\Users\\aliss\\Desktop\\C#\\FlowModel\\FlowModel\\resources\\Entidade.png");
+            g.DrawImage(newImage, this.x, this.y-20);
+            SizeF tam = g.MeasureString(this.nome, new Font(new FontFamily("Arial"), 12));
+            tam.Width = tam.Width / 3;
+            System.Drawing.SolidBrush drawBrush = new System.Drawing.SolidBrush(System.Drawing.Color.Black);
+            g.DrawString(this.nome, new Font(new FontFamily("Arial"), 12), drawBrush, this.x + tam.Width, this.y);
         }
+
         public void Propriedades(Panel p)
         {
             throw new NotImplementedException();
