@@ -17,7 +17,8 @@ namespace FlowModel
         private Graphics grpImage;
 
         private int click;
-        private bool achou, desenhandoRelacionamento, desenhandoEntidade;
+        private bool achou, desenhandoRelacionamento, desenhandoEntidade, desenhandoEspecializacao, desenhandoPadronizacao;
+        private int envolvidos;
 
         public EditPanel()
         {
@@ -34,7 +35,9 @@ namespace FlowModel
 
             figuras = new List<Desenho>();
             click = 0;
+            envolvidos = 0;
             desenhandoRelacionamento = false;
+            desenhandoEspecializacao = false;
             desenhandoEntidade = false;
             /*
             figuras.Add(new Entidade("TESTE1", 70, 70));
@@ -68,17 +71,24 @@ namespace FlowModel
         {
             desenhandoEntidade = true;
             desenhandoRelacionamento = false;
+            desenhandoPadronizacao = false;
+            desenhandoEspecializacao = false;
         }
 
         private void btn_relacionamento_Click(object sender, EventArgs e)
         {
             desenhandoEntidade = false;
             desenhandoRelacionamento = true;
+            desenhandoEspecializacao = false;
+            desenhandoPadronizacao = false;
         }
 
         private void btn_padrao_Click(object sender, EventArgs e)
         {
-
+            desenhandoPadronizacao = true;
+            desenhandoEntidade = false;
+            desenhandoRelacionamento = false;
+            desenhandoEspecializacao = false;
         }
 
         private void btn_atributo_Click(object sender, EventArgs e)
@@ -88,7 +98,10 @@ namespace FlowModel
 
         private void btn_heranca_Click(object sender, EventArgs e)
         {
-
+            desenhandoEspecializacao = true;
+            desenhandoRelacionamento = false;
+            desenhandoEntidade = false;
+            desenhandoPadronizacao = false;
         }
 
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
@@ -119,17 +132,119 @@ namespace FlowModel
         private void pn_edit_MouseClick(object sender, MouseEventArgs e)
         {
             string value = "";
-            if( !desenhandoEntidade && !desenhandoRelacionamento)
+            if (desenhandoPadronizacao)
             {
-                for (int i = 0; i < (figuras.Count); i++)
+                click++;
+                this.achou = false;
+                if (click == 1)
                 {
-                    if (figuras[i].QuemSou() == "Relacionamento" && figuras[i].GetArea(e.X, e.Y) == true)
+                    this.achou = false;
+                    value = "Generalização";
+                    string d = "2";
+                    if (InputBox("Nova Generalização", "Nome Generalização:", ref value) == DialogResult.OK)
                     {
-                        string cad = "1,1";
-                        InputBox("Cardinalidade", "Cardinalidade", ref cad);                        
-                        break;
+                        InputBox("Numero", "Quantidade de Entidades envolvidas:", ref d);
+                        this.envolvidos = int.Parse(d);
+                        figuras.Add(new Padronizacao(value, e.X, e.Y));
+                    }
+                    else
+                    {
+                        click--;
                     }
                 }
+                else if (click == 2)
+                {
+                    for (int i = 0; i < (figuras.Count) - 1; i++)
+                    {
+                        if (figuras[i].QuemSou() == "Entidade" && figuras[i].GetArea(e.X, e.Y) == true)
+                        {
+                            Padronizacao spec = (Padronizacao)figuras[figuras.Count - 1];
+                            spec.setPadrao((Entidade)figuras[i]);
+                            achou = true;
+                            break;
+                        }
+                    }
+                    if (!achou)
+                        click--;
+                }
+                else
+                {
+                    for (int i = 0; i < (figuras.Count) - 1; i++)
+                    {
+                        if (figuras[i].QuemSou() == "Entidade" && figuras[i].GetArea(e.X, e.Y) == true)
+                        {
+                            Padronizacao spec = (Padronizacao)figuras[figuras.Count - 1];
+                            spec.addEntidade((Entidade)figuras[i]);
+                            envolvidos--;
+                            break;
+                        }
+                    }
+                    if (envolvidos == 0)
+                    {
+                        figuras.Last().SeDesenhe(grpImage, pn_edit);
+                        desenhandoPadronizacao = false;
+                        click = 0;
+                    }
+                }
+
+
+            }
+            if (desenhandoEspecializacao)
+            {
+                click++;
+                this.achou = false;
+                if (click == 1)
+                {
+                    this.achou = false;
+                    value = "Especialização";
+                    string d = "2";
+                    if (InputBox("Nova Especialização", "Nome Especialização:", ref value) == DialogResult.OK)
+                    {
+                        InputBox("Numero", "Quantidade de Entidades envolvidas:", ref d);
+                        this.envolvidos = int.Parse(d);
+                        figuras.Add(new Especializacao(value, e.X, e.Y));
+                    }
+                    else
+                    {
+                        click--;
+                    }
+                }
+                else if (click == 2)
+                {
+                    for (int i = 0; i < (figuras.Count) - 1; i++)
+                    {
+                        if (figuras[i].QuemSou() == "Entidade" && figuras[i].GetArea(e.X, e.Y) == true)
+                        {
+                            Especializacao spec = (Especializacao)figuras[figuras.Count - 1];
+                            spec.setEntidadeEspecializada((Entidade)figuras[i]);
+                            achou = true;
+                            break;
+                        }
+                    }
+                    if (!achou)
+                        click--;
+                }
+                else
+                {
+                    for (int i = 0; i < (figuras.Count) - 1; i++)
+                    {
+                        if (figuras[i].QuemSou() == "Entidade" && figuras[i].GetArea(e.X, e.Y) == true)
+                        {
+                            Especializacao spec = (Especializacao)figuras[figuras.Count - 1];
+                            spec.addEntidades((Entidade)figuras[i]);
+                            envolvidos--;
+                            break;
+                        }
+                    }
+                    if (envolvidos == 0)
+                    {                        
+                        figuras.Last().SeDesenhe(grpImage, pn_edit);
+                        desenhandoEspecializacao = false;
+                        click = 0;
+                    }
+                }
+
+
             }
             if (desenhandoEntidade)
             {

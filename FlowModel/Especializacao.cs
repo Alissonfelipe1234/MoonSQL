@@ -52,21 +52,37 @@ namespace FlowModel
         {
             return this.y;
         }
-
+        public void setEntidadeEspecializada(Entidade e)
+        {
+            this.especializada = e;
+        }
+        public void addEntidades(Entidade x)
+        {
+            this.entidades.Add(x);
+        }
         public string QuemSou()
         {
-            return "Entidade";
+            return "Especializacao";
         }
 
         public void SeDesenhe(Graphics g, Panel p)
         {
-            Image newImage = Image.FromFile("C:\\Users\\aliss\\Desktop\\C#\\FlowModel\\FlowModel\\resources\\Entidade.png");
+            Pen caneta = new Pen(new System.Drawing.SolidBrush(System.Drawing.Color.Black));
+            g.DrawLine(caneta, this.x + 50, this.y, this.especializada.getX() + 50, this.especializada.getY() + 25);
+            this.especializada.SeDesenhe(g,p);
+            for (int i = 0; i < this.entidades.Count; i++)
+            {
+                g.DrawLine(caneta, this.x + 50, this.y + 40, this.entidades[i].getX(), this.entidades[i].getY() + 25);
+                this.entidades[i].SeDesenhe(g, p);
+            }
+            Image newImage = Image.FromFile("C:\\Users\\aliss\\Desktop\\C#\\FlowModel\\FlowModel\\resources\\Especializacao.png");
             g.DrawImage(newImage, this.x, this.y);
-            SizeF tam = g.MeasureString(this.nome, new Font(new FontFamily("Arial"), 12));
-            tam.Width = tam.Width / 3;
-            System.Drawing.SolidBrush drawBrush = new System.Drawing.SolidBrush(System.Drawing.Color.Black);
-            g.DrawString(this.nome, new Font(new FontFamily("Arial"), 12), drawBrush, this.x + tam.Width, this.y + 20);
+            //SizeF tam = g.MeasureString(this.nome, new Font(new FontFamily("Arial"), 12));
+            //tam.Width = tam.Width / 3;
+            //System.Drawing.SolidBrush drawBrush = new System.Drawing.SolidBrush(System.Drawing.Color.Black);
+            //g.DrawString(this.nome, new Font(new FontFamily("Arial"), 12), drawBrush, this.x + tam.Width, this.y + 20);
 
+        
             p.Refresh();
         }
 
@@ -78,7 +94,7 @@ namespace FlowModel
         public bool GetArea(int x, int y)
         {
             if (x - this.x >= 0 && x - this.x <= 100)
-                if(y - this.y >= 0 && y - this.y <= 40)
+                if(y - this.y >= 0 && y - this.y <= 43)
                     return true;
 
             return false;
