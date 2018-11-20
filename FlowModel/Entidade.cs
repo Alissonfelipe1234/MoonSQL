@@ -14,14 +14,17 @@ namespace FlowModel
         private int x;
         private int y;
 
+        private int qtdAtributos;
         private int id;
-
+        
 
         public Entidade(string n, int Px, int Py)
         {
             this.nome = n;
             this.x = Px;
-            this.y = Py;            
+            this.y = Py;
+
+            qtdAtributos = 0;
         }
 
         public string getName()
@@ -39,6 +42,16 @@ namespace FlowModel
             return this.y;
         }
 
+        public int getQtdAtributos()
+        {
+            return this.qtdAtributos;
+        }
+
+        public void addAtributo()
+        {
+            this.qtdAtributos++;
+        }
+
         public string QuemSou()
         {
             return "Entidade";
@@ -46,6 +59,7 @@ namespace FlowModel
 
         public void SeDesenhe(Graphics g, Panel p)
         {
+
             Image newImage = Image.FromFile("C:\\Users\\aliss\\Desktop\\C#\\FlowModel\\FlowModel\\resources\\Entidade.png");
             g.DrawImage(newImage, this.x, this.y);
             SizeF tam = g.MeasureString(this.nome, new Font(new FontFamily("Arial"), 12));

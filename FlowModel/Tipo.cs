@@ -48,5 +48,15 @@ namespace FlowModel
 
             return status;
         }
+
+        public string getPropriedades()
+        {
+            if (this.primario)
+                return "Primario";
+            if (this.cardMin == 0)
+                return "Opcional";
+
+            return "Comum";
+        }
     }
 }

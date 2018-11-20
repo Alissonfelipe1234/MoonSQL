@@ -15,6 +15,7 @@ namespace FlowModel
         private int y;
         private List<Cardinalidade> card;
         private List<Entidade> ent;
+        private int qtdAtributos;
         private int qtdEnv;
 
         public Relacionamento (string n, int Px, int Py, int qtdEntidadesEnvolvidas)
@@ -25,6 +26,16 @@ namespace FlowModel
             this.card   = new List<Cardinalidade>();
             this.ent    = new List<Entidade>();
             this.qtdEnv = qtdEntidadesEnvolvidas;
+            this.qtdAtributos = 0;
+        }
+
+        public void addAtributo()
+        {
+            this.qtdAtributos++;
+        }
+        public int getQtdAtributos()
+        {
+            return this.qtdAtributos;
         }
 
         public string getName ()
