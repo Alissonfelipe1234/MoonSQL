@@ -104,6 +104,7 @@
   <ItemGroup>
     <Content Include="resources\Atributo.png" />
     <Content Include="resources\Atributo_Chave.png" />
+    <Content Include="resources\Atributo_Composto.png" />
     <Content Include="resources\Atributo_Opcional.png" />
     <Content Include="resources\Atributo_Simples.png" />
     <Content Include="resources\Entidade.png" />

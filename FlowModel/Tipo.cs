@@ -55,6 +55,8 @@ namespace FlowModel
                 return "Primario";
             if (this.cardMin == 0)
                 return "Opcional";
+            if (this.composto)
+                return "Composto";
 
             return "Comum";
         }

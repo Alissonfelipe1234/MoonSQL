@@ -26,9 +26,10 @@ namespace FlowModel
             this.nome = n;
             this.x = Px;
             this.y = Py;
-            this.dado = null;
+            this.dado = new Dados(1);
             this.propriedades = new Tipo();
             this.proprietario = p;
+            this.qtdAtributos = 0;
 
             switch (p.QuemSou())
             {
@@ -46,6 +47,7 @@ namespace FlowModel
                     Atributo atr = (Atributo)this.proprietario;
                     this.indice = atr.getQtdAtributos();
                     atr.addAtributo();
+                    this.propriedades.Altera(false, true, false, 1, 1);
                     break;
             }
 
@@ -71,6 +73,11 @@ namespace FlowModel
             this.propriedades.Altera(Convert.ToBoolean(status[0]), Convert.ToBoolean(status[1]), Convert.ToBoolean(status[2]), status[3], status[4]);
         }
 
+        public int getIndice()
+        {
+            return indice;
+        }
+
         public string getName()
         {
             return nome;
@@ -94,6 +101,10 @@ namespace FlowModel
         public List<int> getPropriedade()
         {
             return this.propriedades.GetStatus();
+        }
+        public string getTipo()
+        {
+            return this.propriedades.getPropriedades();
         }
         public void comumToPrimario()
         {
@@ -133,6 +144,28 @@ namespace FlowModel
                 this.y = this.y + 52;
             }
         }
+        public string getSql()
+        {
+            string str = "";
+            str += this.getName() + " ";
+            str += this.dado.getDado() + " ";
+            switch (this.propriedades.getPropriedades())
+            {
+                case "Primario":
+                    str += "PRIMARY KEY";
+                    break;
+                case "Opcional":
+                    break;
+                case "Comum":
+                    str += "NOT NULL";
+                    break;
+            }
+            return str;
+        }
+        public Desenho getProprietario()
+        {
+            return this.proprietario;
+        }
         public string QuemSou()
         {
             return "Atributo";
@@ -147,19 +180,25 @@ namespace FlowModel
                 case "Primario":
                     newImage = Image.FromFile("C:\\Users\\aliss\\Desktop\\C#\\FlowModel\\FlowModel\\resources\\Atributo_Chave.png");
                     g.DrawImage(newImage, this.x, this.y);                    
-                    g.DrawString(this.nome, new Font(new FontFamily("Arial"), 12), drawBrush, this.x + 18, this.y - (this.indice * 12));
+                    g.DrawString(this.nome, new Font(new FontFamily("Arial"), 9), drawBrush, this.x + 18, this.y + 12 - (this.indice * 14));
                     break;
                 case "Opcional":
                     newImage = Image.FromFile("C:\\Users\\aliss\\Desktop\\C#\\FlowModel\\FlowModel\\resources\\Atributo_Opcional.png");
                     g.DrawImage(newImage, this.x, this.y);
-                    g.DrawString(this.nome, new Font(new FontFamily("Arial"), 12), drawBrush, this.x + 18, this.y - (this.indice * 12));
+                    g.DrawString(this.nome, new Font(new FontFamily("Arial"), 9), drawBrush, this.x + 18, this.y + 12 - (this.indice * 14));
+                    break;
+                case "Composto":
+                    newImage = Image.FromFile("C:\\Users\\aliss\\Desktop\\C#\\FlowModel\\FlowModel\\resources\\Atributo_Composto.png");
+                    g.DrawImage(newImage, this.x, this.y);
+                    g.DrawString(this.nome, new Font(new FontFamily("Arial"), 9), drawBrush, this.x + 40 + (this.indice * 50), this.y + 5);
                     break;
                 case "Comum":
                     newImage = Image.FromFile("C:\\Users\\aliss\\Desktop\\C#\\FlowModel\\FlowModel\\resources\\Atributo_Simples.png");
                     g.DrawImage(newImage, this.x, this.y);
-                    g.DrawString(this.nome, new Font(new FontFamily("Arial"), 12), drawBrush, this.x + 18, this.y + 32 +(this.indice * 12));
+                    g.DrawString(this.nome, new Font(new FontFamily("Arial"), 9), drawBrush, this.x + 18, this.y + 28 +(this.indice * 14));
                     break;
             }
+            this.proprietario.SeDesenhe(g,p);
             p.Refresh();
         }
 
@@ -167,10 +206,47 @@ namespace FlowModel
         {
             throw new NotImplementedException();
         }
+        public int getTam()
+        {
+            Bitmap bmpImagem = new Bitmap(713, 599);
+            Graphics medidor = Graphics.FromImage(bmpImagem);
+            SizeF tamanhoString = medidor.MeasureString(this.nome, new Font(new FontFamily("Arial"), 9));
+            return Convert.ToInt16(tamanhoString.Width);
+        }
 
         public bool GetArea(int x, int y)
         {
-            throw new NotImplementedException();
+            Bitmap bmpImagem = new Bitmap(713, 599);
+            Graphics medidor = Graphics.FromImage(bmpImagem);
+            SizeF tamanhoString = medidor.MeasureString(this.nome, new Font(new FontFamily("Arial"), 9));
+
+
+            switch (this.propriedades.getPropriedades())
+            {
+                case "Comum":
+                    if (x - this.x >= 18 && x - this.x <= tamanhoString.Width + 18)
+                        if (y - this.y >= 28 + (this.indice * 12) && y - this.y <= 28 + (this.indice * 14) + tamanhoString.Height)
+                            return true;
+                    break;
+                case "Primario":
+                    if (x - this.x >= 18 && x - this.x <= tamanhoString.Width + 18)
+                        if (y - this.y <= 12 - (this.indice * 12) && y - this.y >= 12 - (this.indice * 14)  + tamanhoString.Height)
+                            return true;
+                    break;
+                case "Opcional":
+                    if (x - this.x >= 18 && x - this.x <= tamanhoString.Width + 18)
+                        if (y - this.y <= 12 - (this.indice * 12) && y - this.y >= 12 - (this.indice * 14) + tamanhoString.Height)
+                            return true;
+                    break;
+                case "Composto":
+                    if (x - this.x >= 18 && x - this.x <= tamanhoString.Width + 18)
+                        if (y - this.y >= 28 + (this.indice * 12) && y - this.y <= 28 + (this.indice * 14) + tamanhoString.Height)
+                            return true;
+                    break;
+            }
+
+
+            return false;
         }
 
         

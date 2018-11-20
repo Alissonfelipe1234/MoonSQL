@@ -17,7 +17,7 @@ namespace FlowModel
         private Graphics grpImage;
 
         private int click;
-        private bool achou, desenhandoRelacionamento, desenhandoEntidade, desenhandoEspecializacao, desenhandoPadronizacao;
+        private bool achou, desenhandoRelacionamento, desenhandoEntidade, desenhandoEspecializacao, desenhandoPadronizacao, desenhandoAtributo;
         private int envolvidos;
 
         public EditPanel()
@@ -38,7 +38,9 @@ namespace FlowModel
             envolvidos = 0;
             desenhandoRelacionamento = false;
             desenhandoEspecializacao = false;
+            desenhandoPadronizacao = false;
             desenhandoEntidade = false;
+            desenhandoAtributo = false;
             /*
             figuras.Add(new Entidade("TESTE1", 70, 70));
             figuras[0].SeDesenhe(grpImage, pn_edit);
@@ -46,11 +48,6 @@ namespace FlowModel
             figuras.Add(new Entidade("TESTE2", 370, 70));
             figuras[1].SeDesenhe(grpImage, pn_edit);
             */
-        }
-
-        private void panel1_Paint(object sender, PaintEventArgs e)
-        {
-            
         }
 
         private void pn_edit_Click(object sender, EventArgs e)
@@ -73,6 +70,7 @@ namespace FlowModel
             desenhandoRelacionamento = false;
             desenhandoPadronizacao = false;
             desenhandoEspecializacao = false;
+            desenhandoAtributo = false;
         }
 
         private void btn_relacionamento_Click(object sender, EventArgs e)
@@ -81,6 +79,7 @@ namespace FlowModel
             desenhandoRelacionamento = true;
             desenhandoEspecializacao = false;
             desenhandoPadronizacao = false;
+            desenhandoAtributo = false;
         }
 
         private void btn_padrao_Click(object sender, EventArgs e)
@@ -89,11 +88,16 @@ namespace FlowModel
             desenhandoEntidade = false;
             desenhandoRelacionamento = false;
             desenhandoEspecializacao = false;
+            desenhandoAtributo = false;
         }
 
         private void btn_atributo_Click(object sender, EventArgs e)
         {
-
+            desenhandoEspecializacao = false;
+            desenhandoRelacionamento = false;
+            desenhandoEntidade = false;
+            desenhandoPadronizacao = false;
+            desenhandoAtributo = true; 
         }
 
         private void btn_heranca_Click(object sender, EventArgs e)
@@ -102,6 +106,7 @@ namespace FlowModel
             desenhandoRelacionamento = false;
             desenhandoEntidade = false;
             desenhandoPadronizacao = false;
+            desenhandoAtributo = false;
         }
 
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
@@ -112,6 +117,39 @@ namespace FlowModel
         private void label1_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void gerarSQLToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            sqlGerado.Text = "";
+            int tables = 0;
+            List<string> sql = new List<string>();
+            foreach (Desenho d in figuras)
+            {
+                if(d.QuemSou() == "Entidade")
+                {
+                    
+                    Entidade ent = (Entidade)d;
+                    sql.Add("Create Table " + ent.getName() + " {\n");
+                    foreach (Desenho a in figuras)
+                    {
+                        if (a.QuemSou() == "Atributo")
+                        {
+                            Atributo atributo = (Atributo)a;
+                            if(atributo.getProprietario() == d)
+                            {
+                                sql[tables] += atributo.getSql();
+                                if (atributo.getIndice() + 1 != ent.getQtdAtributos())
+                                    sql[tables] += ",\n";                                    
+                            }
+                        }
+                    }
+                    sql[tables] += "\n};\n\n";
+                    tables++;
+                }
+            }
+            for (int i = 0; i < sql.Count; i++)
+                sqlGerado.Text += sql[i];
         }
 
         private void comboBox3_SelectedIndexChanged(object sender, EventArgs e)
@@ -132,6 +170,48 @@ namespace FlowModel
         private void pn_edit_MouseClick(object sender, MouseEventArgs e)
         {
             string value = "";
+            if(desenhandoAtributo)
+            {
+                for (int i = figuras.Count - 1; i >= 0; i--)
+                {
+                    string str = figuras[i].QuemSou();
+                    if ((str.Equals("Entidade") || str.Equals("Relacionamento")) && figuras[i].GetArea(e.X, e.Y) == true)
+                    {
+                        if (InputBox("Novo Atributo", "Nome Atributo:", ref value) == DialogResult.OK)
+                        { 
+                            figuras.Add(new Atributo(value, figuras[i].getX(), figuras[i].getY() + 50, figuras[i]));
+                            figuras.Last().SeDesenhe(grpImage, pn_edit);
+                            desenhandoAtributo = false;
+                            break;
+                        }
+                    }
+                    if ((str.Equals("Atributo")) && figuras[i].GetArea(e.X, e.Y) == true)
+                    {
+                        
+                        if (InputBox("Novo Atributo", "Nome Atributo:", ref value) == DialogResult.OK)
+                        {
+                            Atributo at = (Atributo)figuras[i];
+                            int cordXAtributo = at.getX();
+                            int cordYAtributo = at.getY();
+                            if (at.getTipo() == "Comum")
+                            {
+                                cordXAtributo += 18 + at.getTam();
+                                cordYAtributo += 28 + (at.getIndice() * 14);
+                            }
+                            else if (at.getTipo() == "Primario")
+                            {
+                                cordXAtributo += 18 + at.getTam();
+                                cordYAtributo += 12 - (at.getIndice() * 14);
+                            }
+
+                            figuras.Add(new Atributo(value, cordXAtributo, cordYAtributo, figuras[i]));
+                            figuras.Last().SeDesenhe(grpImage, pn_edit);
+                            desenhandoAtributo = false;
+                            break;
+                        }
+                    }
+                }
+            }
             if (desenhandoPadronizacao)
             {
                 click++;

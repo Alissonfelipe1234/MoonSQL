@@ -13,6 +13,7 @@ namespace FlowModel
 
         public Dados (int id)
         {
+            this.possiveis = new Dictionary<int, string>();
             this.possiveis.Add(0, "varchar");
             this.possiveis.Add(1, "integer");
             this.possiveis.Add(2, "boolean");

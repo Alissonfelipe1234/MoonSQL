@@ -42,18 +42,17 @@
             this.importarToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.gerarSQLToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.btn_del = new System.Windows.Forms.Button();
+            this.sqlGerado = new System.Windows.Forms.RichTextBox();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
             // pn_edit
             // 
             this.pn_edit.BackColor = System.Drawing.SystemColors.ControlLightLight;
-            this.pn_edit.Location = new System.Drawing.Point(178, 27);
+            this.pn_edit.Location = new System.Drawing.Point(171, 27);
             this.pn_edit.Name = "pn_edit";
-            this.pn_edit.Size = new System.Drawing.Size(713, 599);
+            this.pn_edit.Size = new System.Drawing.Size(720, 599);
             this.pn_edit.TabIndex = 0;
-            this.pn_edit.Click += new System.EventHandler(this.pn_edit_Click);
-            this.pn_edit.Paint += new System.Windows.Forms.PaintEventHandler(this.panel1_Paint);
             this.pn_edit.MouseClick += new System.Windows.Forms.MouseEventHandler(this.pn_edit_MouseClick);
             this.pn_edit.MouseMove += new System.Windows.Forms.MouseEventHandler(this.pn_edit_MouseMove);
             // 
@@ -164,16 +163,25 @@
             this.gerarSQLToolStripMenuItem.Name = "gerarSQLToolStripMenuItem";
             this.gerarSQLToolStripMenuItem.Size = new System.Drawing.Size(71, 20);
             this.gerarSQLToolStripMenuItem.Text = "Gerar SQL";
+            this.gerarSQLToolStripMenuItem.Click += new System.EventHandler(this.gerarSQLToolStripMenuItem_Click);
             // 
             // btn_del
             // 
             this.btn_del.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("btn_del.BackgroundImage")));
             this.btn_del.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.btn_del.Location = new System.Drawing.Point(12, 550);
+            this.btn_del.Location = new System.Drawing.Point(12, 560);
             this.btn_del.Name = "btn_del";
             this.btn_del.Size = new System.Drawing.Size(71, 66);
             this.btn_del.TabIndex = 0;
             this.btn_del.UseVisualStyleBackColor = true;
+            // 
+            // sqlGerado
+            // 
+            this.sqlGerado.Location = new System.Drawing.Point(897, 27);
+            this.sqlGerado.Name = "sqlGerado";
+            this.sqlGerado.Size = new System.Drawing.Size(368, 267);
+            this.sqlGerado.TabIndex = 4;
+            this.sqlGerado.Text = "";
             // 
             // EditPanel
             // 
@@ -183,6 +191,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
             this.ClientSize = new System.Drawing.Size(1265, 648);
+            this.Controls.Add(this.sqlGerado);
             this.Controls.Add(this.btn_del);
             this.Controls.Add(this.btn_padrao);
             this.Controls.Add(this.btn_heranca);
@@ -218,6 +227,7 @@
         private System.Windows.Forms.ToolStripMenuItem importarToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem gerarSQLToolStripMenuItem;
         private System.Windows.Forms.Button btn_del;
+        private System.Windows.Forms.RichTextBox sqlGerado;
     }
 }
 
