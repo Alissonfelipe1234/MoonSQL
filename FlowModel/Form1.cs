@@ -31,7 +31,7 @@ namespace FlowModel
             pn_edit.BackgroundImage = bmpImagem;
 
             grpImage = Graphics.FromImage(bmpImagem);
-            grpImage.Clear(Color.White);
+            grpImage.Clear(Color.WhiteSmoke);
 
             figuras = new List<Desenho>();
             click = 0;
@@ -121,7 +121,7 @@ namespace FlowModel
 
         private void gerarSQLToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            sqlGerado.Text = "";
+            string sqlGerado = "";
             int tables = 0;
             List<string> sql = new List<string>();
             foreach (Desenho d in figuras)
@@ -149,7 +149,7 @@ namespace FlowModel
                 }
             }
             for (int i = 0; i < sql.Count; i++)
-                sqlGerado.Text += sql[i];
+                sqlGerado += sql[i];
         }
 
         private void comboBox3_SelectedIndexChanged(object sender, EventArgs e)
@@ -164,7 +164,7 @@ namespace FlowModel
 
         private void pn_edit_MouseMove(object sender, MouseEventArgs e)
         {
-            
+            Info.Text = e.X + "," + e.Y;
         }
 
         private void pn_edit_MouseClick(object sender, MouseEventArgs e)

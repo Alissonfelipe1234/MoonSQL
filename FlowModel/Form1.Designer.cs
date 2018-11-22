@@ -42,16 +42,18 @@
             this.importarToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.gerarSQLToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.btn_del = new System.Windows.Forms.Button();
-            this.sqlGerado = new System.Windows.Forms.RichTextBox();
+            this.Info = new System.Windows.Forms.Label();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.menuStrip1.SuspendLayout();
+            this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
             // pn_edit
             // 
-            this.pn_edit.BackColor = System.Drawing.SystemColors.ControlLightLight;
-            this.pn_edit.Location = new System.Drawing.Point(171, 27);
+            this.pn_edit.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.pn_edit.Location = new System.Drawing.Point(142, 27);
             this.pn_edit.Name = "pn_edit";
-            this.pn_edit.Size = new System.Drawing.Size(720, 599);
+            this.pn_edit.Size = new System.Drawing.Size(1014, 599);
             this.pn_edit.TabIndex = 0;
             this.pn_edit.MouseClick += new System.Windows.Forms.MouseEventHandler(this.pn_edit_MouseClick);
             this.pn_edit.MouseMove += new System.Windows.Forms.MouseEventHandler(this.pn_edit_MouseMove);
@@ -60,7 +62,8 @@
             // 
             this.btn_entidade.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("btn_entidade.BackgroundImage")));
             this.btn_entidade.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.btn_entidade.Location = new System.Drawing.Point(12, 58);
+            this.btn_entidade.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btn_entidade.Location = new System.Drawing.Point(0, 92);
             this.btn_entidade.Name = "btn_entidade";
             this.btn_entidade.Size = new System.Drawing.Size(130, 80);
             this.btn_entidade.TabIndex = 0;
@@ -72,7 +75,8 @@
             // 
             this.btn_relacionamento.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("btn_relacionamento.BackgroundImage")));
             this.btn_relacionamento.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.btn_relacionamento.Location = new System.Drawing.Point(12, 144);
+            this.btn_relacionamento.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btn_relacionamento.Location = new System.Drawing.Point(0, 178);
             this.btn_relacionamento.Name = "btn_relacionamento";
             this.btn_relacionamento.Size = new System.Drawing.Size(130, 80);
             this.btn_relacionamento.TabIndex = 1;
@@ -84,7 +88,8 @@
             // 
             this.btn_atributo.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("btn_atributo.BackgroundImage")));
             this.btn_atributo.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.btn_atributo.Location = new System.Drawing.Point(12, 230);
+            this.btn_atributo.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btn_atributo.Location = new System.Drawing.Point(0, 264);
             this.btn_atributo.Name = "btn_atributo";
             this.btn_atributo.Size = new System.Drawing.Size(130, 80);
             this.btn_atributo.TabIndex = 1;
@@ -97,7 +102,8 @@
             // 
             this.btn_heranca.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("btn_heranca.BackgroundImage")));
             this.btn_heranca.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.btn_heranca.Location = new System.Drawing.Point(12, 402);
+            this.btn_heranca.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btn_heranca.Location = new System.Drawing.Point(0, 436);
             this.btn_heranca.Name = "btn_heranca";
             this.btn_heranca.Size = new System.Drawing.Size(130, 80);
             this.btn_heranca.TabIndex = 1;
@@ -110,7 +116,8 @@
             // 
             this.btn_padrao.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("btn_padrao.BackgroundImage")));
             this.btn_padrao.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.btn_padrao.Location = new System.Drawing.Point(12, 316);
+            this.btn_padrao.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btn_padrao.Location = new System.Drawing.Point(0, 350);
             this.btn_padrao.Name = "btn_padrao";
             this.btn_padrao.Size = new System.Drawing.Size(130, 80);
             this.btn_padrao.TabIndex = 1;
@@ -127,7 +134,7 @@
             this.gerarSQLToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(1265, 24);
+            this.menuStrip1.Size = new System.Drawing.Size(1457, 24);
             this.menuStrip1.TabIndex = 2;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -169,19 +176,32 @@
             // 
             this.btn_del.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("btn_del.BackgroundImage")));
             this.btn_del.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.btn_del.Location = new System.Drawing.Point(12, 560);
+            this.btn_del.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btn_del.Location = new System.Drawing.Point(206, 527);
             this.btn_del.Name = "btn_del";
             this.btn_del.Size = new System.Drawing.Size(71, 66);
             this.btn_del.TabIndex = 0;
             this.btn_del.UseVisualStyleBackColor = true;
             // 
-            // sqlGerado
+            // Info
             // 
-            this.sqlGerado.Location = new System.Drawing.Point(897, 27);
-            this.sqlGerado.Name = "sqlGerado";
-            this.sqlGerado.Size = new System.Drawing.Size(368, 267);
-            this.sqlGerado.TabIndex = 4;
-            this.sqlGerado.Text = "";
+            this.Info.AutoSize = true;
+            this.Info.Font = new System.Drawing.Font("Noto Mono", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.Info.Location = new System.Drawing.Point(139, 629);
+            this.Info.Name = "Info";
+            this.Info.Size = new System.Drawing.Size(35, 18);
+            this.Info.TabIndex = 5;
+            this.Info.Text = "0,0";
+            // 
+            // groupBox1
+            // 
+            this.groupBox1.Controls.Add(this.btn_del);
+            this.groupBox1.Location = new System.Drawing.Point(1162, 27);
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.Size = new System.Drawing.Size(283, 605);
+            this.groupBox1.TabIndex = 6;
+            this.groupBox1.TabStop = false;
+            this.groupBox1.Text = "groupBox1";
             // 
             // EditPanel
             // 
@@ -189,10 +209,11 @@
             this.AccessibleName = "Flow Model";
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
-            this.ClientSize = new System.Drawing.Size(1265, 648);
-            this.Controls.Add(this.sqlGerado);
-            this.Controls.Add(this.btn_del);
+            this.BackColor = System.Drawing.Color.Salmon;
+            this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
+            this.ClientSize = new System.Drawing.Size(1457, 644);
+            this.Controls.Add(this.groupBox1);
+            this.Controls.Add(this.Info);
             this.Controls.Add(this.btn_padrao);
             this.Controls.Add(this.btn_heranca);
             this.Controls.Add(this.btn_atributo);
@@ -207,6 +228,7 @@
             this.Load += new System.EventHandler(this.EditPanel_Load);
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
+            this.groupBox1.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -227,7 +249,8 @@
         private System.Windows.Forms.ToolStripMenuItem importarToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem gerarSQLToolStripMenuItem;
         private System.Windows.Forms.Button btn_del;
-        private System.Windows.Forms.RichTextBox sqlGerado;
+        private System.Windows.Forms.Label Info;
+        private System.Windows.Forms.GroupBox groupBox1;
     }
 }
 
