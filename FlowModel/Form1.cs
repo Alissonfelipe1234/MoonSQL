@@ -152,6 +152,21 @@ namespace FlowModel
                 sqlGerado += sql[i];
         }
 
+        private void NomeEntidade_TextChanged(object sender, EventArgs e)
+        {
+            //Alterar nome entidade
+        }
+
+        private void txtEntidadeX_TextChanged(object sender, EventArgs e)
+        {
+            //Altera X da entidade
+        }
+
+        private void txtEntidadeY_TextChanged(object sender, EventArgs e)
+        {
+            //Altera Y entidade
+        }
+
         private void comboBox3_SelectedIndexChanged(object sender, EventArgs e)
         {
 
