@@ -172,6 +172,11 @@ namespace FlowModel
             //Atributo tipo altera
         }
 
+        private void label7_Click(object sender, EventArgs e)
+        {
+
+        }
+
         private void comboBox3_SelectedIndexChanged(object sender, EventArgs e)
         {
 

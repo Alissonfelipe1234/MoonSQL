@@ -59,10 +59,6 @@
             this.label6 = new System.Windows.Forms.Label();
             this.button1 = new System.Windows.Forms.Button();
             this.BoxAtributo = new System.Windows.Forms.GroupBox();
-            this.AtributoA = new System.Windows.Forms.TextBox();
-            this.label7 = new System.Windows.Forms.Label();
-            this.AtributoX = new System.Windows.Forms.TextBox();
-            this.label8 = new System.Windows.Forms.Label();
             this.NomeAtributo = new System.Windows.Forms.TextBox();
             this.label9 = new System.Windows.Forms.Label();
             this.button2 = new System.Windows.Forms.Button();
@@ -72,7 +68,8 @@
             this.CardAtributo = new System.Windows.Forms.TextBox();
             this.Primario = new System.Windows.Forms.CheckBox();
             this.Opcional = new System.Windows.Forms.CheckBox();
-            this.pn_edit.SuspendLayout();
+            this.comboBox1 = new System.Windows.Forms.ComboBox();
+            this.label7 = new System.Windows.Forms.Label();
             this.menuStrip1.SuspendLayout();
             this.BoxEntidade.SuspendLayout();
             this.BoxRelacionamento.SuspendLayout();
@@ -82,8 +79,6 @@
             // pn_edit
             // 
             this.pn_edit.BackColor = System.Drawing.Color.WhiteSmoke;
-            this.pn_edit.Controls.Add(this.BoxAtributo);
-            this.pn_edit.Controls.Add(this.BoxRelacionamento);
             this.pn_edit.Location = new System.Drawing.Point(142, 27);
             this.pn_edit.Name = "pn_edit";
             this.pn_edit.Size = new System.Drawing.Size(1014, 599);
@@ -228,6 +223,7 @@
             // 
             // BoxEntidade
             // 
+            this.BoxEntidade.Controls.Add(this.BoxAtributo);
             this.BoxEntidade.Controls.Add(this.txtEntidadeY);
             this.BoxEntidade.Controls.Add(this.label3);
             this.BoxEntidade.Controls.Add(this.txtEntidadeX);
@@ -236,8 +232,9 @@
             this.BoxEntidade.Controls.Add(this.label1);
             this.BoxEntidade.Controls.Add(this.btn_del);
             this.BoxEntidade.Enabled = false;
+            this.BoxEntidade.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.BoxEntidade.Font = new System.Drawing.Font("Verdana", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.BoxEntidade.Location = new System.Drawing.Point(1162, 27);
+            this.BoxEntidade.Location = new System.Drawing.Point(0, 0);
             this.BoxEntidade.Name = "BoxEntidade";
             this.BoxEntidade.Size = new System.Drawing.Size(283, 605);
             this.BoxEntidade.TabIndex = 6;
@@ -303,13 +300,15 @@
             // 
             this.BoxRelacionamento.Controls.Add(this.RelacionamentoY);
             this.BoxRelacionamento.Controls.Add(this.label4);
+            this.BoxRelacionamento.Controls.Add(this.BoxEntidade);
             this.BoxRelacionamento.Controls.Add(this.RelacionamentoX);
             this.BoxRelacionamento.Controls.Add(this.label5);
             this.BoxRelacionamento.Controls.Add(this.NomeRelacionamento);
             this.BoxRelacionamento.Controls.Add(this.label6);
             this.BoxRelacionamento.Controls.Add(this.button1);
+            this.BoxRelacionamento.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.BoxRelacionamento.Font = new System.Drawing.Font("Verdana", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.BoxRelacionamento.Location = new System.Drawing.Point(706, 3);
+            this.BoxRelacionamento.Location = new System.Drawing.Point(1162, 30);
             this.BoxRelacionamento.Name = "BoxRelacionamento";
             this.BoxRelacionamento.Size = new System.Drawing.Size(283, 605);
             this.BoxRelacionamento.TabIndex = 8;
@@ -380,60 +379,27 @@
             // 
             // BoxAtributo
             // 
+            this.BoxAtributo.Controls.Add(this.label7);
+            this.BoxAtributo.Controls.Add(this.comboBox1);
             this.BoxAtributo.Controls.Add(this.Opcional);
             this.BoxAtributo.Controls.Add(this.Primario);
             this.BoxAtributo.Controls.Add(this.CardAtributo);
             this.BoxAtributo.Controls.Add(this.label11);
             this.BoxAtributo.Controls.Add(this.label10);
             this.BoxAtributo.Controls.Add(this.comboTipo);
-            this.BoxAtributo.Controls.Add(this.AtributoA);
-            this.BoxAtributo.Controls.Add(this.label7);
-            this.BoxAtributo.Controls.Add(this.AtributoX);
-            this.BoxAtributo.Controls.Add(this.label8);
             this.BoxAtributo.Controls.Add(this.NomeAtributo);
             this.BoxAtributo.Controls.Add(this.label9);
             this.BoxAtributo.Controls.Add(this.button2);
+            this.BoxAtributo.Enabled = false;
+            this.BoxAtributo.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.BoxAtributo.Font = new System.Drawing.Font("Verdana", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.BoxAtributo.Location = new System.Drawing.Point(407, 3);
+            this.BoxAtributo.Location = new System.Drawing.Point(0, 0);
             this.BoxAtributo.Name = "BoxAtributo";
             this.BoxAtributo.Size = new System.Drawing.Size(283, 605);
             this.BoxAtributo.TabIndex = 8;
             this.BoxAtributo.TabStop = false;
             this.BoxAtributo.Text = "Propriedades";
-            // 
-            // AtributoA
-            // 
-            this.AtributoA.Location = new System.Drawing.Point(206, 122);
-            this.AtributoA.Name = "AtributoA";
-            this.AtributoA.Size = new System.Drawing.Size(51, 23);
-            this.AtributoA.TabIndex = 7;
-            // 
-            // label7
-            // 
-            this.label7.AutoSize = true;
-            this.label7.Font = new System.Drawing.Font("Dutch801 XBd BT", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label7.Location = new System.Drawing.Point(177, 126);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(23, 19);
-            this.label7.TabIndex = 5;
-            this.label7.Text = "Y:";
-            // 
-            // AtributoX
-            // 
-            this.AtributoX.Location = new System.Drawing.Point(84, 122);
-            this.AtributoX.Name = "AtributoX";
-            this.AtributoX.Size = new System.Drawing.Size(51, 23);
-            this.AtributoX.TabIndex = 4;
-            // 
-            // label8
-            // 
-            this.label8.AutoSize = true;
-            this.label8.Font = new System.Drawing.Font("Dutch801 XBd BT", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label8.Location = new System.Drawing.Point(55, 126);
-            this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(23, 19);
-            this.label8.TabIndex = 3;
-            this.label8.Text = "X:";
+            this.BoxAtributo.Visible = false;
             // 
             // NomeAtributo
             // 
@@ -468,7 +434,7 @@
             this.comboTipo.FormattingEnabled = true;
             this.comboTipo.Location = new System.Drawing.Point(84, 177);
             this.comboTipo.Name = "comboTipo";
-            this.comboTipo.Size = new System.Drawing.Size(121, 24);
+            this.comboTipo.Size = new System.Drawing.Size(182, 24);
             this.comboTipo.TabIndex = 8;
             this.comboTipo.SelectedIndexChanged += new System.EventHandler(this.comboTipo_SelectedIndexChanged);
             // 
@@ -496,7 +462,7 @@
             // 
             this.CardAtributo.Location = new System.Drawing.Point(139, 234);
             this.CardAtributo.Name = "CardAtributo";
-            this.CardAtributo.Size = new System.Drawing.Size(118, 23);
+            this.CardAtributo.Size = new System.Drawing.Size(127, 23);
             this.CardAtributo.TabIndex = 11;
             // 
             // Primario
@@ -519,6 +485,25 @@
             this.Opcional.Text = "Opcional";
             this.Opcional.UseVisualStyleBackColor = true;
             // 
+            // comboBox1
+            // 
+            this.comboBox1.FormattingEnabled = true;
+            this.comboBox1.Location = new System.Drawing.Point(84, 121);
+            this.comboBox1.Name = "comboBox1";
+            this.comboBox1.Size = new System.Drawing.Size(182, 24);
+            this.comboBox1.TabIndex = 14;
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Font = new System.Drawing.Font("Dutch801 XBd BT", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label7.Location = new System.Drawing.Point(25, 126);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(50, 19);
+            this.label7.TabIndex = 15;
+            this.label7.Text = "Dono:";
+            this.label7.Click += new System.EventHandler(this.label7_Click);
+            // 
             // EditPanel
             // 
             this.AccessibleDescription = "FlowModel for entity relationship model";
@@ -530,19 +515,18 @@
             this.ClientSize = new System.Drawing.Size(1457, 644);
             this.Controls.Add(this.Info);
             this.Controls.Add(this.btn_padrao);
-            this.Controls.Add(this.BoxEntidade);
             this.Controls.Add(this.btn_heranca);
             this.Controls.Add(this.btn_atributo);
             this.Controls.Add(this.btn_relacionamento);
             this.Controls.Add(this.btn_entidade);
             this.Controls.Add(this.pn_edit);
             this.Controls.Add(this.menuStrip1);
+            this.Controls.Add(this.BoxRelacionamento);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "EditPanel";
             this.Text = "FlowModel a entity-relationship modeler ";
             this.Load += new System.EventHandler(this.EditPanel_Load);
-            this.pn_edit.ResumeLayout(false);
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             this.BoxEntidade.ResumeLayout(false);
@@ -588,10 +572,6 @@
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.GroupBox BoxAtributo;
-        private System.Windows.Forms.TextBox AtributoA;
-        private System.Windows.Forms.Label label7;
-        private System.Windows.Forms.TextBox AtributoX;
-        private System.Windows.Forms.Label label8;
         private System.Windows.Forms.TextBox NomeAtributo;
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.Button button2;
@@ -601,6 +581,8 @@
         private System.Windows.Forms.CheckBox Primario;
         private System.Windows.Forms.TextBox CardAtributo;
         private System.Windows.Forms.CheckBox Opcional;
+        private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.ComboBox comboBox1;
     }
 }
 
