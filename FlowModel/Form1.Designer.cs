@@ -66,6 +66,12 @@
             this.NomeAtributo = new System.Windows.Forms.TextBox();
             this.label9 = new System.Windows.Forms.Label();
             this.button2 = new System.Windows.Forms.Button();
+            this.comboTipo = new System.Windows.Forms.ComboBox();
+            this.label10 = new System.Windows.Forms.Label();
+            this.label11 = new System.Windows.Forms.Label();
+            this.CardAtributo = new System.Windows.Forms.TextBox();
+            this.Primario = new System.Windows.Forms.CheckBox();
+            this.Opcional = new System.Windows.Forms.CheckBox();
             this.pn_edit.SuspendLayout();
             this.menuStrip1.SuspendLayout();
             this.BoxEntidade.SuspendLayout();
@@ -78,7 +84,6 @@
             this.pn_edit.BackColor = System.Drawing.Color.WhiteSmoke;
             this.pn_edit.Controls.Add(this.BoxAtributo);
             this.pn_edit.Controls.Add(this.BoxRelacionamento);
-            this.pn_edit.Controls.Add(this.BoxEntidade);
             this.pn_edit.Location = new System.Drawing.Point(142, 27);
             this.pn_edit.Name = "pn_edit";
             this.pn_edit.Size = new System.Drawing.Size(1014, 599);
@@ -230,13 +235,15 @@
             this.BoxEntidade.Controls.Add(this.NomeEntidade);
             this.BoxEntidade.Controls.Add(this.label1);
             this.BoxEntidade.Controls.Add(this.btn_del);
+            this.BoxEntidade.Enabled = false;
             this.BoxEntidade.Font = new System.Drawing.Font("Verdana", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.BoxEntidade.Location = new System.Drawing.Point(728, 0);
+            this.BoxEntidade.Location = new System.Drawing.Point(1162, 27);
             this.BoxEntidade.Name = "BoxEntidade";
             this.BoxEntidade.Size = new System.Drawing.Size(283, 605);
             this.BoxEntidade.TabIndex = 6;
             this.BoxEntidade.TabStop = false;
             this.BoxEntidade.Text = "Propriedades";
+            this.BoxEntidade.Visible = false;
             // 
             // label1
             // 
@@ -302,7 +309,7 @@
             this.BoxRelacionamento.Controls.Add(this.label6);
             this.BoxRelacionamento.Controls.Add(this.button1);
             this.BoxRelacionamento.Font = new System.Drawing.Font("Verdana", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.BoxRelacionamento.Location = new System.Drawing.Point(439, 3);
+            this.BoxRelacionamento.Location = new System.Drawing.Point(706, 3);
             this.BoxRelacionamento.Name = "BoxRelacionamento";
             this.BoxRelacionamento.Size = new System.Drawing.Size(283, 605);
             this.BoxRelacionamento.TabIndex = 8;
@@ -373,6 +380,12 @@
             // 
             // BoxAtributo
             // 
+            this.BoxAtributo.Controls.Add(this.Opcional);
+            this.BoxAtributo.Controls.Add(this.Primario);
+            this.BoxAtributo.Controls.Add(this.CardAtributo);
+            this.BoxAtributo.Controls.Add(this.label11);
+            this.BoxAtributo.Controls.Add(this.label10);
+            this.BoxAtributo.Controls.Add(this.comboTipo);
             this.BoxAtributo.Controls.Add(this.AtributoA);
             this.BoxAtributo.Controls.Add(this.label7);
             this.BoxAtributo.Controls.Add(this.AtributoX);
@@ -381,7 +394,7 @@
             this.BoxAtributo.Controls.Add(this.label9);
             this.BoxAtributo.Controls.Add(this.button2);
             this.BoxAtributo.Font = new System.Drawing.Font("Verdana", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.BoxAtributo.Location = new System.Drawing.Point(150, 3);
+            this.BoxAtributo.Location = new System.Drawing.Point(407, 3);
             this.BoxAtributo.Name = "BoxAtributo";
             this.BoxAtributo.Size = new System.Drawing.Size(283, 605);
             this.BoxAtributo.TabIndex = 8;
@@ -450,6 +463,62 @@
             this.button2.TabIndex = 0;
             this.button2.UseVisualStyleBackColor = true;
             // 
+            // comboTipo
+            // 
+            this.comboTipo.FormattingEnabled = true;
+            this.comboTipo.Location = new System.Drawing.Point(84, 177);
+            this.comboTipo.Name = "comboTipo";
+            this.comboTipo.Size = new System.Drawing.Size(121, 24);
+            this.comboTipo.TabIndex = 8;
+            this.comboTipo.SelectedIndexChanged += new System.EventHandler(this.comboTipo_SelectedIndexChanged);
+            // 
+            // label10
+            // 
+            this.label10.AutoSize = true;
+            this.label10.Font = new System.Drawing.Font("Dutch801 XBd BT", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label10.Location = new System.Drawing.Point(25, 178);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(49, 19);
+            this.label10.TabIndex = 9;
+            this.label10.Text = "Tipo: ";
+            // 
+            // label11
+            // 
+            this.label11.AutoSize = true;
+            this.label11.Font = new System.Drawing.Font("Dutch801 XBd BT", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label11.Location = new System.Drawing.Point(29, 234);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(104, 19);
+            this.label11.TabIndex = 10;
+            this.label11.Text = "Cardinalidade";
+            // 
+            // CardAtributo
+            // 
+            this.CardAtributo.Location = new System.Drawing.Point(139, 234);
+            this.CardAtributo.Name = "CardAtributo";
+            this.CardAtributo.Size = new System.Drawing.Size(118, 23);
+            this.CardAtributo.TabIndex = 11;
+            // 
+            // Primario
+            // 
+            this.Primario.AutoSize = true;
+            this.Primario.Location = new System.Drawing.Point(33, 293);
+            this.Primario.Name = "Primario";
+            this.Primario.Size = new System.Drawing.Size(88, 20);
+            this.Primario.TabIndex = 12;
+            this.Primario.Text = "Primario";
+            this.Primario.UseVisualStyleBackColor = true;
+            // 
+            // Opcional
+            // 
+            this.Opcional.AutoSize = true;
+            this.Opcional.Location = new System.Drawing.Point(33, 322);
+            this.Opcional.Name = "Opcional";
+            this.Opcional.Size = new System.Drawing.Size(90, 20);
+            this.Opcional.TabIndex = 13;
+            this.Opcional.Text = "Opcional";
+            this.Opcional.UseVisualStyleBackColor = true;
+            // 
             // EditPanel
             // 
             this.AccessibleDescription = "FlowModel for entity relationship model";
@@ -461,6 +530,7 @@
             this.ClientSize = new System.Drawing.Size(1457, 644);
             this.Controls.Add(this.Info);
             this.Controls.Add(this.btn_padrao);
+            this.Controls.Add(this.BoxEntidade);
             this.Controls.Add(this.btn_heranca);
             this.Controls.Add(this.btn_atributo);
             this.Controls.Add(this.btn_relacionamento);
@@ -525,6 +595,12 @@
         private System.Windows.Forms.TextBox NomeAtributo;
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.Label label10;
+        private System.Windows.Forms.ComboBox comboTipo;
+        private System.Windows.Forms.Label label11;
+        private System.Windows.Forms.CheckBox Primario;
+        private System.Windows.Forms.TextBox CardAtributo;
+        private System.Windows.Forms.CheckBox Opcional;
     }
 }
 

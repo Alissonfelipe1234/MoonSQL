@@ -167,6 +167,11 @@ namespace FlowModel
             //Altera Y entidade
         }
 
+        private void comboTipo_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            //Atributo tipo altera
+        }
+
         private void comboBox3_SelectedIndexChanged(object sender, EventArgs e)
         {
 
