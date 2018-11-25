@@ -16,7 +16,11 @@ namespace FlowModel
 
         private int qtdAtributos;
         private int id;
-        
+
+        public override string ToString()
+        {
+            return this.getName();
+        }
 
         public Entidade(string n, int Px, int Py)
         {
@@ -62,10 +66,8 @@ namespace FlowModel
 
             Image newImage = (Image)Properties.Resources.ResourceManager.GetObject("Entidade");
             g.DrawImage(newImage, this.x, this.y);
-            SizeF tam = g.MeasureString(this.nome, new Font(new FontFamily("Arial"), 12));
-            tam.Width = tam.Width / 3;
             System.Drawing.SolidBrush drawBrush = new System.Drawing.SolidBrush(System.Drawing.Color.Black);
-            g.DrawString(this.nome, new Font(new FontFamily("Arial"), 12), drawBrush, this.x + tam.Width, this.y + 20);
+            g.DrawString(this.nome, new Font(new FontFamily("Arial"), 12), drawBrush, this.x + 5, this.y + 15);
 
             p.Refresh();
         }
@@ -82,6 +84,21 @@ namespace FlowModel
                     return true;
 
             return false;
+        }
+
+        public void setName(string name)
+        {
+            this.nome = name;
+        }
+
+        public void setX(int X)
+        {
+            this.x = X;
+        }
+
+        public void setY(int Y)
+        {
+            this.y = Y;
         }
     }
 }

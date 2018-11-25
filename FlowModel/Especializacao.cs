@@ -75,7 +75,7 @@ namespace FlowModel
                 g.DrawLine(caneta, this.x + 50, this.y + 40, this.entidades[i].getX(), this.entidades[i].getY() + 25);
                 this.entidades[i].SeDesenhe(g, p);
             }
-            Image newImage = Image.FromFile("C:\\Users\\aliss\\Desktop\\C#\\FlowModel\\FlowModel\\resources\\Especializacao.png");
+            Image newImage = (Image)Properties.Resources.ResourceManager.GetObject("Especializacao");
             g.DrawImage(newImage, this.x, this.y);
             //SizeF tam = g.MeasureString(this.nome, new Font(new FontFamily("Arial"), 12));
             //tam.Width = tam.Width / 3;
@@ -98,6 +98,20 @@ namespace FlowModel
                     return true;
 
             return false;
+        }
+        public void setName(string name)
+        {
+            this.nome = name;
+        }
+
+        public void setX(int X)
+        {
+            this.x = X;
+        }
+
+        public void setY(int Y)
+        {
+            this.y = Y;
         }
     }
 }

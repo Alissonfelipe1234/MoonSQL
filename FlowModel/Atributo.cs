@@ -67,6 +67,10 @@ namespace FlowModel
         {
             this.dado = new Dados(idDado);
         }
+        public Dados getDados()
+        {
+            return this.dado;
+        }
          
         public void AlteraTipo (List<int> status)
         {
@@ -198,7 +202,7 @@ namespace FlowModel
                     g.DrawString(this.nome, new Font(new FontFamily("Arial"), 9), drawBrush, this.x + 18, this.y + 28 +(this.indice * 14));
                     break;
             }
-            this.proprietario.SeDesenhe(g,p);
+            //this.proprietario.SeDesenhe(g,p);
             p.Refresh();
         }
 
@@ -249,6 +253,21 @@ namespace FlowModel
             return false;
         }
 
-        
+        public void setName(string name)
+        {
+            this.nome = name;
+        }
+
+        public void setX(int X)
+        {
+            this.x = X;
+        }
+
+        public void setY(int Y)
+        {
+            this.y = Y;
+        }
+
+
     }
 }

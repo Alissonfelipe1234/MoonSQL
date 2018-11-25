@@ -44,24 +44,22 @@
             this.btn_del = new System.Windows.Forms.Button();
             this.Info = new System.Windows.Forms.Label();
             this.BoxEntidade = new System.Windows.Forms.GroupBox();
-            this.BoxAtributo = new System.Windows.Forms.GroupBox();
-            this.label7 = new System.Windows.Forms.Label();
-            this.comboBox1 = new System.Windows.Forms.ComboBox();
-            this.Opcional = new System.Windows.Forms.CheckBox();
-            this.Primario = new System.Windows.Forms.CheckBox();
-            this.CardAtributo = new System.Windows.Forms.TextBox();
-            this.label11 = new System.Windows.Forms.Label();
-            this.label10 = new System.Windows.Forms.Label();
-            this.comboTipo = new System.Windows.Forms.ComboBox();
-            this.NomeAtributo = new System.Windows.Forms.TextBox();
-            this.label9 = new System.Windows.Forms.Label();
-            this.button2 = new System.Windows.Forms.Button();
             this.txtEntidadeY = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
             this.txtEntidadeX = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
             this.NomeEntidade = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
+            this.BoxAtributo = new System.Windows.Forms.GroupBox();
+            this.label7 = new System.Windows.Forms.Label();
+            this.Derivado = new System.Windows.Forms.CheckBox();
+            this.Primario = new System.Windows.Forms.CheckBox();
+            this.CardAtributo = new System.Windows.Forms.TextBox();
+            this.label11 = new System.Windows.Forms.Label();
+            this.label10 = new System.Windows.Forms.Label();
+            this.NomeAtributo = new System.Windows.Forms.TextBox();
+            this.label9 = new System.Windows.Forms.Label();
+            this.btnExcluir = new System.Windows.Forms.Button();
             this.BoxRelacionamento = new System.Windows.Forms.GroupBox();
             this.RelacionamentoY = new System.Windows.Forms.TextBox();
             this.label4 = new System.Windows.Forms.Label();
@@ -70,6 +68,11 @@
             this.NomeRelacionamento = new System.Windows.Forms.TextBox();
             this.label6 = new System.Windows.Forms.Label();
             this.button1 = new System.Windows.Forms.Button();
+            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.cbDonoAtributo = new System.Windows.Forms.ComboBox();
+            this.cbTipoAtributo = new System.Windows.Forms.ComboBox();
+            this.Composto = new System.Windows.Forms.CheckBox();
+            this.cbDerivado = new System.Windows.Forms.ComboBox();
             this.menuStrip1.SuspendLayout();
             this.BoxEntidade.SuspendLayout();
             this.BoxAtributo.SuspendLayout();
@@ -82,7 +85,8 @@
             this.pn_edit.Location = new System.Drawing.Point(142, 27);
             this.pn_edit.Name = "pn_edit";
             this.pn_edit.Size = new System.Drawing.Size(1015, 600);
-            this.pn_edit.TabIndex = 0;
+            this.pn_edit.TabIndex = 1;
+            this.pn_edit.TabStop = true;
             this.pn_edit.MouseClick += new System.Windows.Forms.MouseEventHandler(this.pn_edit_MouseClick);
             this.pn_edit.MouseMove += new System.Windows.Forms.MouseEventHandler(this.pn_edit_MouseMove);
             // 
@@ -90,11 +94,13 @@
             // 
             this.btn_entidade.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("btn_entidade.BackgroundImage")));
             this.btn_entidade.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.btn_entidade.Cursor = System.Windows.Forms.Cursors.Default;
+            this.btn_entidade.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.btn_entidade.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btn_entidade.Location = new System.Drawing.Point(0, 92);
             this.btn_entidade.Name = "btn_entidade";
             this.btn_entidade.Size = new System.Drawing.Size(130, 80);
-            this.btn_entidade.TabIndex = 0;
+            this.btn_entidade.TabIndex = 1;
             this.btn_entidade.Text = "Entidade";
             this.btn_entidade.UseVisualStyleBackColor = true;
             this.btn_entidade.Click += new System.EventHandler(this.btn_entidade_Click);
@@ -116,6 +122,7 @@
             // 
             this.btn_atributo.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("btn_atributo.BackgroundImage")));
             this.btn_atributo.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.btn_atributo.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.btn_atributo.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btn_atributo.Location = new System.Drawing.Point(0, 264);
             this.btn_atributo.Name = "btn_atributo";
@@ -130,6 +137,7 @@
             // 
             this.btn_heranca.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("btn_heranca.BackgroundImage")));
             this.btn_heranca.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.btn_heranca.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.btn_heranca.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btn_heranca.Location = new System.Drawing.Point(0, 436);
             this.btn_heranca.Name = "btn_heranca";
@@ -144,6 +152,7 @@
             // 
             this.btn_padrao.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("btn_padrao.BackgroundImage")));
             this.btn_padrao.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.btn_padrao.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.btn_padrao.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btn_padrao.Location = new System.Drawing.Point(0, 350);
             this.btn_padrao.Name = "btn_padrao";
@@ -163,7 +172,7 @@
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Size = new System.Drawing.Size(1370, 24);
-            this.menuStrip1.TabIndex = 2;
+            this.menuStrip1.TabIndex = 0;
             this.menuStrip1.Text = "menuStrip1";
             // 
             // salvarToolStripMenuItem
@@ -204,6 +213,7 @@
             // 
             this.btn_del.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("btn_del.BackgroundImage")));
             this.btn_del.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.btn_del.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.btn_del.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btn_del.Location = new System.Drawing.Point(206, 527);
             this.btn_del.Name = "btn_del";
@@ -223,7 +233,6 @@
             // 
             // BoxEntidade
             // 
-            this.BoxEntidade.Controls.Add(this.BoxAtributo);
             this.BoxEntidade.Controls.Add(this.txtEntidadeY);
             this.BoxEntidade.Controls.Add(this.label3);
             this.BoxEntidade.Controls.Add(this.txtEntidadeX);
@@ -231,147 +240,19 @@
             this.BoxEntidade.Controls.Add(this.NomeEntidade);
             this.BoxEntidade.Controls.Add(this.label1);
             this.BoxEntidade.Controls.Add(this.btn_del);
-            this.BoxEntidade.Enabled = false;
             this.BoxEntidade.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.BoxEntidade.Font = new System.Drawing.Font("Verdana", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.BoxEntidade.Location = new System.Drawing.Point(0, 0);
+            this.BoxEntidade.Location = new System.Drawing.Point(1162, 30);
             this.BoxEntidade.Name = "BoxEntidade";
             this.BoxEntidade.Size = new System.Drawing.Size(283, 605);
-            this.BoxEntidade.TabIndex = 6;
+            this.BoxEntidade.TabIndex = 1;
             this.BoxEntidade.TabStop = false;
             this.BoxEntidade.Text = "Propriedades";
             this.BoxEntidade.Visible = false;
             // 
-            // BoxAtributo
-            // 
-            this.BoxAtributo.Controls.Add(this.label7);
-            this.BoxAtributo.Controls.Add(this.comboBox1);
-            this.BoxAtributo.Controls.Add(this.Opcional);
-            this.BoxAtributo.Controls.Add(this.Primario);
-            this.BoxAtributo.Controls.Add(this.CardAtributo);
-            this.BoxAtributo.Controls.Add(this.label11);
-            this.BoxAtributo.Controls.Add(this.label10);
-            this.BoxAtributo.Controls.Add(this.comboTipo);
-            this.BoxAtributo.Controls.Add(this.NomeAtributo);
-            this.BoxAtributo.Controls.Add(this.label9);
-            this.BoxAtributo.Controls.Add(this.button2);
-            this.BoxAtributo.Enabled = false;
-            this.BoxAtributo.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.BoxAtributo.Font = new System.Drawing.Font("Verdana", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.BoxAtributo.Location = new System.Drawing.Point(0, 0);
-            this.BoxAtributo.Name = "BoxAtributo";
-            this.BoxAtributo.Size = new System.Drawing.Size(283, 605);
-            this.BoxAtributo.TabIndex = 8;
-            this.BoxAtributo.TabStop = false;
-            this.BoxAtributo.Text = "Propriedades";
-            this.BoxAtributo.Visible = false;
-            // 
-            // label7
-            // 
-            this.label7.AutoSize = true;
-            this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label7.Location = new System.Drawing.Point(25, 126);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(49, 18);
-            this.label7.TabIndex = 15;
-            this.label7.Text = "Dono:";
-            this.label7.Click += new System.EventHandler(this.label7_Click);
-            // 
-            // comboBox1
-            // 
-            this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Location = new System.Drawing.Point(84, 121);
-            this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(182, 24);
-            this.comboBox1.TabIndex = 14;
-            // 
-            // Opcional
-            // 
-            this.Opcional.AutoSize = true;
-            this.Opcional.Location = new System.Drawing.Point(33, 322);
-            this.Opcional.Name = "Opcional";
-            this.Opcional.Size = new System.Drawing.Size(90, 20);
-            this.Opcional.TabIndex = 13;
-            this.Opcional.Text = "Opcional";
-            this.Opcional.UseVisualStyleBackColor = true;
-            // 
-            // Primario
-            // 
-            this.Primario.AutoSize = true;
-            this.Primario.Location = new System.Drawing.Point(33, 293);
-            this.Primario.Name = "Primario";
-            this.Primario.Size = new System.Drawing.Size(88, 20);
-            this.Primario.TabIndex = 12;
-            this.Primario.Text = "Primario";
-            this.Primario.UseVisualStyleBackColor = true;
-            // 
-            // CardAtributo
-            // 
-            this.CardAtributo.Location = new System.Drawing.Point(139, 234);
-            this.CardAtributo.Name = "CardAtributo";
-            this.CardAtributo.Size = new System.Drawing.Size(127, 23);
-            this.CardAtributo.TabIndex = 11;
-            // 
-            // label11
-            // 
-            this.label11.AutoSize = true;
-            this.label11.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label11.Location = new System.Drawing.Point(29, 234);
-            this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(97, 18);
-            this.label11.TabIndex = 10;
-            this.label11.Text = "Cardinalidade";
-            // 
-            // label10
-            // 
-            this.label10.AutoSize = true;
-            this.label10.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label10.Location = new System.Drawing.Point(25, 178);
-            this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(45, 18);
-            this.label10.TabIndex = 9;
-            this.label10.Text = "Tipo: ";
-            // 
-            // comboTipo
-            // 
-            this.comboTipo.FormattingEnabled = true;
-            this.comboTipo.Location = new System.Drawing.Point(84, 177);
-            this.comboTipo.Name = "comboTipo";
-            this.comboTipo.Size = new System.Drawing.Size(182, 24);
-            this.comboTipo.TabIndex = 8;
-            this.comboTipo.SelectedIndexChanged += new System.EventHandler(this.comboTipo_SelectedIndexChanged);
-            // 
-            // NomeAtributo
-            // 
-            this.NomeAtributo.Location = new System.Drawing.Point(84, 61);
-            this.NomeAtributo.Name = "NomeAtributo";
-            this.NomeAtributo.Size = new System.Drawing.Size(182, 23);
-            this.NomeAtributo.TabIndex = 2;
-            // 
-            // label9
-            // 
-            this.label9.AutoSize = true;
-            this.label9.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label9.Location = new System.Drawing.Point(25, 65);
-            this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(53, 18);
-            this.label9.TabIndex = 1;
-            this.label9.Text = "Nome:";
-            // 
-            // button2
-            // 
-            this.button2.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("button2.BackgroundImage")));
-            this.button2.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.button2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button2.Location = new System.Drawing.Point(206, 527);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(71, 66);
-            this.button2.TabIndex = 0;
-            this.button2.UseVisualStyleBackColor = true;
-            // 
             // txtEntidadeY
             // 
-            this.txtEntidadeY.Location = new System.Drawing.Point(206, 122);
+            this.txtEntidadeY.Location = new System.Drawing.Point(84, 151);
             this.txtEntidadeY.Name = "txtEntidadeY";
             this.txtEntidadeY.Size = new System.Drawing.Size(51, 23);
             this.txtEntidadeY.TabIndex = 7;
@@ -381,11 +262,12 @@
             // 
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.Location = new System.Drawing.Point(177, 126);
+            this.label3.Location = new System.Drawing.Point(55, 152);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(21, 18);
             this.label3.TabIndex = 5;
             this.label3.Text = "Y:";
+            this.label3.Click += new System.EventHandler(this.label3_Click);
             // 
             // txtEntidadeX
             // 
@@ -423,11 +305,121 @@
             this.label1.TabIndex = 1;
             this.label1.Text = "Nome:";
             // 
+            // BoxAtributo
+            // 
+            this.BoxAtributo.Controls.Add(this.cbDerivado);
+            this.BoxAtributo.Controls.Add(this.Composto);
+            this.BoxAtributo.Controls.Add(this.label7);
+            this.BoxAtributo.Controls.Add(this.cbDonoAtributo);
+            this.BoxAtributo.Controls.Add(this.Derivado);
+            this.BoxAtributo.Controls.Add(this.Primario);
+            this.BoxAtributo.Controls.Add(this.CardAtributo);
+            this.BoxAtributo.Controls.Add(this.label11);
+            this.BoxAtributo.Controls.Add(this.label10);
+            this.BoxAtributo.Controls.Add(this.cbTipoAtributo);
+            this.BoxAtributo.Controls.Add(this.NomeAtributo);
+            this.BoxAtributo.Controls.Add(this.label9);
+            this.BoxAtributo.Controls.Add(this.btnExcluir);
+            this.BoxAtributo.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.BoxAtributo.Font = new System.Drawing.Font("Verdana", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.BoxAtributo.Location = new System.Drawing.Point(871, 22);
+            this.BoxAtributo.Name = "BoxAtributo";
+            this.BoxAtributo.Size = new System.Drawing.Size(283, 605);
+            this.BoxAtributo.TabIndex = 8;
+            this.BoxAtributo.TabStop = false;
+            this.BoxAtributo.Text = "Propriedades";
+            this.BoxAtributo.Visible = false;
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label7.Location = new System.Drawing.Point(25, 126);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(49, 18);
+            this.label7.TabIndex = 15;
+            this.label7.Text = "Dono:";
+            this.label7.Click += new System.EventHandler(this.label7_Click);
+            // 
+            // Derivado
+            // 
+            this.Derivado.AutoSize = true;
+            this.Derivado.Location = new System.Drawing.Point(33, 319);
+            this.Derivado.Name = "Derivado";
+            this.Derivado.Size = new System.Drawing.Size(92, 20);
+            this.Derivado.TabIndex = 13;
+            this.Derivado.Text = "Derivado";
+            this.Derivado.UseVisualStyleBackColor = true;
+            // 
+            // Primario
+            // 
+            this.Primario.AutoSize = true;
+            this.Primario.Location = new System.Drawing.Point(33, 293);
+            this.Primario.Name = "Primario";
+            this.Primario.Size = new System.Drawing.Size(88, 20);
+            this.Primario.TabIndex = 12;
+            this.Primario.Text = "Primario";
+            this.Primario.UseVisualStyleBackColor = true;
+            // 
+            // CardAtributo
+            // 
+            this.CardAtributo.Location = new System.Drawing.Point(132, 233);
+            this.CardAtributo.Name = "CardAtributo";
+            this.CardAtributo.Size = new System.Drawing.Size(127, 23);
+            this.CardAtributo.TabIndex = 11;
+            // 
+            // label11
+            // 
+            this.label11.AutoSize = true;
+            this.label11.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label11.Location = new System.Drawing.Point(29, 234);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(97, 18);
+            this.label11.TabIndex = 10;
+            this.label11.Text = "Cardinalidade";
+            // 
+            // label10
+            // 
+            this.label10.AutoSize = true;
+            this.label10.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label10.Location = new System.Drawing.Point(25, 178);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(45, 18);
+            this.label10.TabIndex = 9;
+            this.label10.Text = "Tipo: ";
+            // 
+            // NomeAtributo
+            // 
+            this.NomeAtributo.Location = new System.Drawing.Point(84, 61);
+            this.NomeAtributo.Name = "NomeAtributo";
+            this.NomeAtributo.Size = new System.Drawing.Size(182, 23);
+            this.NomeAtributo.TabIndex = 2;
+            // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label9.Location = new System.Drawing.Point(25, 65);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(53, 18);
+            this.label9.TabIndex = 1;
+            this.label9.Text = "Nome:";
+            // 
+            // btnExcluir
+            // 
+            this.btnExcluir.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("btnExcluir.BackgroundImage")));
+            this.btnExcluir.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.btnExcluir.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnExcluir.Location = new System.Drawing.Point(206, 527);
+            this.btnExcluir.Name = "btnExcluir";
+            this.btnExcluir.Size = new System.Drawing.Size(71, 66);
+            this.btnExcluir.TabIndex = 0;
+            this.btnExcluir.UseVisualStyleBackColor = true;
+            // 
             // BoxRelacionamento
             // 
             this.BoxRelacionamento.Controls.Add(this.RelacionamentoY);
             this.BoxRelacionamento.Controls.Add(this.label4);
-            this.BoxRelacionamento.Controls.Add(this.BoxEntidade);
             this.BoxRelacionamento.Controls.Add(this.RelacionamentoX);
             this.BoxRelacionamento.Controls.Add(this.label5);
             this.BoxRelacionamento.Controls.Add(this.NomeRelacionamento);
@@ -438,9 +430,10 @@
             this.BoxRelacionamento.Location = new System.Drawing.Point(1162, 30);
             this.BoxRelacionamento.Name = "BoxRelacionamento";
             this.BoxRelacionamento.Size = new System.Drawing.Size(283, 605);
-            this.BoxRelacionamento.TabIndex = 8;
+            this.BoxRelacionamento.TabIndex = 811;
             this.BoxRelacionamento.TabStop = false;
             this.BoxRelacionamento.Text = "Propriedades";
+            this.BoxRelacionamento.Visible = false;
             // 
             // RelacionamentoY
             // 
@@ -504,15 +497,69 @@
             this.button1.TabIndex = 0;
             this.button1.UseVisualStyleBackColor = true;
             // 
+            // textBox1
+            // 
+            this.textBox1.Location = new System.Drawing.Point(0, 96);
+            this.textBox1.Name = "textBox1";
+            this.textBox1.Size = new System.Drawing.Size(100, 20);
+            this.textBox1.TabIndex = 0;
+            this.textBox1.KeyDown += new System.Windows.Forms.KeyEventHandler(this.textBox1_KeyDown);
+            // 
+            // cbDonoAtributo
+            // 
+            this.cbDonoAtributo.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
+            this.cbDonoAtributo.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
+            this.cbDonoAtributo.FormattingEnabled = true;
+            this.cbDonoAtributo.Location = new System.Drawing.Point(84, 121);
+            this.cbDonoAtributo.Name = "cbDonoAtributo";
+            this.cbDonoAtributo.Size = new System.Drawing.Size(182, 24);
+            this.cbDonoAtributo.TabIndex = 14;
+            // 
+            // cbTipoAtributo
+            // 
+            this.cbTipoAtributo.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest;
+            this.cbTipoAtributo.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
+            this.cbTipoAtributo.FormattingEnabled = true;
+            this.cbTipoAtributo.Location = new System.Drawing.Point(84, 177);
+            this.cbTipoAtributo.Name = "cbTipoAtributo";
+            this.cbTipoAtributo.Size = new System.Drawing.Size(182, 24);
+            this.cbTipoAtributo.TabIndex = 8;
+            this.cbTipoAtributo.SelectedIndexChanged += new System.EventHandler(this.comboTipo_SelectedIndexChanged);
+            // 
+            // Composto
+            // 
+            this.Composto.AutoSize = true;
+            this.Composto.Enabled = false;
+            this.Composto.Location = new System.Drawing.Point(33, 348);
+            this.Composto.Name = "Composto";
+            this.Composto.Size = new System.Drawing.Size(101, 20);
+            this.Composto.TabIndex = 16;
+            this.Composto.Text = "Composto";
+            this.Composto.UseVisualStyleBackColor = true;
+            // 
+            // cbDerivado
+            // 
+            this.cbDerivado.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest;
+            this.cbDerivado.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
+            this.cbDerivado.FormattingEnabled = true;
+            this.cbDerivado.Location = new System.Drawing.Point(142, 315);
+            this.cbDerivado.Name = "cbDerivado";
+            this.cbDerivado.Size = new System.Drawing.Size(117, 24);
+            this.cbDerivado.TabIndex = 17;
+            this.cbDerivado.UseWaitCursor = true;
+            this.cbDerivado.Visible = false;
+            // 
             // EditPanel
             // 
             this.AccessibleDescription = "FlowModel for entity relationship model";
             this.AccessibleName = "Flow Model";
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.BackColor = System.Drawing.Color.Salmon;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
             this.ClientSize = new System.Drawing.Size(1370, 647);
+            this.Controls.Add(this.BoxAtributo);
             this.Controls.Add(this.Info);
             this.Controls.Add(this.btn_padrao);
             this.Controls.Add(this.btn_heranca);
@@ -522,11 +569,16 @@
             this.Controls.Add(this.pn_edit);
             this.Controls.Add(this.menuStrip1);
             this.Controls.Add(this.BoxRelacionamento);
+            this.Controls.Add(this.textBox1);
+            this.Controls.Add(this.BoxEntidade);
+            this.Cursor = System.Windows.Forms.Cursors.Default;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "EditPanel";
             this.Text = "FlowModel a entity-relationship modeler ";
             this.Load += new System.EventHandler(this.EditPanel_Load);
+            this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.EditPanel_KeyDown);
+            this.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.EditPanel_KeyPress);
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             this.BoxEntidade.ResumeLayout(false);
@@ -574,15 +626,18 @@
         private System.Windows.Forms.GroupBox BoxAtributo;
         private System.Windows.Forms.TextBox NomeAtributo;
         private System.Windows.Forms.Label label9;
-        private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.Button btnExcluir;
         private System.Windows.Forms.Label label10;
-        private System.Windows.Forms.ComboBox comboTipo;
         private System.Windows.Forms.Label label11;
         private System.Windows.Forms.CheckBox Primario;
         private System.Windows.Forms.TextBox CardAtributo;
-        private System.Windows.Forms.CheckBox Opcional;
+        private System.Windows.Forms.CheckBox Derivado;
         private System.Windows.Forms.Label label7;
-        private System.Windows.Forms.ComboBox comboBox1;
+        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.ComboBox cbDonoAtributo;
+        private System.Windows.Forms.ComboBox cbTipoAtributo;
+        private System.Windows.Forms.CheckBox Composto;
+        private System.Windows.Forms.ComboBox cbDerivado;
     }
 }
 

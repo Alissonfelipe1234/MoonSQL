@@ -79,5 +79,23 @@ namespace FlowModel
         {
             return this.cardMin + "," + this.cardMax;
         }
+
+        //recebe as duas cardinalidades separadas por virgula
+        public void setName(string name)
+        {
+            string[] cards = name.Split(',');
+            this.cardMin = cards[0];
+            this.cardMax = cards[1];
+        }
+
+        public void setX(int X)
+        {
+            this.x = X;
+        }
+
+        public void setY(int Y)
+        {
+            this.y = Y;
+        }
     }
 }

@@ -79,7 +79,7 @@ namespace FlowModel
                 this.ent[i].SeDesenhe(g,p);
             }
 
-            Image newImage = Image.FromFile("C:\\Users\\aliss\\Desktop\\C#\\FlowModel\\FlowModel\\resources\\Relacionamento.png");
+            Image newImage = (Image)Properties.Resources.ResourceManager.GetObject("Relacionamento");
             g.DrawImage(newImage, this.x, this.y);
             System.Drawing.SolidBrush drawBrush = new System.Drawing.SolidBrush(System.Drawing.Color.Black);
             g.DrawString(this.nome, new Font(new FontFamily("Arial"), 10), drawBrush, this.x + 20, this.y + 37);
@@ -105,6 +105,21 @@ namespace FlowModel
                     return true;
 
             return false;
+        }
+
+        public void setName(string name)
+        {
+            this.nome = name;
+        }
+
+        public void setX(int X)
+        {
+            this.x = X;
+        }
+
+        public void setY(int Y)
+        {
+            this.y = Y;
         }
     }
 }

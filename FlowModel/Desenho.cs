@@ -12,6 +12,9 @@ namespace FlowModel
         string getName();
         int getX();
         int getY();
+        void setName(string name);
+        void setX(int X);
+        void setY(int Y);
         void SeDesenhe(Graphics g, System.Windows.Forms.Panel p);
         string QuemSou();
         void Propriedades(System.Windows.Forms.Panel p);
