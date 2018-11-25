@@ -195,6 +195,10 @@ namespace FlowModel
         private void pn_edit_MouseClick(object sender, MouseEventArgs e)
         {
             string value = "";
+
+            if(!desenhandoAtributo && !desenhandoEntidade && !desenhandoEspecializacao && !desenhandoPadronizacao && !desenhandoRelacionamento)
+
+
             if(desenhandoAtributo)
             {
                 for (int i = figuras.Count - 1; i >= 0; i--)

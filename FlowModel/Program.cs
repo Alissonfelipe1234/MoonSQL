@@ -41,7 +41,7 @@ namespace FlowModel
 
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            //Application.Run(new telaDeLoad());
+            Application.Run(new telaDeLoad());
             Application.Run(new EditPanel());
 
         }

@@ -512,7 +512,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Salmon;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
-            this.ClientSize = new System.Drawing.Size(1370, 644);
+            this.ClientSize = new System.Drawing.Size(1370, 647);
             this.Controls.Add(this.Info);
             this.Controls.Add(this.btn_padrao);
             this.Controls.Add(this.btn_heranca);
