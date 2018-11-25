@@ -27,7 +27,7 @@ namespace FlowModel
 
         private void EditPanel_Load(object sender, EventArgs e)
         {
-            bmpImagem = new Bitmap(713, 599);
+            bmpImagem = new Bitmap(1015, 600);
             pn_edit.BackgroundImage = bmpImagem;
 
             grpImage = Graphics.FromImage(bmpImagem);

@@ -178,22 +178,22 @@ namespace FlowModel
             switch (this.propriedades.getPropriedades())
             {                
                 case "Primario":
-                    newImage = Image.FromFile("C:\\Users\\aliss\\Desktop\\C#\\FlowModel\\FlowModel\\resources\\Atributo_Chave.png");
+                    newImage = (Image)Properties.Resources.ResourceManager.GetObject("Atributo_Chave");
                     g.DrawImage(newImage, this.x, this.y);                    
                     g.DrawString(this.nome, new Font(new FontFamily("Arial"), 9), drawBrush, this.x + 18, this.y + 12 - (this.indice * 14));
                     break;
                 case "Opcional":
-                    newImage = Image.FromFile("C:\\Users\\aliss\\Desktop\\C#\\FlowModel\\FlowModel\\resources\\Atributo_Opcional.png");
+                    newImage = (Image)Properties.Resources.ResourceManager.GetObject("Atributo_Opcional");
                     g.DrawImage(newImage, this.x, this.y);
                     g.DrawString(this.nome, new Font(new FontFamily("Arial"), 9), drawBrush, this.x + 18, this.y + 12 - (this.indice * 14));
                     break;
                 case "Composto":
-                    newImage = Image.FromFile("C:\\Users\\aliss\\Desktop\\C#\\FlowModel\\FlowModel\\resources\\Atributo_Composto.png");
+                    newImage = (Image)Properties.Resources.ResourceManager.GetObject("Atributo_Composto");
                     g.DrawImage(newImage, this.x, this.y);
                     g.DrawString(this.nome, new Font(new FontFamily("Arial"), 9), drawBrush, this.x + 40 + (this.indice * 50), this.y + 5);
                     break;
                 case "Comum":
-                    newImage = Image.FromFile("C:\\Users\\aliss\\Desktop\\C#\\FlowModel\\FlowModel\\resources\\Atributo_Simples.png");
+                    newImage = (Image)Properties.Resources.ResourceManager.GetObject("Atributo_Simples");
                     g.DrawImage(newImage, this.x, this.y);
                     g.DrawString(this.nome, new Font(new FontFamily("Arial"), 9), drawBrush, this.x + 18, this.y + 28 +(this.indice * 14));
                     break;
@@ -208,7 +208,7 @@ namespace FlowModel
         }
         public int getTam()
         {
-            Bitmap bmpImagem = new Bitmap(713, 599);
+            Bitmap bmpImagem = new Bitmap(1015, 600);
             Graphics medidor = Graphics.FromImage(bmpImagem);
             SizeF tamanhoString = medidor.MeasureString(this.nome, new Font(new FontFamily("Arial"), 9));
             return Convert.ToInt16(tamanhoString.Width);
@@ -216,7 +216,7 @@ namespace FlowModel
 
         public bool GetArea(int x, int y)
         {
-            Bitmap bmpImagem = new Bitmap(713, 599);
+            Bitmap bmpImagem = new Bitmap(1015, 600);
             Graphics medidor = Graphics.FromImage(bmpImagem);
             SizeF tamanhoString = medidor.MeasureString(this.nome, new Font(new FontFamily("Arial"), 9));
 

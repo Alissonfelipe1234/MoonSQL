@@ -60,7 +60,7 @@ namespace FlowModel
         public void SeDesenhe(Graphics g, Panel p)
         {
 
-            Image newImage = Image.FromFile("C:\\Users\\aliss\\Desktop\\C#\\FlowModel\\FlowModel\\resources\\Entidade.png");
+            Image newImage = (Image)Properties.Resources.ResourceManager.GetObject("Entidade");
             g.DrawImage(newImage, this.x, this.y);
             SizeF tam = g.MeasureString(this.nome, new Font(new FontFamily("Arial"), 12));
             tam.Width = tam.Width / 3;

@@ -92,6 +92,7 @@
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
     </Compile>
     <EmbeddedResource Include="telaDeLoad.resx">
       <DependentUpon>telaDeLoad.cs</DependentUpon>
@@ -114,15 +115,28 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="resources\Atributo.png" />
-    <Content Include="resources\Atributo_Chave.png" />
-    <Content Include="resources\Atributo_Composto.png" />
-    <Content Include="resources\Atributo_Opcional.png" />
-    <Content Include="resources\Atributo_Simples.png" />
-    <Content Include="resources\Entidade.png" />
-    <Content Include="resources\Especializacao.png" />
-    <Content Include="resources\Generalizacao.png" />
-    <Content Include="resources\Relacionamento.png" />
+    <None Include="resources\Atributo_Chave.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="resources\Atributo_Composto.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="resources\Atributo_Opcional.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="resources\Atributo_Simples.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="resources\Entidade.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="resources\Especializacao.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="resources\Generalizacao.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="resources\Relacionamento.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
