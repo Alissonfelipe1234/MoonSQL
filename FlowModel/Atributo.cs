@@ -18,8 +18,14 @@ namespace FlowModel
         private Dados dado;
         private Tipo propriedades;
         private Desenho proprietario;
+        private Atributo derivado;
 
         private int id;
+
+        public override string ToString()
+        {
+            return this.getName();
+        }
 
         public Atributo(string n, int Px, int Py, Desenho p)
         {
@@ -30,6 +36,7 @@ namespace FlowModel
             this.propriedades = new Tipo();
             this.proprietario = p;
             this.qtdAtributos = 0;
+            this.derivado = null;
 
             switch (p.QuemSou())
             {
@@ -53,11 +60,29 @@ namespace FlowModel
 
         }
 
+        public Atributo getDerivado()
+        {
+            return this.derivado;
+        }
+
+        public void setDerivado (Atributo a)
+        {
+            this.derivado = a;
+        }
+
+        public void setProprietario(Desenho a)
+        {
+            this.proprietario = a;
+        }
+
         public void addAtributo()
         {
             this.qtdAtributos++;
         }
-
+        public void removeAtributo()
+        {
+            this.qtdAtributos--;
+        }
         public int getQtdAtributos()
         {
             return this.qtdAtributos;
@@ -71,7 +96,22 @@ namespace FlowModel
         {
             return this.dado;
         }
-         
+
+        public void setCardMin(int cardMin)
+        {
+            List<int> atual = this.propriedades.GetStatus();
+            if(cardMin != 0)
+                this.propriedades.Altera(false, Convert.ToBoolean(atual[1]), Convert.ToBoolean(atual[2]), cardMin, atual[4]);
+            else
+                this.propriedades.Altera(Convert.ToBoolean(atual[0]), Convert.ToBoolean(atual[1]), Convert.ToBoolean(atual[2]), cardMin, atual[4]);
+
+        }
+        public void setCardMax(int cardMax)
+        {
+            List<int> atual = this.propriedades.GetStatus();
+            this.propriedades.Altera(Convert.ToBoolean(atual[0]), Convert.ToBoolean(atual[1]), Convert.ToBoolean(atual[2]), atual[3], cardMax);
+        }
+
         public void AlteraTipo (List<int> status)
         {
             this.propriedades.Altera(Convert.ToBoolean(status[0]), Convert.ToBoolean(status[1]), Convert.ToBoolean(status[2]), status[3], status[4]);
@@ -116,7 +156,7 @@ namespace FlowModel
             {
                 List<int> atual = this.propriedades.GetStatus();
                 this.propriedades.Altera(true, Convert.ToBoolean(atual[1]), Convert.ToBoolean(atual[2]), atual[3], atual[4]);
-                this.y = this.y - 52;
+                this.y = this.y - 86;
             }
         }
         public void comumToOpcional()
@@ -125,8 +165,8 @@ namespace FlowModel
             {
                 List<int> atual = this.propriedades.GetStatus();
                 this.propriedades.Altera(Convert.ToBoolean(atual[0]), Convert.ToBoolean(atual[1]), Convert.ToBoolean(atual[2]), 0, atual[4]);
-                this.x = this.x + 100;
-                this.y = this.y - 52;
+                this.x = this.x + 86;
+                this.y = this.y - 90; //tamanho 90 veio do recuo do tamanho da entidade  + o recuo do tamamnho do proprio atributo
             }
         }
         public void PrimarioToComum()
@@ -135,7 +175,7 @@ namespace FlowModel
             {
                 List<int> atual = this.propriedades.GetStatus();
                 this.propriedades.Altera(false, Convert.ToBoolean(atual[1]), Convert.ToBoolean(atual[2]), atual[3], atual[4]);
-                this.y = this.y + 52;
+                this.y = this.y + 86;
             }
         }
         public void OpcionalToComum()
@@ -144,8 +184,8 @@ namespace FlowModel
             {
                 List<int> atual = this.propriedades.GetStatus();
                 this.propriedades.Altera(Convert.ToBoolean(atual[0]), Convert.ToBoolean(atual[1]), Convert.ToBoolean(atual[2]), 1, atual[4]);
-                this.x = this.x - 100;
-                this.y = this.y + 52;
+                this.x = this.x - 86;
+                this.y = this.y + 90;
             }
         }
         public string getSql()
@@ -229,22 +269,22 @@ namespace FlowModel
             {
                 case "Comum":
                     if (x - this.x >= 18 && x - this.x <= tamanhoString.Width + 18)
-                        if (y - this.y >= 28 + (this.indice * 12) && y - this.y <= 28 + (this.indice * 14) + tamanhoString.Height)
+                        if (y - this.y >= 28 + (this.indice * 14) && y - this.y <= 28 + (this.indice * 14) + tamanhoString.Height)
                             return true;
                     break;
                 case "Primario":
                     if (x - this.x >= 18 && x - this.x <= tamanhoString.Width + 18)
-                        if (y - this.y <= 12 - (this.indice * 12) && y - this.y >= 12 - (this.indice * 14)  + tamanhoString.Height)
+                        if (y - this.y <= 12 - (this.indice * 14) && y - this.y >= 12 - (this.indice * 14)  + tamanhoString.Height)
                             return true;
                     break;
                 case "Opcional":
                     if (x - this.x >= 18 && x - this.x <= tamanhoString.Width + 18)
-                        if (y - this.y <= 12 - (this.indice * 12) && y - this.y >= 12 - (this.indice * 14) + tamanhoString.Height)
+                        if (y - this.y >= 14 - (this.indice * 14) && y - this.y <= 14 - (this.indice * 14) + tamanhoString.Height)
                             return true;
                     break;
                 case "Composto":
                     if (x - this.x >= 18 && x - this.x <= tamanhoString.Width + 18)
-                        if (y - this.y >= 28 + (this.indice * 12) && y - this.y <= 28 + (this.indice * 14) + tamanhoString.Height)
+                        if (y - this.y >= 28 + (this.indice * 14) && y - this.y <= 28 + (this.indice * 14) + tamanhoString.Height)
                             return true;
                     break;
             }

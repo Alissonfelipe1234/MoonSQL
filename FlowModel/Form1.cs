@@ -21,7 +21,7 @@ namespace FlowModel
         private const int tamanhoY = 600;
 
         private int click;
-        private bool achou, desenhandoRelacionamento, desenhandoEntidade, desenhandoEspecializacao, desenhandoPadronizacao, desenhandoAtributo;
+        private bool achou, arrastandoFigura, desenhandoRelacionamento, desenhandoEntidade, desenhandoEspecializacao, desenhandoPadronizacao, desenhandoAtributo;
         private int envolvidos;
 
         public EditPanel()
@@ -45,6 +45,7 @@ namespace FlowModel
             desenhandoPadronizacao = false;
             desenhandoEntidade = false;
             desenhandoAtributo = false;
+            arrastandoFigura = false;
             selecionado = null;
             /*
             figuras.Add(new Entidade("TESTE1", 70, 70));
@@ -246,7 +247,8 @@ namespace FlowModel
 
         private void comboTipo_SelectedIndexChanged(object sender, EventArgs e)
         {
-            //Atributo tipo altera
+            Atributo Aselecionado = (Atributo)this.selecionado;
+            Aselecionado.setDado(cbTipoAtributo.SelectedIndex);
         }
 
         private void label7_Click(object sender, EventArgs e)
@@ -290,6 +292,195 @@ namespace FlowModel
 
         }
 
+        private void NomeAtributo_TextChanged(object sender, EventArgs e)
+        {
+            this.selecionado.setName(NomeAtributo.Text);
+            grpImage.Clear(Color.White);
+            foreach (Desenho figura in figuras)
+            {
+                figura.SeDesenhe(grpImage, pn_edit);
+            }
+        }
+
+        private void cbDonoAtributo_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            Desenho novoDono = (Desenho)cbDonoAtributo.SelectedItem;
+            Atributo Aselecionado = (Atributo) this.selecionado;
+            Aselecionado.setProprietario(novoDono);
+
+            if (Aselecionado.getTipo() == "Comum")
+            {
+                Aselecionado.setX(novoDono.getX());
+                Aselecionado.setY(novoDono.getY() + 50);
+            }
+            else if (Aselecionado.getTipo() == "Opcional")
+            {
+                Aselecionado.setX(novoDono.getX() + 86);
+                Aselecionado.setY(novoDono.getY() - 40);
+            }
+            else
+            {
+                Aselecionado.setX(novoDono.getX());
+                Aselecionado.setY(novoDono.getY() - 40);
+            }
+
+            grpImage.Clear(Color.White);
+            foreach (Desenho d in figuras)
+                d.SeDesenhe(grpImage, pn_edit);
+        }
+
+        private void txtCardAtributoMin_TextChanged(object sender, EventArgs e)
+        {
+            Atributo Aselecionado = (Atributo) this.selecionado;
+            switch (txtCardAtributoMin.Text)
+            {
+                case "0":
+                    grpImage.Clear(Color.White);
+                    switch (Aselecionado.getTipo())
+                    {
+                        case "Primario":
+                            Aselecionado.PrimarioToComum();
+                            Aselecionado.comumToOpcional();
+                            Primario.Checked = false;
+                            break;
+                        case "Comum":
+                            Aselecionado.comumToOpcional();
+                            break;
+                    }
+                    Aselecionado.setCardMin(0);
+                    foreach (Desenho f in figuras)
+                        f.SeDesenhe(grpImage, pn_edit);
+                    break;
+                case "1":
+                    grpImage.Clear(Color.White);
+                    if (Aselecionado.getTipo() == "Opcional")
+                    { 
+                            Aselecionado.OpcionalToComum();
+                    }
+                    Aselecionado.setCardMin(1);
+                    foreach (Desenho f in figuras)
+                        f.SeDesenhe(grpImage, pn_edit);
+                    break;
+            }
+
+        }
+
+        private void txtCardAtributoMax_TextChanged(object sender, EventArgs e)
+        {
+            Atributo Aselecionado = (Atributo) this.selecionado;
+            if (txtCardAtributoMax.Text.ToUpper().Equals("N"))
+            {
+                txtCardAtributoMax.Text = "N";
+                if(Aselecionado.getPropriedade()[4] == 1)
+                {
+                    Aselecionado.setName(Aselecionado.getName() + " " + Aselecionado.getPropriedade()[3] + ", N");
+                    Aselecionado.SeDesenhe(grpImage, pn_edit);
+                    Aselecionado.setCardMax(2);
+                }
+            }
+            if (txtCardAtributoMax.Text.Equals("1"))
+            {
+                if (Aselecionado.getPropriedade()[4] == 2)
+                {
+                    Aselecionado.setName(Aselecionado.getName().Split(' ')[0]);
+                    grpImage.Clear(Color.White);
+                    foreach(Desenho f in figuras)
+                    {
+                        f.SeDesenhe(grpImage, pn_edit);
+                    }
+                    Aselecionado.setCardMax(1);
+                }
+            }
+        }
+
+        private void Primario_CheckedChanged(object sender, EventArgs e)
+        {
+            Atributo Aselecionado = (Atributo) this.selecionado;
+            if (Primario.Checked == true && Aselecionado.getPropriedade()[0] != 1)
+            {
+                txtCardAtributoMin.Text = "1";
+                Aselecionado.comumToPrimario();
+                grpImage.Clear(Color.White);
+                foreach (Desenho g in figuras)
+                    g.SeDesenhe(grpImage, pn_edit);
+            }
+            else
+            {
+                if(Aselecionado.getPropriedade()[0] == 1)
+                {
+                    Aselecionado.PrimarioToComum();
+                    grpImage.Clear(Color.White);
+                    foreach (Desenho g in figuras)
+                        g.SeDesenhe(grpImage, pn_edit);
+                }
+            }
+        }
+
+        private void Derivado_CheckedChanged(object sender, EventArgs e)
+        {
+            Atributo Aselecionado = (Atributo)this.selecionado;
+
+            if(Derivado.Checked == true)
+            {
+                cbDerivado.Visible = true;
+                cbDerivado.Items.Clear();
+                foreach (Desenho k in figuras)
+                {
+                    if (k.QuemSou() == "Atributo")
+                    {
+                        cbDerivado.Items.Add(k);
+                    }
+                    if (Aselecionado.getDerivado() == k)
+                    {
+                        cbDerivado.SelectedItem = k;
+                    }
+                }
+            }
+            else
+            {
+                cbDerivado.Visible = false;
+            }
+        }
+
+        private void cbDerivado_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            Atributo Aselecionado = (Atributo)this.selecionado;
+            Aselecionado.setDerivado((Atributo)cbDerivado.SelectedItem);
+        }
+
+        private void pn_edit_MouseUp(object sender, MouseEventArgs e)
+        {
+            arrastandoFigura = false;
+        }
+
+        private void pn_edit_MouseDown(object sender, MouseEventArgs e)
+        {
+            foreach(Desenho d in figuras)
+            {
+                if (d.GetArea(e.X, e.Y))
+                {
+                    this.selecionado = d;
+                    arrastandoFigura = true;
+                }
+                if(d.QuemSou().Equals("Relacionamento"))
+                {
+                    Relacionamento r = (Relacionamento)d;
+                    foreach(Cardinalidade c in r.getCards())
+                    {
+                        if(c.GetArea(e.X, e.Y))
+                        {
+                            this.selecionado = c;
+                            arrastandoFigura = true;
+                            break;
+                        }
+                    }
+                }
+                if (arrastandoFigura)
+                    break;
+            }
+                
+        }
+
         private void comboBox3_SelectedIndexChanged(object sender, EventArgs e)
         {
 
@@ -303,17 +494,27 @@ namespace FlowModel
         private void pn_edit_MouseMove(object sender, MouseEventArgs e)
         {
             Info.Text = e.X + "," + e.Y;
+            if (arrastandoFigura)
+            {
+                this.selecionado.setX(e.X);
+                this.selecionado.setY(e.Y);
+                grpImage.Clear(Color.White);
+                foreach (Desenho f in figuras)
+                {
+                    f.SeDesenhe(grpImage, pn_edit);
+                }
+            }
         }
 
         private void pn_edit_MouseClick(object sender, MouseEventArgs e)
         {
             string value = "";
-
+            BoxEntidade.Visible = false;
+            BoxAtributo.Visible = false;
+            BoxRelacionamento.Visible = false;
             if (!desenhandoAtributo && !desenhandoEntidade && !desenhandoEspecializacao && !desenhandoPadronizacao && !desenhandoRelacionamento)
             {
-                BoxEntidade.Visible = false;
-                BoxAtributo.Visible = false;
-                BoxRelacionamento.Visible = false;
+                
                 for (int i = 0; i < figuras.Count; i++)
                 {
                     if(figuras[i].GetArea(e.X, e.Y))
@@ -335,6 +536,7 @@ namespace FlowModel
                             case "Atributo":
                                 BoxAtributo.Visible = true;
                                 Atributo Aselecionado = (Atributo)figuras[i];
+                                NomeAtributo.Text = Aselecionado.getName();
                                 cbDonoAtributo.Items.Clear();
                                 int qual = 0;
                                 foreach (Desenho g in figuras)
@@ -371,10 +573,41 @@ namespace FlowModel
                                     Composto.Checked = false;
 
                                 if (tipoA[2] == 1)
+                                {
                                     Derivado.Checked = true;
+                                    cbDerivado.Visible = true;
+                                    cbDerivado.Items.Clear();
+                                    foreach (Desenho k in figuras)
+                                    {
+                                        if (k.QuemSou() == "Atributo")
+                                        {
+                                            cbDerivado.Items.Add(k);
+                                        }
+                                        if (Aselecionado.getDerivado() == k)
+                                        {
+                                            cbDerivado.SelectedItem = k;
+                                        }
+                                    }
+                                }
                                 else
+                                {
                                     Derivado.Checked = false;
+                                    cbDerivado.Visible = false;
+                                }
 
+                                txtCardAtributoMin.Text = tipoA[3].ToString();
+
+                                string str;
+                                if(tipoA[4] == 2)
+                                {
+                                    str = "n";
+                                }
+                                else
+                                {
+                                    str = "1";
+                                }
+
+                                txtCardAtributoMax.Text = str;
                                 break;
                         }
                     }

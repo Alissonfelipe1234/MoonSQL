@@ -30,18 +30,12 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(EditPanel));
             this.pn_edit = new System.Windows.Forms.Panel();
-            this.btn_entidade = new System.Windows.Forms.Button();
-            this.btn_relacionamento = new System.Windows.Forms.Button();
-            this.btn_atributo = new System.Windows.Forms.Button();
-            this.btn_heranca = new System.Windows.Forms.Button();
-            this.btn_padrao = new System.Windows.Forms.Button();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.salvarToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.salvarComoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.salvarToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.importarToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.gerarSQLToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.btn_del = new System.Windows.Forms.Button();
             this.Info = new System.Windows.Forms.Label();
             this.BoxEntidade = new System.Windows.Forms.GroupBox();
             this.txtEntidadeY = new System.Windows.Forms.TextBox();
@@ -50,13 +44,21 @@
             this.label2 = new System.Windows.Forms.Label();
             this.NomeEntidade = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
+            this.btn_del = new System.Windows.Forms.Button();
             this.BoxAtributo = new System.Windows.Forms.GroupBox();
+            this.label12 = new System.Windows.Forms.Label();
+            this.label8 = new System.Windows.Forms.Label();
+            this.txtCardAtributoMax = new System.Windows.Forms.TextBox();
+            this.cbDerivado = new System.Windows.Forms.ComboBox();
+            this.Composto = new System.Windows.Forms.CheckBox();
             this.label7 = new System.Windows.Forms.Label();
+            this.cbDonoAtributo = new System.Windows.Forms.ComboBox();
             this.Derivado = new System.Windows.Forms.CheckBox();
             this.Primario = new System.Windows.Forms.CheckBox();
-            this.CardAtributo = new System.Windows.Forms.TextBox();
+            this.txtCardAtributoMin = new System.Windows.Forms.TextBox();
             this.label11 = new System.Windows.Forms.Label();
             this.label10 = new System.Windows.Forms.Label();
+            this.cbTipoAtributo = new System.Windows.Forms.ComboBox();
             this.NomeAtributo = new System.Windows.Forms.TextBox();
             this.label9 = new System.Windows.Forms.Label();
             this.btnExcluir = new System.Windows.Forms.Button();
@@ -69,10 +71,11 @@
             this.label6 = new System.Windows.Forms.Label();
             this.button1 = new System.Windows.Forms.Button();
             this.textBox1 = new System.Windows.Forms.TextBox();
-            this.cbDonoAtributo = new System.Windows.Forms.ComboBox();
-            this.cbTipoAtributo = new System.Windows.Forms.ComboBox();
-            this.Composto = new System.Windows.Forms.CheckBox();
-            this.cbDerivado = new System.Windows.Forms.ComboBox();
+            this.btn_padrao = new System.Windows.Forms.Button();
+            this.btn_heranca = new System.Windows.Forms.Button();
+            this.btn_atributo = new System.Windows.Forms.Button();
+            this.btn_relacionamento = new System.Windows.Forms.Button();
+            this.btn_entidade = new System.Windows.Forms.Button();
             this.menuStrip1.SuspendLayout();
             this.BoxEntidade.SuspendLayout();
             this.BoxAtributo.SuspendLayout();
@@ -88,80 +91,9 @@
             this.pn_edit.TabIndex = 1;
             this.pn_edit.TabStop = true;
             this.pn_edit.MouseClick += new System.Windows.Forms.MouseEventHandler(this.pn_edit_MouseClick);
+            this.pn_edit.MouseDown += new System.Windows.Forms.MouseEventHandler(this.pn_edit_MouseDown);
             this.pn_edit.MouseMove += new System.Windows.Forms.MouseEventHandler(this.pn_edit_MouseMove);
-            // 
-            // btn_entidade
-            // 
-            this.btn_entidade.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("btn_entidade.BackgroundImage")));
-            this.btn_entidade.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.btn_entidade.Cursor = System.Windows.Forms.Cursors.Default;
-            this.btn_entidade.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.btn_entidade.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btn_entidade.Location = new System.Drawing.Point(0, 92);
-            this.btn_entidade.Name = "btn_entidade";
-            this.btn_entidade.Size = new System.Drawing.Size(130, 80);
-            this.btn_entidade.TabIndex = 1;
-            this.btn_entidade.Text = "Entidade";
-            this.btn_entidade.UseVisualStyleBackColor = true;
-            this.btn_entidade.Click += new System.EventHandler(this.btn_entidade_Click);
-            // 
-            // btn_relacionamento
-            // 
-            this.btn_relacionamento.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("btn_relacionamento.BackgroundImage")));
-            this.btn_relacionamento.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.btn_relacionamento.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btn_relacionamento.Location = new System.Drawing.Point(0, 178);
-            this.btn_relacionamento.Name = "btn_relacionamento";
-            this.btn_relacionamento.Size = new System.Drawing.Size(130, 80);
-            this.btn_relacionamento.TabIndex = 1;
-            this.btn_relacionamento.Text = "Relacionamento";
-            this.btn_relacionamento.UseVisualStyleBackColor = true;
-            this.btn_relacionamento.Click += new System.EventHandler(this.btn_relacionamento_Click);
-            // 
-            // btn_atributo
-            // 
-            this.btn_atributo.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("btn_atributo.BackgroundImage")));
-            this.btn_atributo.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.btn_atributo.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.btn_atributo.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btn_atributo.Location = new System.Drawing.Point(0, 264);
-            this.btn_atributo.Name = "btn_atributo";
-            this.btn_atributo.Size = new System.Drawing.Size(130, 80);
-            this.btn_atributo.TabIndex = 1;
-            this.btn_atributo.Text = "Atributo";
-            this.btn_atributo.TextAlign = System.Drawing.ContentAlignment.BottomLeft;
-            this.btn_atributo.UseVisualStyleBackColor = true;
-            this.btn_atributo.Click += new System.EventHandler(this.btn_atributo_Click);
-            // 
-            // btn_heranca
-            // 
-            this.btn_heranca.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("btn_heranca.BackgroundImage")));
-            this.btn_heranca.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.btn_heranca.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.btn_heranca.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btn_heranca.Location = new System.Drawing.Point(0, 436);
-            this.btn_heranca.Name = "btn_heranca";
-            this.btn_heranca.Size = new System.Drawing.Size(130, 80);
-            this.btn_heranca.TabIndex = 1;
-            this.btn_heranca.Text = "Especialização";
-            this.btn_heranca.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
-            this.btn_heranca.UseVisualStyleBackColor = true;
-            this.btn_heranca.Click += new System.EventHandler(this.btn_heranca_Click);
-            // 
-            // btn_padrao
-            // 
-            this.btn_padrao.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("btn_padrao.BackgroundImage")));
-            this.btn_padrao.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.btn_padrao.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.btn_padrao.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btn_padrao.Location = new System.Drawing.Point(0, 350);
-            this.btn_padrao.Name = "btn_padrao";
-            this.btn_padrao.Size = new System.Drawing.Size(130, 80);
-            this.btn_padrao.TabIndex = 1;
-            this.btn_padrao.Text = "Padronização";
-            this.btn_padrao.TextAlign = System.Drawing.ContentAlignment.TopCenter;
-            this.btn_padrao.UseVisualStyleBackColor = true;
-            this.btn_padrao.Click += new System.EventHandler(this.btn_padrao_Click);
+            this.pn_edit.MouseUp += new System.Windows.Forms.MouseEventHandler(this.pn_edit_MouseUp);
             // 
             // menuStrip1
             // 
@@ -208,18 +140,6 @@
             this.gerarSQLToolStripMenuItem.Size = new System.Drawing.Size(71, 20);
             this.gerarSQLToolStripMenuItem.Text = "Gerar SQL";
             this.gerarSQLToolStripMenuItem.Click += new System.EventHandler(this.gerarSQLToolStripMenuItem_Click);
-            // 
-            // btn_del
-            // 
-            this.btn_del.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("btn_del.BackgroundImage")));
-            this.btn_del.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.btn_del.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.btn_del.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btn_del.Location = new System.Drawing.Point(206, 527);
-            this.btn_del.Name = "btn_del";
-            this.btn_del.Size = new System.Drawing.Size(71, 66);
-            this.btn_del.TabIndex = 0;
-            this.btn_del.UseVisualStyleBackColor = true;
             // 
             // Info
             // 
@@ -305,15 +225,30 @@
             this.label1.TabIndex = 1;
             this.label1.Text = "Nome:";
             // 
+            // btn_del
+            // 
+            this.btn_del.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("btn_del.BackgroundImage")));
+            this.btn_del.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.btn_del.DialogResult = System.Windows.Forms.DialogResult.Cancel;
+            this.btn_del.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btn_del.Location = new System.Drawing.Point(206, 527);
+            this.btn_del.Name = "btn_del";
+            this.btn_del.Size = new System.Drawing.Size(71, 66);
+            this.btn_del.TabIndex = 0;
+            this.btn_del.UseVisualStyleBackColor = true;
+            // 
             // BoxAtributo
             // 
+            this.BoxAtributo.Controls.Add(this.label12);
+            this.BoxAtributo.Controls.Add(this.label8);
+            this.BoxAtributo.Controls.Add(this.txtCardAtributoMax);
             this.BoxAtributo.Controls.Add(this.cbDerivado);
             this.BoxAtributo.Controls.Add(this.Composto);
             this.BoxAtributo.Controls.Add(this.label7);
             this.BoxAtributo.Controls.Add(this.cbDonoAtributo);
             this.BoxAtributo.Controls.Add(this.Derivado);
             this.BoxAtributo.Controls.Add(this.Primario);
-            this.BoxAtributo.Controls.Add(this.CardAtributo);
+            this.BoxAtributo.Controls.Add(this.txtCardAtributoMin);
             this.BoxAtributo.Controls.Add(this.label11);
             this.BoxAtributo.Controls.Add(this.label10);
             this.BoxAtributo.Controls.Add(this.cbTipoAtributo);
@@ -330,6 +265,58 @@
             this.BoxAtributo.Text = "Propriedades";
             this.BoxAtributo.Visible = false;
             // 
+            // label12
+            // 
+            this.label12.AutoSize = true;
+            this.label12.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label12.Location = new System.Drawing.Point(128, 267);
+            this.label12.Name = "label12";
+            this.label12.Size = new System.Drawing.Size(36, 18);
+            this.label12.TabIndex = 20;
+            this.label12.Text = "Max";
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label8.Location = new System.Drawing.Point(129, 234);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(32, 18);
+            this.label8.TabIndex = 19;
+            this.label8.Text = "Min";
+            // 
+            // txtCardAtributoMax
+            // 
+            this.txtCardAtributoMax.Location = new System.Drawing.Point(167, 262);
+            this.txtCardAtributoMax.Name = "txtCardAtributoMax";
+            this.txtCardAtributoMax.Size = new System.Drawing.Size(33, 23);
+            this.txtCardAtributoMax.TabIndex = 18;
+            this.txtCardAtributoMax.TextChanged += new System.EventHandler(this.txtCardAtributoMax_TextChanged);
+            // 
+            // cbDerivado
+            // 
+            this.cbDerivado.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest;
+            this.cbDerivado.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
+            this.cbDerivado.FormattingEnabled = true;
+            this.cbDerivado.Location = new System.Drawing.Point(131, 317);
+            this.cbDerivado.Name = "cbDerivado";
+            this.cbDerivado.Size = new System.Drawing.Size(128, 24);
+            this.cbDerivado.TabIndex = 17;
+            this.cbDerivado.UseWaitCursor = true;
+            this.cbDerivado.Visible = false;
+            this.cbDerivado.SelectedIndexChanged += new System.EventHandler(this.cbDerivado_SelectedIndexChanged);
+            // 
+            // Composto
+            // 
+            this.Composto.AutoSize = true;
+            this.Composto.Enabled = false;
+            this.Composto.Location = new System.Drawing.Point(33, 348);
+            this.Composto.Name = "Composto";
+            this.Composto.Size = new System.Drawing.Size(101, 20);
+            this.Composto.TabIndex = 16;
+            this.Composto.Text = "Composto";
+            this.Composto.UseVisualStyleBackColor = true;
+            // 
             // label7
             // 
             this.label7.AutoSize = true;
@@ -341,6 +328,17 @@
             this.label7.Text = "Dono:";
             this.label7.Click += new System.EventHandler(this.label7_Click);
             // 
+            // cbDonoAtributo
+            // 
+            this.cbDonoAtributo.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
+            this.cbDonoAtributo.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
+            this.cbDonoAtributo.FormattingEnabled = true;
+            this.cbDonoAtributo.Location = new System.Drawing.Point(84, 121);
+            this.cbDonoAtributo.Name = "cbDonoAtributo";
+            this.cbDonoAtributo.Size = new System.Drawing.Size(182, 24);
+            this.cbDonoAtributo.TabIndex = 14;
+            this.cbDonoAtributo.SelectedIndexChanged += new System.EventHandler(this.cbDonoAtributo_SelectedIndexChanged);
+            // 
             // Derivado
             // 
             this.Derivado.AutoSize = true;
@@ -350,6 +348,7 @@
             this.Derivado.TabIndex = 13;
             this.Derivado.Text = "Derivado";
             this.Derivado.UseVisualStyleBackColor = true;
+            this.Derivado.CheckedChanged += new System.EventHandler(this.Derivado_CheckedChanged);
             // 
             // Primario
             // 
@@ -360,13 +359,15 @@
             this.Primario.TabIndex = 12;
             this.Primario.Text = "Primario";
             this.Primario.UseVisualStyleBackColor = true;
+            this.Primario.CheckedChanged += new System.EventHandler(this.Primario_CheckedChanged);
             // 
-            // CardAtributo
+            // txtCardAtributoMin
             // 
-            this.CardAtributo.Location = new System.Drawing.Point(132, 233);
-            this.CardAtributo.Name = "CardAtributo";
-            this.CardAtributo.Size = new System.Drawing.Size(127, 23);
-            this.CardAtributo.TabIndex = 11;
+            this.txtCardAtributoMin.Location = new System.Drawing.Point(167, 233);
+            this.txtCardAtributoMin.Name = "txtCardAtributoMin";
+            this.txtCardAtributoMin.Size = new System.Drawing.Size(33, 23);
+            this.txtCardAtributoMin.TabIndex = 11;
+            this.txtCardAtributoMin.TextChanged += new System.EventHandler(this.txtCardAtributoMin_TextChanged);
             // 
             // label11
             // 
@@ -388,12 +389,24 @@
             this.label10.TabIndex = 9;
             this.label10.Text = "Tipo: ";
             // 
+            // cbTipoAtributo
+            // 
+            this.cbTipoAtributo.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest;
+            this.cbTipoAtributo.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
+            this.cbTipoAtributo.FormattingEnabled = true;
+            this.cbTipoAtributo.Location = new System.Drawing.Point(84, 177);
+            this.cbTipoAtributo.Name = "cbTipoAtributo";
+            this.cbTipoAtributo.Size = new System.Drawing.Size(182, 24);
+            this.cbTipoAtributo.TabIndex = 8;
+            this.cbTipoAtributo.SelectedIndexChanged += new System.EventHandler(this.comboTipo_SelectedIndexChanged);
+            // 
             // NomeAtributo
             // 
             this.NomeAtributo.Location = new System.Drawing.Point(84, 61);
             this.NomeAtributo.Name = "NomeAtributo";
             this.NomeAtributo.Size = new System.Drawing.Size(182, 23);
             this.NomeAtributo.TabIndex = 2;
+            this.NomeAtributo.TextChanged += new System.EventHandler(this.NomeAtributo_TextChanged);
             // 
             // label9
             // 
@@ -505,49 +518,78 @@
             this.textBox1.TabIndex = 0;
             this.textBox1.KeyDown += new System.Windows.Forms.KeyEventHandler(this.textBox1_KeyDown);
             // 
-            // cbDonoAtributo
+            // btn_padrao
             // 
-            this.cbDonoAtributo.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
-            this.cbDonoAtributo.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
-            this.cbDonoAtributo.FormattingEnabled = true;
-            this.cbDonoAtributo.Location = new System.Drawing.Point(84, 121);
-            this.cbDonoAtributo.Name = "cbDonoAtributo";
-            this.cbDonoAtributo.Size = new System.Drawing.Size(182, 24);
-            this.cbDonoAtributo.TabIndex = 14;
+            this.btn_padrao.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("btn_padrao.BackgroundImage")));
+            this.btn_padrao.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.btn_padrao.DialogResult = System.Windows.Forms.DialogResult.Cancel;
+            this.btn_padrao.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btn_padrao.Location = new System.Drawing.Point(0, 350);
+            this.btn_padrao.Name = "btn_padrao";
+            this.btn_padrao.Size = new System.Drawing.Size(130, 80);
+            this.btn_padrao.TabIndex = 1;
+            this.btn_padrao.Text = "Padronização";
+            this.btn_padrao.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            this.btn_padrao.UseVisualStyleBackColor = true;
+            this.btn_padrao.Click += new System.EventHandler(this.btn_padrao_Click);
             // 
-            // cbTipoAtributo
+            // btn_heranca
             // 
-            this.cbTipoAtributo.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest;
-            this.cbTipoAtributo.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
-            this.cbTipoAtributo.FormattingEnabled = true;
-            this.cbTipoAtributo.Location = new System.Drawing.Point(84, 177);
-            this.cbTipoAtributo.Name = "cbTipoAtributo";
-            this.cbTipoAtributo.Size = new System.Drawing.Size(182, 24);
-            this.cbTipoAtributo.TabIndex = 8;
-            this.cbTipoAtributo.SelectedIndexChanged += new System.EventHandler(this.comboTipo_SelectedIndexChanged);
+            this.btn_heranca.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("btn_heranca.BackgroundImage")));
+            this.btn_heranca.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.btn_heranca.DialogResult = System.Windows.Forms.DialogResult.Cancel;
+            this.btn_heranca.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btn_heranca.Location = new System.Drawing.Point(0, 436);
+            this.btn_heranca.Name = "btn_heranca";
+            this.btn_heranca.Size = new System.Drawing.Size(130, 80);
+            this.btn_heranca.TabIndex = 1;
+            this.btn_heranca.Text = "Especialização";
+            this.btn_heranca.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
+            this.btn_heranca.UseVisualStyleBackColor = true;
+            this.btn_heranca.Click += new System.EventHandler(this.btn_heranca_Click);
             // 
-            // Composto
+            // btn_atributo
             // 
-            this.Composto.AutoSize = true;
-            this.Composto.Enabled = false;
-            this.Composto.Location = new System.Drawing.Point(33, 348);
-            this.Composto.Name = "Composto";
-            this.Composto.Size = new System.Drawing.Size(101, 20);
-            this.Composto.TabIndex = 16;
-            this.Composto.Text = "Composto";
-            this.Composto.UseVisualStyleBackColor = true;
+            this.btn_atributo.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("btn_atributo.BackgroundImage")));
+            this.btn_atributo.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.btn_atributo.DialogResult = System.Windows.Forms.DialogResult.Cancel;
+            this.btn_atributo.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btn_atributo.Location = new System.Drawing.Point(0, 264);
+            this.btn_atributo.Name = "btn_atributo";
+            this.btn_atributo.Size = new System.Drawing.Size(130, 80);
+            this.btn_atributo.TabIndex = 1;
+            this.btn_atributo.Text = "Atributo";
+            this.btn_atributo.TextAlign = System.Drawing.ContentAlignment.BottomLeft;
+            this.btn_atributo.UseVisualStyleBackColor = true;
+            this.btn_atributo.Click += new System.EventHandler(this.btn_atributo_Click);
             // 
-            // cbDerivado
+            // btn_relacionamento
             // 
-            this.cbDerivado.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest;
-            this.cbDerivado.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
-            this.cbDerivado.FormattingEnabled = true;
-            this.cbDerivado.Location = new System.Drawing.Point(142, 315);
-            this.cbDerivado.Name = "cbDerivado";
-            this.cbDerivado.Size = new System.Drawing.Size(117, 24);
-            this.cbDerivado.TabIndex = 17;
-            this.cbDerivado.UseWaitCursor = true;
-            this.cbDerivado.Visible = false;
+            this.btn_relacionamento.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("btn_relacionamento.BackgroundImage")));
+            this.btn_relacionamento.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.btn_relacionamento.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btn_relacionamento.Location = new System.Drawing.Point(0, 178);
+            this.btn_relacionamento.Name = "btn_relacionamento";
+            this.btn_relacionamento.Size = new System.Drawing.Size(130, 80);
+            this.btn_relacionamento.TabIndex = 1;
+            this.btn_relacionamento.Text = "Relacionamento";
+            this.btn_relacionamento.UseVisualStyleBackColor = true;
+            this.btn_relacionamento.Click += new System.EventHandler(this.btn_relacionamento_Click);
+            // 
+            // btn_entidade
+            // 
+            this.btn_entidade.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("btn_entidade.BackgroundImage")));
+            this.btn_entidade.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.btn_entidade.Cursor = System.Windows.Forms.Cursors.Default;
+            this.btn_entidade.DialogResult = System.Windows.Forms.DialogResult.Cancel;
+            this.btn_entidade.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btn_entidade.Location = new System.Drawing.Point(0, 92);
+            this.btn_entidade.Name = "btn_entidade";
+            this.btn_entidade.Size = new System.Drawing.Size(130, 80);
+            this.btn_entidade.TabIndex = 1;
+            this.btn_entidade.Text = "Entidade";
+            this.btn_entidade.UseVisualStyleBackColor = true;
+            this.btn_entidade.Click += new System.EventHandler(this.btn_entidade_Click);
             // 
             // EditPanel
             // 
@@ -630,7 +672,7 @@
         private System.Windows.Forms.Label label10;
         private System.Windows.Forms.Label label11;
         private System.Windows.Forms.CheckBox Primario;
-        private System.Windows.Forms.TextBox CardAtributo;
+        private System.Windows.Forms.TextBox txtCardAtributoMin;
         private System.Windows.Forms.CheckBox Derivado;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.TextBox textBox1;
@@ -638,6 +680,9 @@
         private System.Windows.Forms.ComboBox cbTipoAtributo;
         private System.Windows.Forms.CheckBox Composto;
         private System.Windows.Forms.ComboBox cbDerivado;
+        private System.Windows.Forms.Label label12;
+        private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.TextBox txtCardAtributoMax;
     }
 }
 

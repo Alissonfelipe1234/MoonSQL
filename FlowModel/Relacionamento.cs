@@ -33,9 +33,20 @@ namespace FlowModel
         {
             this.qtdAtributos++;
         }
+
+        public void removeAtributo()
+        {
+            this.qtdAtributos--;
+        }
+
         public int getQtdAtributos()
         {
             return this.qtdAtributos;
+        }
+
+        public List<Cardinalidade> getCards()
+        {
+            return this.card;
         }
 
         public string getName ()
