@@ -44,6 +44,7 @@
             this.label2 = new System.Windows.Forms.Label();
             this.NomeEntidade = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
+            this.btn_del = new System.Windows.Forms.Button();
             this.BoxAtributo = new System.Windows.Forms.GroupBox();
             this.label12 = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
@@ -60,6 +61,7 @@
             this.cbTipoAtributo = new System.Windows.Forms.ComboBox();
             this.NomeAtributo = new System.Windows.Forms.TextBox();
             this.label9 = new System.Windows.Forms.Label();
+            this.btnExcluir = new System.Windows.Forms.Button();
             this.BoxRelacionamento = new System.Windows.Forms.GroupBox();
             this.RelacionamentoY = new System.Windows.Forms.TextBox();
             this.label4 = new System.Windows.Forms.Label();
@@ -67,19 +69,23 @@
             this.label5 = new System.Windows.Forms.Label();
             this.NomeRelacionamento = new System.Windows.Forms.TextBox();
             this.label6 = new System.Windows.Forms.Label();
+            this.button1 = new System.Windows.Forms.Button();
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.InfoOqueFazer = new System.Windows.Forms.Label();
             this.trackBar1 = new System.Windows.Forms.TrackBar();
             this.label13 = new System.Windows.Forms.Label();
             this.button2 = new System.Windows.Forms.Button();
-            this.btnExcluir = new System.Windows.Forms.Button();
             this.btn_padrao = new System.Windows.Forms.Button();
             this.btn_heranca = new System.Windows.Forms.Button();
             this.btn_atributo = new System.Windows.Forms.Button();
             this.btn_relacionamento = new System.Windows.Forms.Button();
             this.btn_entidade = new System.Windows.Forms.Button();
-            this.button1 = new System.Windows.Forms.Button();
-            this.btn_del = new System.Windows.Forms.Button();
+            this.EntidadeDono1 = new System.Windows.Forms.ComboBox();
+            this.label14 = new System.Windows.Forms.Label();
+            this.label15 = new System.Windows.Forms.Label();
+            this.EntidadeDono3 = new System.Windows.Forms.ComboBox();
+            this.label16 = new System.Windows.Forms.Label();
+            this.EntidadeDono2 = new System.Windows.Forms.ComboBox();
             this.menuStrip1.SuspendLayout();
             this.BoxEntidade.SuspendLayout();
             this.BoxAtributo.SuspendLayout();
@@ -108,7 +114,7 @@
             this.gerarSQLToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(1370, 24);
+            this.menuStrip1.Size = new System.Drawing.Size(1450, 24);
             this.menuStrip1.TabIndex = 0;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -230,6 +236,18 @@
             this.label1.TabIndex = 1;
             this.label1.Text = "Nome:";
             // 
+            // btn_del
+            // 
+            this.btn_del.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("btn_del.BackgroundImage")));
+            this.btn_del.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.btn_del.DialogResult = System.Windows.Forms.DialogResult.Cancel;
+            this.btn_del.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btn_del.Location = new System.Drawing.Point(206, 527);
+            this.btn_del.Name = "btn_del";
+            this.btn_del.Size = new System.Drawing.Size(71, 66);
+            this.btn_del.TabIndex = 0;
+            this.btn_del.UseVisualStyleBackColor = true;
+            // 
             // BoxAtributo
             // 
             this.BoxAtributo.Controls.Add(this.label12);
@@ -250,10 +268,10 @@
             this.BoxAtributo.Controls.Add(this.btnExcluir);
             this.BoxAtributo.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.BoxAtributo.Font = new System.Drawing.Font("Verdana", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.BoxAtributo.Location = new System.Drawing.Point(871, 22);
+            this.BoxAtributo.Location = new System.Drawing.Point(1162, 27);
             this.BoxAtributo.Name = "BoxAtributo";
             this.BoxAtributo.Size = new System.Drawing.Size(283, 605);
-            this.BoxAtributo.TabIndex = 8;
+            this.BoxAtributo.TabIndex = 1;
             this.BoxAtributo.TabStop = false;
             this.BoxAtributo.Text = "Propriedades";
             this.BoxAtributo.Visible = false;
@@ -414,8 +432,25 @@
             this.label9.TabIndex = 1;
             this.label9.Text = "Nome:";
             // 
+            // btnExcluir
+            // 
+            this.btnExcluir.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("btnExcluir.BackgroundImage")));
+            this.btnExcluir.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.btnExcluir.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnExcluir.Location = new System.Drawing.Point(206, 527);
+            this.btnExcluir.Name = "btnExcluir";
+            this.btnExcluir.Size = new System.Drawing.Size(71, 66);
+            this.btnExcluir.TabIndex = 0;
+            this.btnExcluir.UseVisualStyleBackColor = true;
+            // 
             // BoxRelacionamento
             // 
+            this.BoxRelacionamento.Controls.Add(this.label16);
+            this.BoxRelacionamento.Controls.Add(this.EntidadeDono2);
+            this.BoxRelacionamento.Controls.Add(this.label15);
+            this.BoxRelacionamento.Controls.Add(this.EntidadeDono3);
+            this.BoxRelacionamento.Controls.Add(this.label14);
+            this.BoxRelacionamento.Controls.Add(this.EntidadeDono1);
             this.BoxRelacionamento.Controls.Add(this.RelacionamentoY);
             this.BoxRelacionamento.Controls.Add(this.label4);
             this.BoxRelacionamento.Controls.Add(this.RelacionamentoX);
@@ -428,7 +463,7 @@
             this.BoxRelacionamento.Location = new System.Drawing.Point(1162, 30);
             this.BoxRelacionamento.Name = "BoxRelacionamento";
             this.BoxRelacionamento.Size = new System.Drawing.Size(283, 605);
-            this.BoxRelacionamento.TabIndex = 811;
+            this.BoxRelacionamento.TabIndex = 1;
             this.BoxRelacionamento.TabStop = false;
             this.BoxRelacionamento.Text = "Propriedades";
             this.BoxRelacionamento.Visible = false;
@@ -484,6 +519,17 @@
             this.label6.TabIndex = 1;
             this.label6.Text = "Nome:";
             // 
+            // button1
+            // 
+            this.button1.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("button1.BackgroundImage")));
+            this.button1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button1.Location = new System.Drawing.Point(206, 527);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(71, 66);
+            this.button1.TabIndex = 0;
+            this.button1.UseVisualStyleBackColor = true;
+            // 
             // textBox1
             // 
             this.textBox1.Location = new System.Drawing.Point(0, 96);
@@ -534,17 +580,6 @@
             this.button2.Size = new System.Drawing.Size(55, 58);
             this.button2.TabIndex = 813;
             this.button2.UseVisualStyleBackColor = true;
-            // 
-            // btnExcluir
-            // 
-            this.btnExcluir.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("btnExcluir.BackgroundImage")));
-            this.btnExcluir.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.btnExcluir.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnExcluir.Location = new System.Drawing.Point(206, 527);
-            this.btnExcluir.Name = "btnExcluir";
-            this.btnExcluir.Size = new System.Drawing.Size(71, 66);
-            this.btnExcluir.TabIndex = 0;
-            this.btnExcluir.UseVisualStyleBackColor = true;
             // 
             // btn_padrao
             // 
@@ -624,28 +659,70 @@
             this.btn_entidade.UseVisualStyleBackColor = false;
             this.btn_entidade.Click += new System.EventHandler(this.btn_entidade_Click);
             // 
-            // button1
+            // EntidadeDono1
             // 
-            this.button1.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("button1.BackgroundImage")));
-            this.button1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button1.Location = new System.Drawing.Point(206, 527);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(71, 66);
-            this.button1.TabIndex = 0;
-            this.button1.UseVisualStyleBackColor = true;
+            this.EntidadeDono1.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
+            this.EntidadeDono1.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
+            this.EntidadeDono1.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.EntidadeDono1.FormattingEnabled = true;
+            this.EntidadeDono1.Location = new System.Drawing.Point(112, 195);
+            this.EntidadeDono1.Name = "EntidadeDono1";
+            this.EntidadeDono1.Size = new System.Drawing.Size(165, 24);
+            this.EntidadeDono1.TabIndex = 21;
             // 
-            // btn_del
+            // label14
             // 
-            this.btn_del.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("btn_del.BackgroundImage")));
-            this.btn_del.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.btn_del.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.btn_del.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btn_del.Location = new System.Drawing.Point(206, 527);
-            this.btn_del.Name = "btn_del";
-            this.btn_del.Size = new System.Drawing.Size(71, 66);
-            this.btn_del.TabIndex = 0;
-            this.btn_del.UseVisualStyleBackColor = true;
+            this.label14.AutoSize = true;
+            this.label14.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label14.Location = new System.Drawing.Point(25, 195);
+            this.label14.Name = "label14";
+            this.label14.Size = new System.Drawing.Size(81, 18);
+            this.label14.TabIndex = 22;
+            this.label14.Text = "Entidade 1:";
+            // 
+            // label15
+            // 
+            this.label15.AutoSize = true;
+            this.label15.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label15.Location = new System.Drawing.Point(25, 255);
+            this.label15.Name = "label15";
+            this.label15.Size = new System.Drawing.Size(81, 18);
+            this.label15.TabIndex = 24;
+            this.label15.Text = "Entidade 3:";
+            this.label15.Visible = false;
+            // 
+            // EntidadeDono3
+            // 
+            this.EntidadeDono3.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
+            this.EntidadeDono3.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
+            this.EntidadeDono3.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.EntidadeDono3.FormattingEnabled = true;
+            this.EntidadeDono3.Location = new System.Drawing.Point(111, 255);
+            this.EntidadeDono3.Name = "EntidadeDono3";
+            this.EntidadeDono3.Size = new System.Drawing.Size(165, 24);
+            this.EntidadeDono3.TabIndex = 23;
+            this.EntidadeDono3.Visible = false;
+            // 
+            // label16
+            // 
+            this.label16.AutoSize = true;
+            this.label16.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label16.Location = new System.Drawing.Point(25, 225);
+            this.label16.Name = "label16";
+            this.label16.Size = new System.Drawing.Size(81, 18);
+            this.label16.TabIndex = 26;
+            this.label16.Text = "Entidade 2:";
+            // 
+            // EntidadeDono2
+            // 
+            this.EntidadeDono2.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
+            this.EntidadeDono2.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
+            this.EntidadeDono2.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.EntidadeDono2.FormattingEnabled = true;
+            this.EntidadeDono2.Location = new System.Drawing.Point(112, 225);
+            this.EntidadeDono2.Name = "EntidadeDono2";
+            this.EntidadeDono2.Size = new System.Drawing.Size(165, 24);
+            this.EntidadeDono2.TabIndex = 25;
             // 
             // EditPanel
             // 
@@ -656,12 +733,13 @@
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.BackColor = System.Drawing.Color.Snow;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
-            this.ClientSize = new System.Drawing.Size(1370, 647);
+            this.ClientSize = new System.Drawing.Size(1450, 647);
+            this.Controls.Add(this.BoxRelacionamento);
+            this.Controls.Add(this.BoxAtributo);
             this.Controls.Add(this.label13);
             this.Controls.Add(this.button2);
             this.Controls.Add(this.trackBar1);
             this.Controls.Add(this.InfoOqueFazer);
-            this.Controls.Add(this.BoxAtributo);
             this.Controls.Add(this.Info);
             this.Controls.Add(this.btn_padrao);
             this.Controls.Add(this.btn_heranca);
@@ -670,7 +748,6 @@
             this.Controls.Add(this.btn_entidade);
             this.Controls.Add(this.pn_edit);
             this.Controls.Add(this.menuStrip1);
-            this.Controls.Add(this.BoxRelacionamento);
             this.Controls.Add(this.textBox1);
             this.Controls.Add(this.BoxEntidade);
             this.Cursor = System.Windows.Forms.Cursors.Default;
@@ -748,6 +825,12 @@
         private System.Windows.Forms.TrackBar trackBar1;
         private System.Windows.Forms.Button button2;
         private System.Windows.Forms.Label label13;
+        private System.Windows.Forms.Label label16;
+        private System.Windows.Forms.ComboBox EntidadeDono2;
+        private System.Windows.Forms.Label label15;
+        private System.Windows.Forms.ComboBox EntidadeDono3;
+        private System.Windows.Forms.Label label14;
+        private System.Windows.Forms.ComboBox EntidadeDono1;
     }
 }
 

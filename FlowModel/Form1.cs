@@ -565,8 +565,11 @@ namespace FlowModel
 
                                 break;
                             case "Relacionamento":
+                                BoxRelacionamento.Visible = true;
+                                NomeRelacionamento.Text = this.selecionado.getName();
+                                RelacionamentoX.Text = this.selecionado.getX().ToString();
+                                RelacionamentoY.Text = this.selecionado.getY().ToString();
 
-                                
                                 break;
                             case "Atributo":
                                 BoxAtributo.Visible = true;
