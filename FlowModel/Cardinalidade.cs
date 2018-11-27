@@ -72,7 +72,15 @@ namespace FlowModel
 
         public bool GetArea(int x, int y)
         {
-            throw new NotImplementedException();
+            Bitmap bmpImagem = new Bitmap(1015, 600);
+            Graphics medidor = Graphics.FromImage(bmpImagem);
+            SizeF tamanhoString = medidor.MeasureString(this.getName(), new Font(new FontFamily("Arial"), 8));
+
+            if (x - this.x >= 0 && x - this.x <= tamanhoString.Width)
+                if (y - this.y >= 0 && y - this.y <= tamanhoString.Height)
+                    return true;
+
+            return false;
         }
 
         public string getName()

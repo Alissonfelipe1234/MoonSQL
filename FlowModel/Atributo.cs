@@ -284,7 +284,7 @@ namespace FlowModel
                     break;
                 case "Composto":
                     if (x - this.x >= 18 && x - this.x <= tamanhoString.Width + 18)
-                        if (y - this.y >= 28 + (this.indice * 14) && y - this.y <= 28 + (this.indice * 14) + tamanhoString.Height)
+                        if (y - this.y >= 0 + (this.indice * 14) && y - this.y <= 14 + (this.indice * 14) + tamanhoString.Height)
                             return true;
                     break;
             }

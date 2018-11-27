@@ -21,7 +21,7 @@ namespace FlowModel
         private const int tamanhoY = 600;
 
         private int click;
-        private bool achou, arrastandoFigura, desenhandoRelacionamento, desenhandoEntidade, desenhandoEspecializacao, desenhandoPadronizacao, desenhandoAtributo;
+        private bool BatterySaver, achou, arrastandoFigura, desenhandoRelacionamento, desenhandoEntidade, desenhandoEspecializacao, desenhandoPadronizacao, desenhandoAtributo;
         private int envolvidos;
 
         public EditPanel()
@@ -46,6 +46,7 @@ namespace FlowModel
             desenhandoEntidade = false;
             desenhandoAtributo = false;
             arrastandoFigura = false;
+            BatterySaver = false;
             selecionado = null;
             /*
             figuras.Add(new Entidade("TESTE1", 70, 70));
@@ -451,6 +452,36 @@ namespace FlowModel
         private void pn_edit_MouseUp(object sender, MouseEventArgs e)
         {
             arrastandoFigura = false;
+            if(BatterySaver)
+            {
+                grpImage.Clear(Color.White);
+                foreach (Desenho d in figuras)
+                    d.SeDesenhe(grpImage, pn_edit);
+            }
+        }
+
+        private void trackBar1_ValueChanged(object sender, EventArgs e)
+        {
+            if(trackBar1.Value == 0)
+            {
+                /*
+                btn_atributo.BackColor = Color.White;
+                btn_entidade.BackColor = Color.White;
+                btn_heranca.BackColor = Color.White;
+                btn_padrao.BackColor = Color.White;
+                btn_relacionamento.BackColor = Color.White;
+                */
+                BatterySaver = false;
+                trackBar1.BackColor = Color.Snow;
+                this.BackColor = Color.Snow;
+            }
+            else
+            {
+               
+                BatterySaver = true;
+                trackBar1.BackColor = Color.DarkGray;
+                this.BackColor = Color.DarkGray;
+            }
         }
 
         private void pn_edit_MouseDown(object sender, MouseEventArgs e)
@@ -498,10 +529,14 @@ namespace FlowModel
             {
                 this.selecionado.setX(e.X);
                 this.selecionado.setY(e.Y);
-                grpImage.Clear(Color.White);
-                foreach (Desenho f in figuras)
+                
+                if (!BatterySaver)
                 {
-                    f.SeDesenhe(grpImage, pn_edit);
+                    grpImage.Clear(Color.White);
+                    foreach (Desenho f in figuras)
+                    {
+                        f.SeDesenhe(grpImage, pn_edit);
+                    }
                 }
             }
         }

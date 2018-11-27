@@ -123,6 +123,16 @@ namespace FlowModel.Properties {
         /// <summary>
         ///   Consulta um recurso localizado do tipo System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap flower_512 {
+            get {
+                object obj = ResourceManager.GetObject("flower_512", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta um recurso localizado do tipo System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap Generalizacao {
             get {
                 object obj = ResourceManager.GetObject("Generalizacao", resourceCulture);
