@@ -82,18 +82,18 @@ namespace FlowModel
         
         public void SeDesenhe(Graphics g, Panel p)
         {
-            Pen caneta = new Pen(new System.Drawing.SolidBrush(System.Drawing.Color.Black));
+            Pen caneta = new Pen(Color.FromArgb(255, 0, 0, 0), 2);
             for (int i = 0; i < this.qtdEnv; i++)
             {
                 this.card[i].SeDesenhe(g,p);
-                g.DrawLine(caneta, this.x + 50, this.y + 25, this.ent[i].getX()+50, this.ent[i].getY()+25);
+                g.DrawLine(caneta, this.x + 50, this.y + 50, this.ent[i].getX()+50, this.ent[i].getY()+25);
                 this.ent[i].SeDesenhe(g,p);
             }
 
             Image newImage = (Image)Properties.Resources.ResourceManager.GetObject("Relacionamento");
             g.DrawImage(newImage, this.x, this.y);
             System.Drawing.SolidBrush drawBrush = new System.Drawing.SolidBrush(System.Drawing.Color.Black);
-            g.DrawString(this.nome, new Font(new FontFamily("Arial"), 10), drawBrush, this.x + 20, this.y + 37);
+            g.DrawString(this.nome, new Font(new FontFamily("Arial"), 10), drawBrush, this.x + 12, this.y + 37);
 
 
 

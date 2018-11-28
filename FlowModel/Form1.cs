@@ -835,7 +835,7 @@ namespace FlowModel
                         string d = "2";
                         if (InputBox("Novo Relacionamento", "Nome Relacionamento:", ref value) == DialogResult.OK)
                         {
-                            InputBox("Numero de 2 a 3", "Quantidade de Entidades envolvidas (2 ou 3):", ref d);
+                            InputBox("Numero de 1 a 3", "Quantidade de Entidades envolvidas (1 a 3):", ref d);
                             figuras.Add(new Relacionamento(value, e.X, e.Y, Convert.ToInt16(d)));
                         }
                         else
@@ -859,6 +859,13 @@ namespace FlowModel
                                 c.setCardMax(t[1]);
                                 //////// FINALIZA
                                 r.adicionarCardinalidade(c);
+                                if (r.getQtdEnvolvidos() == 1)
+                                {
+                                    r.SeDesenhe(grpImage, pn_edit);
+                                    desenhandoRelacionamento = false;
+                                    this.textBox1.Focus(); ;
+                                    click = 0;
+                                }
                                 achou = true;
                                 break;
                             }
