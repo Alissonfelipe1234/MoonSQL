@@ -566,10 +566,43 @@ namespace FlowModel
                                 break;
                             case "Relacionamento":
                                 BoxRelacionamento.Visible = true;
+                                DonoRelacionamento2.Visible = false;
+                                DonoRelacionamento3.Visible = false;
+                                EntidadeDono2.Visible = false;
+                                EntidadeDono3.Visible = false;
+
                                 NomeRelacionamento.Text = this.selecionado.getName();
                                 RelacionamentoX.Text = this.selecionado.getX().ToString();
                                 RelacionamentoY.Text = this.selecionado.getY().ToString();
+                                Relacionamento rela = (Relacionamento)this.selecionado;
+                                EntidadeDono1.Items.Clear(); 
+                                EntidadeDono2.Items.Clear();
+                                EntidadeDono3.Items.Clear();
 
+                                foreach (Desenho entidades in figuras)
+                                {
+                                    if(entidades.QuemSou().Equals("Entidade"))
+                                    {
+                                        EntidadeDono1.Items.Add(entidades);
+                                        EntidadeDono2.Items.Add(entidades);
+                                        EntidadeDono3.Items.Add(entidades);
+                                    }
+                                }
+                                List<Entidade> env = new List<Entidade>(rela.getEnvolvidos());
+                                if (rela.getQtdEnvolvidos() > 0)
+                                    EntidadeDono1.SelectedItem = env[0];
+                                if (rela.getQtdEnvolvidos() > 1)
+                                {
+                                    EntidadeDono2.SelectedItem = env[1];
+                                    DonoRelacionamento2.Visible = true;
+                                    EntidadeDono2.Visible = true;
+                                }
+                                if (rela.getQtdEnvolvidos() > 2)
+                                {
+                                    EntidadeDono3.SelectedItem = env[2];
+                                    DonoRelacionamento3.Visible = true;
+                                    EntidadeDono3.Visible = true;
+                                }
                                 break;
                             case "Atributo":
                                 BoxAtributo.Visible = true;

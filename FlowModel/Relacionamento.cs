@@ -68,6 +68,10 @@ namespace FlowModel
         {
             return this.qtdEnv;
         }
+        public List<Entidade> getEnvolvidos()
+        {
+            return this.ent;
+        }
 
         public void adicionarCardinalidade (Cardinalidade nova)
         {
