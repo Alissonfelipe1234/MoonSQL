@@ -54,7 +54,7 @@ namespace FlowModel
             return this.y;
         }
 
-        public void SeDesenhe(Graphics g, Panel p)
+        public void SeDesenhe(Graphics g)
         {
             System.Drawing.SolidBrush drawBrush = new System.Drawing.SolidBrush(System.Drawing.Color.Black);
             g.DrawString(this.getName(), new Font(new FontFamily("Arial"), 8), drawBrush, this.x, this.y);

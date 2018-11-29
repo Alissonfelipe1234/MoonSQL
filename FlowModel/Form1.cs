@@ -167,11 +167,13 @@ namespace FlowModel
             {
                 grpImage.Clear(Color.White);
                 foreach (Desenho d in figuras)
-                    d.SeDesenhe(grpImage, pn_edit);
+                    d.SeDesenhe(grpImage);
+                pn_edit.Refresh();
             }
             else
             {
-                this.selecionado.SeDesenhe(grpImage, pn_edit);
+                this.selecionado.SeDesenhe(grpImage);
+                pn_edit.Refresh();
             }
         }
 
@@ -197,7 +199,8 @@ namespace FlowModel
                     }
                     grpImage.Clear(Color.White);
                     foreach (Desenho d in figuras)
-                        d.SeDesenhe(grpImage, pn_edit);
+                        d.SeDesenhe(grpImage);
+                    pn_edit.Refresh();
                 }
             }
             catch (Exception)
@@ -237,7 +240,8 @@ namespace FlowModel
                     }
                     grpImage.Clear(Color.White);
                     foreach (Desenho d in figuras)
-                        d.SeDesenhe(grpImage, pn_edit);
+                        d.SeDesenhe(grpImage);
+                    pn_edit.Refresh();
                 }
             }
             catch (Exception)
@@ -281,7 +285,7 @@ namespace FlowModel
 
                 foreach (Desenho d in figuras)
                 {
-                    d.SeDesenhe(this.grpImage, this.pn_edit);
+                    d.SeDesenhe(this.grpImage);
                 }
                 this.pn_edit.Refresh();
                 this.selecionado = null;
@@ -299,8 +303,9 @@ namespace FlowModel
             grpImage.Clear(Color.White);
             foreach (Desenho figura in figuras)
             {
-                figura.SeDesenhe(grpImage, pn_edit);
+                figura.SeDesenhe(grpImage);
             }
+            pn_edit.Refresh();
         }
 
         private void cbDonoAtributo_SelectedIndexChanged(object sender, EventArgs e)
@@ -327,7 +332,8 @@ namespace FlowModel
 
             grpImage.Clear(Color.White);
             foreach (Desenho d in figuras)
-                d.SeDesenhe(grpImage, pn_edit);
+                d.SeDesenhe(grpImage);
+            pn_edit.Refresh();
         }
 
         private void txtCardAtributoMin_TextChanged(object sender, EventArgs e)
@@ -350,7 +356,8 @@ namespace FlowModel
                     }
                     Aselecionado.setCardMin(0);
                     foreach (Desenho f in figuras)
-                        f.SeDesenhe(grpImage, pn_edit);
+                        f.SeDesenhe(grpImage);
+                    pn_edit.Refresh();
                     break;
                 case "1":
                     grpImage.Clear(Color.White);
@@ -360,7 +367,8 @@ namespace FlowModel
                     }
                     Aselecionado.setCardMin(1);
                     foreach (Desenho f in figuras)
-                        f.SeDesenhe(grpImage, pn_edit);
+                        f.SeDesenhe(grpImage);
+                    pn_edit.Refresh();
                     break;
             }
 
@@ -375,7 +383,8 @@ namespace FlowModel
                 if(Aselecionado.getPropriedade()[4] == 1)
                 {
                     Aselecionado.setName(Aselecionado.getName() + " " + Aselecionado.getPropriedade()[3] + ", N");
-                    Aselecionado.SeDesenhe(grpImage, pn_edit);
+                    Aselecionado.SeDesenhe(grpImage);
+                    pn_edit.Refresh();
                     Aselecionado.setCardMax(2);
                 }
             }
@@ -387,7 +396,8 @@ namespace FlowModel
                     grpImage.Clear(Color.White);
                     foreach(Desenho f in figuras)
                     {
-                        f.SeDesenhe(grpImage, pn_edit);
+                        f.SeDesenhe(grpImage);
+                        pn_edit.Refresh();
                     }
                     Aselecionado.setCardMax(1);
                 }
@@ -403,7 +413,8 @@ namespace FlowModel
                 Aselecionado.comumToPrimario();
                 grpImage.Clear(Color.White);
                 foreach (Desenho g in figuras)
-                    g.SeDesenhe(grpImage, pn_edit);
+                    g.SeDesenhe(grpImage);
+                pn_edit.Refresh();
             }
             else
             {
@@ -412,7 +423,8 @@ namespace FlowModel
                     Aselecionado.PrimarioToComum();
                     grpImage.Clear(Color.White);
                     foreach (Desenho g in figuras)
-                        g.SeDesenhe(grpImage, pn_edit);
+                        g.SeDesenhe(grpImage);
+                    pn_edit.Refresh();
                 }
             }
         }
@@ -456,8 +468,97 @@ namespace FlowModel
             {
                 grpImage.Clear(Color.White);
                 foreach (Desenho d in figuras)
-                    d.SeDesenhe(grpImage, pn_edit);
+                    d.SeDesenhe(grpImage);
+                pn_edit.Refresh();
             }
+        }
+
+        private void NomeRelacionamento_TextChanged(object sender, EventArgs e)
+        {
+            this.selecionado.setName(NomeRelacionamento.Text);
+            grpImage.Clear(Color.White);
+            foreach (Desenho f in figuras)
+                f.SeDesenhe(grpImage);
+            pn_edit.Refresh();
+        }
+
+        private void RelacionamentoX_TextChanged(object sender, EventArgs e)
+        {
+            try
+            {
+                if (RelacionamentoX.Text != "" && RelacionamentoX.Text != "-")
+                {
+                    this.selecionado.setX(int.Parse(RelacionamentoX.Text));
+                    grpImage.Clear(Color.White);
+                    foreach (Desenho d in figuras)
+                        d.SeDesenhe(grpImage);
+                    pn_edit.Refresh();
+                }
+            }
+            catch (Exception)
+            {
+                RelacionamentoX.Text = this.selecionado.getX().ToString();
+            }
+        }
+
+        private void RelacionamentoY_TextChanged(object sender, EventArgs e)
+        {
+            try
+            {
+                if (RelacionamentoY.Text != "" && RelacionamentoY.Text != "-")
+                {
+                    this.selecionado.setY(int.Parse(RelacionamentoY.Text));
+                    grpImage.Clear(Color.White);
+                    foreach (Desenho d in figuras)
+                        d.SeDesenhe(grpImage);
+                    pn_edit.Refresh();
+                }
+            }
+            catch (Exception)
+            {
+                RelacionamentoY.Text = this.selecionado.getX().ToString();
+            }
+        }
+
+        private void EntidadeDono1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            
+            Entidade ex = (Entidade)EntidadeDono1.SelectedItem;
+            Relacionamento rel = (Relacionamento)this.selecionado;
+            rel.getCards()[0].setX(ex.getX());
+            rel.getCards()[0].setY(ex.getY()+50);
+
+            rel.setEntidade(0, ex);
+            foreach (Desenho d in figuras)
+                d.SeDesenhe(grpImage);
+            pn_edit.Refresh();
+        }
+
+        private void EntidadeDono2_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            Entidade ex = (Entidade)EntidadeDono1.SelectedItem;
+            Relacionamento rel = (Relacionamento)this.selecionado;
+            rel.getCards()[1].setX(ex.getX());
+            rel.getCards()[1].setY(ex.getY() + 50);
+
+            rel.setEntidade(1, ex);
+            foreach (Desenho d in figuras)
+                d.SeDesenhe(grpImage);
+            pn_edit.Refresh();
+        }
+
+        private void EntidadeDono3_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            Entidade ex = (Entidade)EntidadeDono1.SelectedItem;
+            Relacionamento rel = (Relacionamento)this.selecionado;
+            rel.getCards()[2].setX(ex.getX());
+            rel.getCards()[2].setY(ex.getY() + 50);
+
+            rel.setEntidade(2, ex);
+            grpImage.Clear(Color.White);
+            foreach (Desenho d in figuras)
+                d.SeDesenhe(grpImage);
+            pn_edit.Refresh();
         }
 
         private void trackBar1_ValueChanged(object sender, EventArgs e)
@@ -535,8 +636,9 @@ namespace FlowModel
                     grpImage.Clear(Color.White);
                     foreach (Desenho f in figuras)
                     {
-                        f.SeDesenhe(grpImage, pn_edit);
+                        f.SeDesenhe(grpImage);
                     }
+                    pn_edit.Refresh();
                 }
             }
         }
@@ -583,23 +685,35 @@ namespace FlowModel
                                 {
                                     if(entidades.QuemSou().Equals("Entidade"))
                                     {
-                                        EntidadeDono1.Items.Add(entidades);
-                                        EntidadeDono2.Items.Add(entidades);
-                                        EntidadeDono3.Items.Add(entidades);
+                                        EntidadeDono1.Items.Add(entidades);                                        
                                     }
                                 }
+                                foreach (Desenho entidades in figuras)
+                                {
+                                    if (entidades.QuemSou().Equals("Entidade"))
+                                    {
+                                        EntidadeDono2.Items.Add(entidades);
+                                    }
+                                }
+                                foreach (Desenho entidades in figuras)
+                                {
+                                    if (entidades.QuemSou().Equals("Entidade"))
+                                    {
+                                        EntidadeDono3.Items.Add(entidades);
+                                    }
+                                }                                
                                 List<Entidade> env = new List<Entidade>(rela.getEnvolvidos());
                                 if (rela.getQtdEnvolvidos() > 0)
-                                    EntidadeDono1.SelectedItem = env[0];
+                                    EntidadeDono1.Text = env[0].getName();
                                 if (rela.getQtdEnvolvidos() > 1)
                                 {
-                                    EntidadeDono2.SelectedItem = env[1];
+                                    EntidadeDono2.Text = env[1].getName();
                                     DonoRelacionamento2.Visible = true;
                                     EntidadeDono2.Visible = true;
                                 }
                                 if (rela.getQtdEnvolvidos() > 2)
                                 {
-                                    EntidadeDono3.SelectedItem = env[2];
+                                    EntidadeDono3.Text = env[2].getName();
                                     DonoRelacionamento3.Visible = true;
                                     EntidadeDono3.Visible = true;
                                 }
@@ -696,7 +810,8 @@ namespace FlowModel
                         if (InputBox("Novo Atributo", "Nome Atributo:", ref value) == DialogResult.OK)
                         { 
                             figuras.Add(new Atributo(value, figuras[i].getX(), figuras[i].getY() + 50, figuras[i]));
-                            figuras.Last().SeDesenhe(grpImage, pn_edit);
+                            figuras.Last().SeDesenhe(grpImage);
+                            pn_edit.Refresh();
                             desenhandoAtributo = false;
                             this.textBox1.Focus();
                             break;
@@ -722,7 +837,8 @@ namespace FlowModel
                             }
 
                             figuras.Add(new Atributo(value, cordXAtributo, cordYAtributo, figuras[i]));
-                            figuras.Last().SeDesenhe(grpImage, pn_edit);
+                            figuras.Last().SeDesenhe(grpImage);
+                            pn_edit.Refresh();
                             desenhandoAtributo = false;
                             this.textBox1.Focus();;
                             break;
@@ -779,7 +895,8 @@ namespace FlowModel
                     }
                     if (envolvidos == 0)
                     {
-                        figuras.Last().SeDesenhe(grpImage, pn_edit);
+                        figuras.Last().SeDesenhe(grpImage);
+                        pn_edit.Refresh();
                         desenhandoPadronizacao = false;
                         this.textBox1.Focus();;
                         click = 0;
@@ -837,7 +954,8 @@ namespace FlowModel
                     }
                     if (envolvidos == 0)
                     {                        
-                        figuras.Last().SeDesenhe(grpImage, pn_edit);
+                        figuras.Last().SeDesenhe(grpImage);
+                        pn_edit.Refresh();
                         desenhandoEspecializacao = false;
                         this.textBox1.Focus();;
                         click = 0;
@@ -852,7 +970,8 @@ namespace FlowModel
                 if (InputBox("Nova Entidade", "Nome Entidade:", ref value) == DialogResult.OK)
                 {
                     figuras.Add(new Entidade(value, e.X, e.Y));
-                    figuras[figuras.Count-1].SeDesenhe(grpImage, pn_edit);
+                    figuras[figuras.Count-1].SeDesenhe(grpImage);
+                    pn_edit.Refresh();
                 }
                 desenhandoEntidade = false;
                 this.textBox1.Focus();;
@@ -894,7 +1013,8 @@ namespace FlowModel
                                 r.adicionarCardinalidade(c);
                                 if (r.getQtdEnvolvidos() == 1)
                                 {
-                                    r.SeDesenhe(grpImage, pn_edit);
+                                    r.SeDesenhe(grpImage);
+                                    pn_edit.Refresh();
                                     desenhandoRelacionamento = false;
                                     this.textBox1.Focus(); ;
                                     click = 0;
@@ -924,7 +1044,8 @@ namespace FlowModel
                                 r.adicionarCardinalidade(c);
                                 if (r.getQtdEnvolvidos() == 2)
                                 {
-                                    r.SeDesenhe(grpImage, pn_edit);                                    
+                                    r.SeDesenhe(grpImage);
+                                    pn_edit.Refresh();
                                     desenhandoRelacionamento = false;
                                     this.textBox1.Focus();;
                                     click = 0;
@@ -952,7 +1073,8 @@ namespace FlowModel
                                 c.setCardMax(t[1]);
                                 //////// FINALIZA
                                 r.adicionarCardinalidade(c);
-                                r.SeDesenhe(grpImage, pn_edit);                                
+                                r.SeDesenhe(grpImage);
+                                pn_edit.Refresh();
                                 desenhandoRelacionamento = false;
                                 this.textBox1.Focus();;
                                 click = 0;

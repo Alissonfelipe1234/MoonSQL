@@ -28,7 +28,11 @@ namespace FlowModel
             this.qtdEnv = qtdEntidadesEnvolvidas;
             this.qtdAtributos = 0;
         }
-
+        public void setEntidade(int index, Entidade e)
+        {
+            this.ent.RemoveAt(index);
+            this.ent.Insert(index, e);
+        }
         public void addAtributo()
         {
             this.qtdAtributos++;
@@ -84,24 +88,20 @@ namespace FlowModel
                 this.ent.Add(e);
         }
         
-        public void SeDesenhe(Graphics g, Panel p)
+        public void SeDesenhe(Graphics g)
         {
             Pen caneta = new Pen(Color.FromArgb(255, 0, 0, 0), 2);
             for (int i = 0; i < this.qtdEnv; i++)
             {
-                this.card[i].SeDesenhe(g,p);
+                this.card[i].SeDesenhe(g);
                 g.DrawLine(caneta, this.x + 50, this.y + 50, this.ent[i].getX()+50, this.ent[i].getY()+25);
-                this.ent[i].SeDesenhe(g,p);
+                this.ent[i].SeDesenhe(g);
             }
 
             Image newImage = (Image)Properties.Resources.ResourceManager.GetObject("Relacionamento");
             g.DrawImage(newImage, this.x, this.y);
             System.Drawing.SolidBrush drawBrush = new System.Drawing.SolidBrush(System.Drawing.Color.Black);
             g.DrawString(this.nome, new Font(new FontFamily("Arial"), 10), drawBrush, this.x + 12, this.y + 37);
-
-
-
-            p.Refresh();
         }
 
         public string QuemSou()

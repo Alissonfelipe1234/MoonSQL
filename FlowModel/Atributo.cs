@@ -215,7 +215,7 @@ namespace FlowModel
             return "Atributo";
         }
 
-        public void SeDesenhe(Graphics g, Panel p)
+        public void SeDesenhe(Graphics g)
         {
             Image newImage;
             System.Drawing.SolidBrush drawBrush = new System.Drawing.SolidBrush(System.Drawing.Color.Black);
@@ -242,8 +242,6 @@ namespace FlowModel
                     g.DrawString(this.nome, new Font(new FontFamily("Arial"), 9), drawBrush, this.x + 18, this.y + 28 +(this.indice * 14));
                     break;
             }
-            //this.proprietario.SeDesenhe(g,p);
-            p.Refresh();
         }
 
         public void Propriedades(Panel p)

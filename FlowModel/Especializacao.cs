@@ -65,25 +65,18 @@ namespace FlowModel
             return "Especializacao";
         }
 
-        public void SeDesenhe(Graphics g, Panel p)
+        public void SeDesenhe(Graphics g)
         {
             Pen caneta = new Pen(new System.Drawing.SolidBrush(System.Drawing.Color.Black));
             g.DrawLine(caneta, this.x + 50, this.y, this.especializada.getX() + 50, this.especializada.getY() + 25);
-            this.especializada.SeDesenhe(g,p);
+            this.especializada.SeDesenhe(g);
             for (int i = 0; i < this.entidades.Count; i++)
             {
                 g.DrawLine(caneta, this.x + 50, this.y + 40, this.entidades[i].getX(), this.entidades[i].getY() + 25);
-                this.entidades[i].SeDesenhe(g, p);
+                this.entidades[i].SeDesenhe(g);
             }
             Image newImage = (Image)Properties.Resources.ResourceManager.GetObject("Especializacao");
             g.DrawImage(newImage, this.x, this.y);
-            //SizeF tam = g.MeasureString(this.nome, new Font(new FontFamily("Arial"), 12));
-            //tam.Width = tam.Width / 3;
-            //System.Drawing.SolidBrush drawBrush = new System.Drawing.SolidBrush(System.Drawing.Color.Black);
-            //g.DrawString(this.nome, new Font(new FontFamily("Arial"), 12), drawBrush, this.x + tam.Width, this.y + 20);
-
-        
-            p.Refresh();
         }
 
         public void Propriedades(Panel p)

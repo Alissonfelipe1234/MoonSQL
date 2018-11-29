@@ -61,15 +61,13 @@ namespace FlowModel
             return "Entidade";
         }
 
-        public void SeDesenhe(Graphics g, Panel p)
+        public void SeDesenhe(Graphics g)
         {
 
             Image newImage = (Image)Properties.Resources.ResourceManager.GetObject("Entidade");
             g.DrawImage(newImage, this.x, this.y);
             System.Drawing.SolidBrush drawBrush = new System.Drawing.SolidBrush(System.Drawing.Color.Black);
             g.DrawString(this.nome, new Font(new FontFamily("Arial"), 12), drawBrush, this.x + 5, this.y + 15);
-
-            p.Refresh();
         }
 
         public void Propriedades(Panel p)

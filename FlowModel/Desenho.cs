@@ -15,9 +15,8 @@ namespace FlowModel
         void setName(string name);
         void setX(int X);
         void setY(int Y);
-        void SeDesenhe(Graphics g, System.Windows.Forms.Panel p);
+        void SeDesenhe(Graphics g);
         string QuemSou();
-        void Propriedades(System.Windows.Forms.Panel p);
         bool GetArea(int x, int y);
     }
 }
