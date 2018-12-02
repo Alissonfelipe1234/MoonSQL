@@ -129,34 +129,161 @@ namespace FlowModel
         private void gerarSQLToolStripMenuItem_Click(object sender, EventArgs e)
         {
             string sqlGerado = "";
-            int tables = 0;
-            List<string> sql = new List<string>();
+            Dictionary<Entidade, string> sql = new Dictionary<Entidade, string>();
+            Dictionary<Desenho, string> tablesAltenative = new Dictionary<Desenho, string>();
+            Dictionary<Entidade, Atributo> PK = new Dictionary<Entidade, Atributo>();
             foreach (Desenho d in figuras)
             {
-                if(d.QuemSou() == "Entidade")
+                if (d.QuemSou() == "Entidade")
                 {
-                    
+
                     Entidade ent = (Entidade)d;
-                    sql.Add("Create Table " + ent.getName() + " {\n");
-                    foreach (Desenho a in figuras)
-                    {
-                        if (a.QuemSou() == "Atributo")
-                        {
-                            Atributo atributo = (Atributo)a;
-                            if(atributo.getProprietario() == d)
-                            {
-                                sql[tables] += atributo.getSql();
-                                if (atributo.getIndice() + 1 != ent.getQtdAtributos())
-                                    sql[tables] += ",\n";                                    
-                            }
-                        }
-                    }
-                    sql[tables] += "\n};\n\n";
-                    tables++;
+                    sql.Add(ent, "Create Table " + ent.getName() + " {\n");
                 }
             }
-            for (int i = 0; i < sql.Count; i++)
-                sqlGerado += sql[i];
+            foreach (Desenho a in figuras)
+            {
+                if (a.QuemSou() == "Atributo")
+                {
+                    Atributo atributo = (Atributo)a;
+                    if (atributo.getProprietario().QuemSou() == "Entidade")
+                    {
+                        if(atributo.getPropriedade()[0] == 1)
+                        {
+                            try
+                            {
+                                PK.Add((Entidade)atributo.getProprietario(), atributo);
+                            }
+                            catch { }
+                        }
+                        if (atributo.getCardMax() == 1)
+                        {
+                            Entidade EntidadeAtributo = (Entidade)atributo.getProprietario();
+                            sql[EntidadeAtributo] += atributo.getSql();
+                            if (atributo.getIndice() + 1 != EntidadeAtributo.getQtdAtributos())
+                                sql[EntidadeAtributo] += ",\n";
+                        }
+                        else
+                        {
+                            Entidade EntidadeAtributoMValorado = (Entidade)atributo.getProprietario();
+                            string nome = atributo.getName().Split(' ')[0];
+                            sql[EntidadeAtributoMValorado] += nome + "FK integer";
+                            if (atributo.getCardMin() != 0)
+                                sql[EntidadeAtributoMValorado] += " NOT NULL";
+                            if (atributo.getIndice() + 1 != EntidadeAtributoMValorado.getQtdAtributos())
+                                sql[EntidadeAtributoMValorado] += ",\n";
+
+                            tablesAltenative.Add(atributo, "Create Table " + nome + "(\n");
+                            tablesAltenative[atributo] += "ID" + nome + " serial Primary Key,\n";
+                            tablesAltenative[atributo] += atributo.getSql() + ",\n";
+                            tablesAltenative[atributo] += EntidadeAtributoMValorado.getName() + "FK integer,\n";
+                            tablesAltenative[atributo] += "CONSTRAINT " + nome + "_" + EntidadeAtributoMValorado.getName() + " FOREIGN KEY(FK" + EntidadeAtributoMValorado.getName() + ")\n"; 
+                            tablesAltenative[atributo] += "REFERENCES " + EntidadeAtributoMValorado.getName() + "(" + nome + "FK)\n)";
+                            tablesAltenative[atributo] += ");";
+                        }
+                    }
+                }
+            }
+            foreach (Desenho a in figuras)
+            {
+                if (a.QuemSou() == "Relacionamento")
+                {
+                    Relacionamento relacionamento = (Relacionamento)a;
+                    int envolvidos = relacionamento.getQtdEnvolvidos();
+                    switch (envolvidos)
+                    {
+                        case 1:
+                            Entidade dono = relacionamento.getEnvolvidos()[0];
+                            sql[dono] += ",\n" + relacionamento.getName();
+                            if (relacionamento.getCards()[0].getCardMin().Equals("1"))
+                                sql[dono] += " NOT NULL";
+                            try { sql[dono] += " FOREIGN KEY REFERENCES " + dono.getName() + "(" + PK[dono].getName() + ")"; }
+                            catch { sql[dono] += " FOREIGN KEY REFERENCES " + dono.getName() + "(" + dono.getName()+ "ID  )"; }
+                            break;
+                        case 2:
+                            Entidade dono1 = relacionamento.getEnvolvidos()[0];
+                            Entidade dono2 = relacionamento.getEnvolvidos()[1];
+                            Cardinalidade card1 = relacionamento.getCards()[0];
+                            Cardinalidade card2 = relacionamento.getCards()[1];
+                            if (card1.getCardMax().Equals("1") && card2.getCardMax().Equals("1"))
+                            {
+                                if(card1.getCardMin().Equals("1"))
+                                {
+                                    sql[dono1] += ",\n" + dono2.getName() + " Integer";
+                                    if (card2.getCardMin().Equals("1"))
+                                        sql[dono1] += " NOT NULL";
+                                    try { sql[dono1] += " FOREIGN KEY REFERENCES " + dono2.getName() + "(" + PK[dono2].getName() + ")"; }
+                                    catch { sql[dono1] += " FOREIGN KEY REFERENCES " + dono2.getName() + "(" + dono2.getName() + "ID  )"; }
+                                    int atr = relacionamento.getQtdAtributos();
+                                    if ( atr > 0)
+                                    {
+                                        sql[dono1] += ",\n";
+                                        foreach (Desenho f in figuras)
+                                        {
+                                            if(f.QuemSou().Equals("Atributo"))
+                                            {
+                                                Atributo possivel = (Atributo)f;
+                                                if (possivel.getProprietario() == relacionamento)
+                                                {
+                                                    sql[dono1] += possivel.getSql();
+                                                    atr--;
+                                                    if (atr > 0)
+                                                        sql[dono1] += ",\n";
+                                                    else
+                                                        break;
+
+                                                } 
+                                            }
+                                        }
+                                    }
+                                }
+                                else
+                                {
+                                    sql[dono2] += ",\n" + dono1.getName() + " Integer";
+                                    if (card2.getCardMin().Equals("1"))
+                                        sql[dono2] += " NOT NULL";
+                                    try { sql[dono2] += " FOREIGN KEY REFERENCES " + dono1.getName() + "(" + PK[dono1].getName() + ")"; }
+                                    catch { sql[dono2] += " FOREIGN KEY REFERENCES " + dono1.getName() + "(" + dono1.getName() + "ID  )"; }
+                                    int atr = relacionamento.getQtdAtributos();
+                                    if (atr > 0)
+                                    {
+                                        sql[dono2] += ",\n";
+                                        foreach (Desenho f in figuras)
+                                        {
+                                            if (f.QuemSou().Equals("Atributo"))
+                                            {
+                                                Atributo possivel = (Atributo)f;
+                                                if (possivel.getProprietario() == relacionamento)
+                                                {
+                                                    sql[dono2] += possivel.getSql();
+                                                    atr--;
+                                                    if (atr > 0)
+                                                        sql[dono2] += ",\n";
+                                                    else
+                                                        break;
+
+                                                }
+                                            }
+                                        }
+                                    }
+
+                                }
+                            }
+                            else
+                            {
+
+                            }
+                            break;
+                        case 3:
+                            break;
+                    }
+                }
+            }
+            foreach (KeyValuePair<Entidade, string> linha in sql)
+                sqlGerado += linha.Value + "\n);\n";
+            foreach (KeyValuePair<Desenho, string> linha in tablesAltenative)
+                sqlGerado += linha.Value + "\n";
+            richTextBox1.Text = sqlGerado;
         }
 
         private void NomeEntidade_TextChanged(object sender, EventArgs e)
@@ -592,7 +719,7 @@ namespace FlowModel
                 if (d.GetArea(e.X, e.Y))
                 {
                     this.selecionado = d;
-                    arrastandoFigura = true;
+                    arrastandoFigura = true;                   
                 }
                 if(d.QuemSou().Equals("Relacionamento"))
                 {
@@ -685,23 +812,12 @@ namespace FlowModel
                                 {
                                     if(entidades.QuemSou().Equals("Entidade"))
                                     {
-                                        EntidadeDono1.Items.Add(entidades);                                        
-                                    }
-                                }
-                                foreach (Desenho entidades in figuras)
-                                {
-                                    if (entidades.QuemSou().Equals("Entidade"))
-                                    {
+                                        EntidadeDono1.Items.Add(entidades);
                                         EntidadeDono2.Items.Add(entidades);
-                                    }
-                                }
-                                foreach (Desenho entidades in figuras)
-                                {
-                                    if (entidades.QuemSou().Equals("Entidade"))
-                                    {
                                         EntidadeDono3.Items.Add(entidades);
                                     }
-                                }                                
+                                }                    
+                                
                                 List<Entidade> env = new List<Entidade>(rela.getEnvolvidos());
                                 if (rela.getQtdEnvolvidos() > 0)
                                     EntidadeDono1.Text = env[0].getName();

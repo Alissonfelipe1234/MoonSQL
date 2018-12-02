@@ -111,6 +111,16 @@ namespace FlowModel
             List<int> atual = this.propriedades.GetStatus();
             this.propriedades.Altera(Convert.ToBoolean(atual[0]), Convert.ToBoolean(atual[1]), Convert.ToBoolean(atual[2]), atual[3], cardMax);
         }
+        public int getCardMin()
+        {
+            List<int> atual = this.propriedades.GetStatus();
+            return atual[3];
+        }
+        public int getCardMax()
+        {
+            List<int> atual = this.propriedades.GetStatus();
+            return atual[4];
+        }
 
         public void AlteraTipo (List<int> status)
         {
@@ -191,7 +201,7 @@ namespace FlowModel
         public string getSql()
         {
             string str = "";
-            str += this.getName() + " ";
+            str += this.getName().Split(' ')[0] + " ";
             str += this.dado.getDado() + " ";
             switch (this.propriedades.getPropriedades())
             {
