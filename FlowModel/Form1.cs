@@ -194,7 +194,7 @@ namespace FlowModel
                     {
                         case 1:
                             Entidade dono = relacionamento.getEnvolvidos()[0];
-                            if(PK[dono] == null)
+                            if(PK.ContainsKey(dono))
                             {
                                 if(dono.getQtdAtributos() > 0)
                                     sql[dono] += ",\n" + dono.getName() + "ID Integer PRIMARY KEY";
@@ -217,7 +217,10 @@ namespace FlowModel
                             {
                                 if(card1.getCardMin().Equals("1"))
                                 {
-                                    sql[dono1] += ",\n" + dono2.getName() + " Integer";
+                                    if(dono1.getQtdAtributos() > 0)
+                                        sql[dono1] += ",\n" + dono2.getName() + " Integer";
+                                    else
+                                        sql[dono1] += dono2.getName() + " Integer";
                                     if (card2.getCardMin().Equals("1"))
                                         sql[dono1] += " NOT NULL";
                                     try { sql[dono1] += " FOREIGN KEY REFERENCES " + dono2.getName() + "(" + PK[dono2].getName() + ")"; }
@@ -253,7 +256,10 @@ namespace FlowModel
                                 }
                                 else
                                 {
-                                    sql[dono2] += ",\n" + dono1.getName() + " Integer";
+                                    if(dono2.getQtdAtributos() > 0)
+                                        sql[dono2] += ",\n" + dono1.getName() + " Integer";
+                                    else
+                                        sql[dono2] += dono1.getName() + " Integer";
                                     if (card2.getCardMin().Equals("1"))
                                         sql[dono2] += " NOT NULL";
                                     try { sql[dono2] += " FOREIGN KEY REFERENCES " + dono1.getName() + "(" + PK[dono1].getName() + ")"; }
@@ -1311,24 +1317,38 @@ namespace FlowModel
                                 {
                                     if(entidades.QuemSou().Equals("Entidade"))
                                     {
-                                        EntidadeDono1.Items.Add(entidades);
+                                        EntidadeDono1.Items.Add(entidades);                                       
+                                    }
+                                }
+                                foreach (Desenho entidades in figuras)
+                                {
+                                    if (entidades.QuemSou().Equals("Entidade"))
+                                    {
                                         EntidadeDono2.Items.Add(entidades);
+                                    }
+                                }
+                                foreach (Desenho entidades in figuras)
+                                {
+                                    if (entidades.QuemSou().Equals("Entidade"))
+                                    {
                                         EntidadeDono3.Items.Add(entidades);
                                     }
-                                }                    
-                                
+                                }
+
                                 List<Entidade> env = new List<Entidade>(rela.getEnvolvidos());
                                 if (rela.getQtdEnvolvidos() > 0)
                                     EntidadeDono1.Text = env[0].getName();
                                 if (rela.getQtdEnvolvidos() > 1)
                                 {
-                                    EntidadeDono2.Text = env[1].getName();
+                                    EntidadeDono2.SelectedText = "";
+                                    EntidadeDono2.SelectedText = env[1].getName();
                                     DonoRelacionamento2.Visible = true;
                                     EntidadeDono2.Visible = true;
                                 }
                                 if (rela.getQtdEnvolvidos() > 2)
                                 {
-                                    EntidadeDono3.Text = env[2].getName();
+                                    EntidadeDono3.SelectedText = "";
+                                    EntidadeDono3.SelectedText = env[2].getName();
                                     DonoRelacionamento3.Visible = true;
                                     EntidadeDono3.Visible = true;
                                 }

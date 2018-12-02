@@ -76,19 +76,25 @@
             this.InfoOqueFazer = new System.Windows.Forms.Label();
             this.trackBar1 = new System.Windows.Forms.TrackBar();
             this.label13 = new System.Windows.Forms.Label();
+            this.pn_edit = new System.Windows.Forms.Panel();
+            this.richTextBox1 = new System.Windows.Forms.RichTextBox();
+            this.label14 = new System.Windows.Forms.Label();
             this.button2 = new System.Windows.Forms.Button();
             this.btn_padrao = new System.Windows.Forms.Button();
             this.btn_heranca = new System.Windows.Forms.Button();
             this.btn_atributo = new System.Windows.Forms.Button();
             this.btn_relacionamento = new System.Windows.Forms.Button();
             this.btn_entidade = new System.Windows.Forms.Button();
-            this.pn_edit = new System.Windows.Forms.Panel();
-            this.richTextBox1 = new System.Windows.Forms.RichTextBox();
+            this.Nome = new System.Windows.Forms.TextBox();
+            this.Baixar = new System.Windows.Forms.Button();
+            this.gerador = new System.Windows.Forms.Button();
+            this.button1 = new System.Windows.Forms.Button();
             this.menuStrip1.SuspendLayout();
             this.BoxEntidade.SuspendLayout();
             this.BoxAtributo.SuspendLayout();
             this.BoxRelacionamento.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.trackBar1)).BeginInit();
+            this.pn_edit.SuspendLayout();
             this.SuspendLayout();
             // 
             // menuStrip1
@@ -115,13 +121,13 @@
             // salvarComoToolStripMenuItem
             // 
             this.salvarComoToolStripMenuItem.Name = "salvarComoToolStripMenuItem";
-            this.salvarComoToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.salvarComoToolStripMenuItem.Size = new System.Drawing.Size(139, 22);
             this.salvarComoToolStripMenuItem.Text = "Salvar como";
             // 
             // salvarToolStripMenuItem1
             // 
             this.salvarToolStripMenuItem1.Name = "salvarToolStripMenuItem1";
-            this.salvarToolStripMenuItem1.Size = new System.Drawing.Size(180, 22);
+            this.salvarToolStripMenuItem1.Size = new System.Drawing.Size(139, 22);
             this.salvarToolStripMenuItem1.Text = "Salvar";
             // 
             // importarToolStripMenuItem
@@ -149,7 +155,6 @@
             // 
             // BoxEntidade
             // 
-            this.BoxEntidade.Controls.Add(this.BoxRelacionamento);
             this.BoxEntidade.Controls.Add(this.txtEntidadeY);
             this.BoxEntidade.Controls.Add(this.label3);
             this.BoxEntidade.Controls.Add(this.txtEntidadeX);
@@ -420,7 +425,7 @@
             this.BoxRelacionamento.Controls.Add(this.label6);
             this.BoxRelacionamento.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.BoxRelacionamento.Font = new System.Drawing.Font("Verdana", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.BoxRelacionamento.Location = new System.Drawing.Point(0, 0);
+            this.BoxRelacionamento.Location = new System.Drawing.Point(1080, 27);
             this.BoxRelacionamento.Name = "BoxRelacionamento";
             this.BoxRelacionamento.Size = new System.Drawing.Size(283, 291);
             this.BoxRelacionamento.TabIndex = 0;
@@ -554,7 +559,7 @@
             // 
             // textBox1
             // 
-            this.textBox1.Location = new System.Drawing.Point(0, 96);
+            this.textBox1.Location = new System.Drawing.Point(0, 114);
             this.textBox1.Name = "textBox1";
             this.textBox1.Size = new System.Drawing.Size(100, 20);
             this.textBox1.TabIndex = 0;
@@ -591,6 +596,38 @@
             this.label13.TabIndex = 814;
             this.label13.Text = "Battery Save";
             // 
+            // pn_edit
+            // 
+            this.pn_edit.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.pn_edit.Controls.Add(this.richTextBox1);
+            this.pn_edit.Location = new System.Drawing.Point(142, 27);
+            this.pn_edit.Name = "pn_edit";
+            this.pn_edit.Size = new System.Drawing.Size(932, 600);
+            this.pn_edit.TabIndex = 1;
+            this.pn_edit.TabStop = true;
+            this.pn_edit.MouseClick += new System.Windows.Forms.MouseEventHandler(this.pn_edit_MouseClick);
+            this.pn_edit.MouseDown += new System.Windows.Forms.MouseEventHandler(this.pn_edit_MouseDown);
+            this.pn_edit.MouseMove += new System.Windows.Forms.MouseEventHandler(this.pn_edit_MouseMove);
+            this.pn_edit.MouseUp += new System.Windows.Forms.MouseEventHandler(this.pn_edit_MouseUp);
+            // 
+            // richTextBox1
+            // 
+            this.richTextBox1.Location = new System.Drawing.Point(679, 376);
+            this.richTextBox1.Name = "richTextBox1";
+            this.richTextBox1.Size = new System.Drawing.Size(250, 220);
+            this.richTextBox1.TabIndex = 815;
+            this.richTextBox1.Text = "";
+            // 
+            // label14
+            // 
+            this.label14.AutoSize = true;
+            this.label14.Font = new System.Drawing.Font("Noto Mono", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label14.Location = new System.Drawing.Point(6, 27);
+            this.label14.Name = "label14";
+            this.label14.Size = new System.Drawing.Size(125, 18);
+            this.label14.TabIndex = 816;
+            this.label14.Text = "Nome Projeto:";
+            // 
             // button2
             // 
             this.button2.BackgroundImage = global::FlowModel.Properties.Resources.flower_512;
@@ -610,7 +647,7 @@
             this.btn_padrao.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.btn_padrao.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.btn_padrao.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btn_padrao.Location = new System.Drawing.Point(0, 350);
+            this.btn_padrao.Location = new System.Drawing.Point(0, 372);
             this.btn_padrao.Name = "btn_padrao";
             this.btn_padrao.Size = new System.Drawing.Size(130, 80);
             this.btn_padrao.TabIndex = 1;
@@ -626,7 +663,7 @@
             this.btn_heranca.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.btn_heranca.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.btn_heranca.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btn_heranca.Location = new System.Drawing.Point(0, 436);
+            this.btn_heranca.Location = new System.Drawing.Point(0, 458);
             this.btn_heranca.Name = "btn_heranca";
             this.btn_heranca.Size = new System.Drawing.Size(130, 80);
             this.btn_heranca.TabIndex = 1;
@@ -642,7 +679,7 @@
             this.btn_atributo.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.btn_atributo.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.btn_atributo.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btn_atributo.Location = new System.Drawing.Point(0, 264);
+            this.btn_atributo.Location = new System.Drawing.Point(0, 286);
             this.btn_atributo.Name = "btn_atributo";
             this.btn_atributo.Size = new System.Drawing.Size(130, 80);
             this.btn_atributo.TabIndex = 1;
@@ -657,7 +694,7 @@
             this.btn_relacionamento.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("btn_relacionamento.BackgroundImage")));
             this.btn_relacionamento.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.btn_relacionamento.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btn_relacionamento.Location = new System.Drawing.Point(0, 178);
+            this.btn_relacionamento.Location = new System.Drawing.Point(0, 200);
             this.btn_relacionamento.Name = "btn_relacionamento";
             this.btn_relacionamento.Size = new System.Drawing.Size(130, 80);
             this.btn_relacionamento.TabIndex = 1;
@@ -673,7 +710,7 @@
             this.btn_entidade.Cursor = System.Windows.Forms.Cursors.Default;
             this.btn_entidade.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.btn_entidade.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btn_entidade.Location = new System.Drawing.Point(0, 92);
+            this.btn_entidade.Location = new System.Drawing.Point(0, 114);
             this.btn_entidade.Name = "btn_entidade";
             this.btn_entidade.Size = new System.Drawing.Size(130, 80);
             this.btn_entidade.TabIndex = 1;
@@ -681,26 +718,52 @@
             this.btn_entidade.UseVisualStyleBackColor = false;
             this.btn_entidade.Click += new System.EventHandler(this.btn_entidade_Click);
             // 
-            // pn_edit
+            // Nome
             // 
-            this.pn_edit.BackColor = System.Drawing.Color.WhiteSmoke;
-            this.pn_edit.Location = new System.Drawing.Point(142, 27);
-            this.pn_edit.Name = "pn_edit";
-            this.pn_edit.Size = new System.Drawing.Size(932, 600);
-            this.pn_edit.TabIndex = 1;
-            this.pn_edit.TabStop = true;
-            this.pn_edit.MouseClick += new System.Windows.Forms.MouseEventHandler(this.pn_edit_MouseClick);
-            this.pn_edit.MouseDown += new System.Windows.Forms.MouseEventHandler(this.pn_edit_MouseDown);
-            this.pn_edit.MouseMove += new System.Windows.Forms.MouseEventHandler(this.pn_edit_MouseMove);
-            this.pn_edit.MouseUp += new System.Windows.Forms.MouseEventHandler(this.pn_edit_MouseUp);
+            this.Nome.Font = new System.Drawing.Font("Arial", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.Nome.Location = new System.Drawing.Point(9, 48);
+            this.Nome.Name = "Nome";
+            this.Nome.Size = new System.Drawing.Size(113, 25);
+            this.Nome.TabIndex = 8;
+            this.Nome.Text = "Untitled";
             // 
-            // richTextBox1
+            // Baixar
             // 
-            this.richTextBox1.Location = new System.Drawing.Point(1080, 408);
-            this.richTextBox1.Name = "richTextBox1";
-            this.richTextBox1.Size = new System.Drawing.Size(250, 220);
-            this.richTextBox1.TabIndex = 815;
-            this.richTextBox1.Text = "";
+            this.Baixar.BackColor = System.Drawing.Color.Transparent;
+            this.Baixar.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("Baixar.BackgroundImage")));
+            this.Baixar.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.Baixar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.Baixar.Location = new System.Drawing.Point(1080, 408);
+            this.Baixar.Name = "Baixar";
+            this.Baixar.Size = new System.Drawing.Size(78, 44);
+            this.Baixar.TabIndex = 817;
+            this.Baixar.UseVisualStyleBackColor = false;
+            // 
+            // gerador
+            // 
+            this.gerador.BackColor = System.Drawing.Color.Transparent;
+            this.gerador.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("gerador.BackgroundImage")));
+            this.gerador.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.gerador.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.gerador.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.gerador.Location = new System.Drawing.Point(1149, 481);
+            this.gerador.Name = "gerador";
+            this.gerador.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.gerador.Size = new System.Drawing.Size(151, 142);
+            this.gerador.TabIndex = 818;
+            this.gerador.UseVisualStyleBackColor = false;
+            // 
+            // button1
+            // 
+            this.button1.BackColor = System.Drawing.Color.Transparent;
+            this.button1.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("button1.BackgroundImage")));
+            this.button1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button1.Location = new System.Drawing.Point(1285, 408);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(78, 44);
+            this.button1.TabIndex = 819;
+            this.button1.UseVisualStyleBackColor = false;
             // 
             // EditPanel
             // 
@@ -712,7 +775,14 @@
             this.BackColor = System.Drawing.Color.Snow;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
             this.ClientSize = new System.Drawing.Size(1370, 647);
-            this.Controls.Add(this.richTextBox1);
+            this.Controls.Add(this.button1);
+            this.Controls.Add(this.gerador);
+            this.Controls.Add(this.Baixar);
+            this.Controls.Add(this.Nome);
+            this.Controls.Add(this.label14);
+            this.Controls.Add(this.BoxEntidade);
+            this.Controls.Add(this.BoxRelacionamento);
+            this.Controls.Add(this.BoxAtributo);
             this.Controls.Add(this.label13);
             this.Controls.Add(this.button2);
             this.Controls.Add(this.trackBar1);
@@ -726,8 +796,6 @@
             this.Controls.Add(this.pn_edit);
             this.Controls.Add(this.menuStrip1);
             this.Controls.Add(this.textBox1);
-            this.Controls.Add(this.BoxEntidade);
-            this.Controls.Add(this.BoxAtributo);
             this.Cursor = System.Windows.Forms.Cursors.Default;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MainMenuStrip = this.menuStrip1;
@@ -745,6 +813,7 @@
             this.BoxRelacionamento.ResumeLayout(false);
             this.BoxRelacionamento.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.trackBar1)).EndInit();
+            this.pn_edit.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -806,6 +875,11 @@
         private System.Windows.Forms.ComboBox EntidadeDono1;
         private System.Windows.Forms.Panel pn_edit;
         private System.Windows.Forms.RichTextBox richTextBox1;
+        private System.Windows.Forms.Label label14;
+        private System.Windows.Forms.TextBox Nome;
+        private System.Windows.Forms.Button Baixar;
+        private System.Windows.Forms.Button gerador;
+        private System.Windows.Forms.Button button1;
     }
 }
 
