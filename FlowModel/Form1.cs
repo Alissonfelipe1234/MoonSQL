@@ -138,7 +138,7 @@ namespace FlowModel
                 {
 
                     Entidade ent = (Entidade)d;
-                    sql.Add(ent, "Create Table " + ent.getName() + " {\n");
+                    sql.Add(ent, "Create Table " + ent.getName() + " (\n");
                 }
             }
             foreach (Desenho a in figuras)
@@ -173,7 +173,7 @@ namespace FlowModel
                             if (atributo.getIndice() + 1 != EntidadeAtributoMValorado.getQtdAtributos())
                                 sql[EntidadeAtributoMValorado] += ",\n";
 
-                            tablesAltenative.Add(atributo, "Create Table " + nome + "(\n");
+                            tablesAltenative.Add(atributo, "Create Table " + nome + " (\n");
                             tablesAltenative[atributo] += "ID" + nome + " serial Primary Key,\n";
                             tablesAltenative[atributo] += atributo.getSql() + ",\n";
                             tablesAltenative[atributo] += EntidadeAtributoMValorado.getName() + "FK integer,\n";
@@ -194,6 +194,8 @@ namespace FlowModel
                     {
                         case 1:
                             Entidade dono = relacionamento.getEnvolvidos()[0];
+                            if(PK[dono] == null)
+                                sql[dono] += ",\n" + dono.getName() + "ID Integer PRIMARY KEY";
                             sql[dono] += ",\n" + relacionamento.getName();
                             if (relacionamento.getCards()[0].getCardMin().Equals("1"))
                                 sql[dono] += " NOT NULL";
@@ -213,7 +215,10 @@ namespace FlowModel
                                     if (card2.getCardMin().Equals("1"))
                                         sql[dono1] += " NOT NULL";
                                     try { sql[dono1] += " FOREIGN KEY REFERENCES " + dono2.getName() + "(" + PK[dono2].getName() + ")"; }
-                                    catch { sql[dono1] += " FOREIGN KEY REFERENCES " + dono2.getName() + "(" + dono2.getName() + "ID  )"; }
+                                    catch {
+                                        sql[dono1] += " FOREIGN KEY REFERENCES " + dono2.getName() + "(" + dono2.getName() + "ID  )";
+                                        sql[dono2] += ",\n" + dono2.getName() + "ID Integer PRIMARY KEY";
+                                    }
                                     int atr = relacionamento.getQtdAtributos();
                                     if ( atr > 0)
                                     {
@@ -243,7 +248,10 @@ namespace FlowModel
                                     if (card2.getCardMin().Equals("1"))
                                         sql[dono2] += " NOT NULL";
                                     try { sql[dono2] += " FOREIGN KEY REFERENCES " + dono1.getName() + "(" + PK[dono1].getName() + ")"; }
-                                    catch { sql[dono2] += " FOREIGN KEY REFERENCES " + dono1.getName() + "(" + dono1.getName() + "ID  )"; }
+                                    catch {
+                                        sql[dono2] += " FOREIGN KEY REFERENCES " + dono1.getName() + "(" + dono1.getName() + "ID  )";
+                                        sql[dono1] += ",\n" + dono1.getName() + "ID Integer PRIMARY KEY";
+                                    }
                                     int atr = relacionamento.getQtdAtributos();
                                     if (atr > 0)
                                     {
@@ -269,9 +277,126 @@ namespace FlowModel
 
                                 }
                             }
+                            else if (!card1.getCardMax().Equals(card2.getCardMax()))
+                            {
+                                if(card1.getCardMax().Equals("N"))
+                                {
+                                    sql[dono1] += ",\n" + dono2.getName() + " Integer";
+                                    if (card2.getCardMin().Equals("1"))
+                                        sql[dono1] += " NOT NULL";
+                                    try { sql[dono1] += " FOREIGN KEY REFERENCES " + dono2.getName() + "(" + PK[dono2].getName() + ")"; }
+                                    catch {
+                                        sql[dono1] += " FOREIGN KEY REFERENCES " + dono2.getName() + "(" + dono2.getName() + "ID  )";
+                                        sql[dono2] += ",\n" + dono2.getName() + "ID Integer PRIMARY KEY";
+                                    }
+                                    int atr = relacionamento.getQtdAtributos();
+                                    if (atr > 0)
+                                    {
+                                        sql[dono1] += ",\n";
+                                        foreach (Desenho f in figuras)
+                                        {
+                                            if (f.QuemSou().Equals("Atributo"))
+                                            {
+                                                Atributo possivel = (Atributo)f;
+                                                if (possivel.getProprietario() == relacionamento)
+                                                {
+                                                    sql[dono1] += possivel.getSql();
+                                                    atr--;
+                                                    if (atr > 0)
+                                                        sql[dono1] += ",\n";
+                                                    else
+                                                        break;
+
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                                else
+                                {
+                                    sql[dono2] += ",\n" + dono1.getName() + " Integer";
+                                    if (card2.getCardMin().Equals("1"))
+                                        sql[dono2] += " NOT NULL";
+                                    try { sql[dono2] += " FOREIGN KEY REFERENCES " + dono1.getName() + "(" + PK[dono1].getName() + ")"; }
+                                    catch
+                                    {
+                                        sql[dono2] += " FOREIGN KEY REFERENCES " + dono1.getName() + "(" + dono1.getName() + "ID  )";
+                                        sql[dono1] += ",\n" + dono1.getName() + "ID Integer PRIMARY KEY";
+                                    }
+                                    int atr = relacionamento.getQtdAtributos();
+                                    if (atr > 0)
+                                    {
+                                        sql[dono2] += ",\n";
+                                        foreach (Desenho f in figuras)
+                                        {
+                                            if (f.QuemSou().Equals("Atributo"))
+                                            {
+                                                Atributo possivel = (Atributo)f;
+                                                if (possivel.getProprietario() == relacionamento)
+                                                {
+                                                    sql[dono2] += possivel.getSql();
+                                                    atr--;
+                                                    if (atr > 0)
+                                                        sql[dono2] += ",\n";
+                                                    else
+                                                        break;
+
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
                             else
                             {
+                                tablesAltenative.Add(relacionamento, "Create Table " + relacionamento.getName() + " (\n");
+                                try
+                                {
+                                    tablesAltenative[relacionamento] += PK[dono1].getSql() + ",\n";
+                                }
+                                catch
+                                {
+                                    tablesAltenative[relacionamento] +=  dono1.getName() + "ID  integer";
+                                    PK.Add(dono1, new Atributo(dono1.getName() + "ID", -50, -50, (Desenho)dono1));
+                                    sql[dono1] += ",\n" + dono1.getName() + "ID Integer PRIMARY KEY";
+                                }
+                                try
+                                {
+                                    tablesAltenative[relacionamento] += PK[dono2].getSql();
+                                }
+                                catch
+                                {
+                                    tablesAltenative[relacionamento] += dono2.getName() + "ID  integer";
+                                    PK.Add(dono2, new Atributo(dono2.getName() + "ID", -50, -50, (Desenho)dono2));
+                                    sql[dono2] += ",\n" + dono2.getName() + "ID Integer PRIMARY KEY";
+                                }
+                                int atr = relacionamento.getQtdAtributos();
+                                if (atr > 0)
+                                {
+                                    foreach (Desenho f in figuras)
+                                    {
+                                        tablesAltenative[relacionamento] += ",\n";
+                                        if (f.QuemSou().Equals("Atributo"))
+                                        {
+                                            Atributo possivel = (Atributo)f;
+                                            if (possivel.getProprietario() == relacionamento)
+                                            {
+                                                tablesAltenative[relacionamento] += possivel.getSql();
+                                                atr--;
+                                                if (atr > 0)
+                                                    tablesAltenative[relacionamento] += ",\n";
+                                                else
+                                                    break;
 
+                                            }
+                                        }
+                                    }
+                                }
+                                tablesAltenative[relacionamento] += ",\nPRIMARY KEY (" + PK[dono1].getName() + ", " + PK[dono2].getName() + "),\n";
+                                tablesAltenative[relacionamento] += "CONTRAINT " + relacionamento.getName() + "FK1 FOREIGN KEY (" + PK[dono1].getName() + ")\n";
+                                tablesAltenative[relacionamento] += "REFERENCES " + dono1.getName() + " (" + PK[dono1].getName() + "),\n";
+                                tablesAltenative[relacionamento] += "CONTRAINT " + relacionamento.getName() + "FK2 FOREIGN KEY (" + PK[dono2].getName() + ")\n";
+                                tablesAltenative[relacionamento] += "REFERENCES " + dono2.getName() + " (" + PK[dono2].getName() + ")";
                             }
                             break;
                         case 3:
