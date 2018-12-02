@@ -29,12 +29,6 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(EditPanel));
-            this.menuStrip1 = new System.Windows.Forms.MenuStrip();
-            this.salvarToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.salvarComoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.salvarToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
-            this.importarToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.gerarSQLToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.Info = new System.Windows.Forms.Label();
             this.BoxEntidade = new System.Windows.Forms.GroupBox();
             this.txtEntidadeY = new System.Windows.Forms.TextBox();
@@ -89,59 +83,12 @@
             this.Baixar = new System.Windows.Forms.Button();
             this.gerador = new System.Windows.Forms.Button();
             this.button1 = new System.Windows.Forms.Button();
-            this.menuStrip1.SuspendLayout();
             this.BoxEntidade.SuspendLayout();
             this.BoxAtributo.SuspendLayout();
             this.BoxRelacionamento.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.trackBar1)).BeginInit();
             this.pn_edit.SuspendLayout();
             this.SuspendLayout();
-            // 
-            // menuStrip1
-            // 
-            this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.salvarToolStripMenuItem,
-            this.importarToolStripMenuItem,
-            this.gerarSQLToolStripMenuItem});
-            this.menuStrip1.Location = new System.Drawing.Point(0, 0);
-            this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(1370, 24);
-            this.menuStrip1.TabIndex = 0;
-            this.menuStrip1.Text = "menuStrip1";
-            // 
-            // salvarToolStripMenuItem
-            // 
-            this.salvarToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.salvarComoToolStripMenuItem,
-            this.salvarToolStripMenuItem1});
-            this.salvarToolStripMenuItem.Name = "salvarToolStripMenuItem";
-            this.salvarToolStripMenuItem.Size = new System.Drawing.Size(50, 20);
-            this.salvarToolStripMenuItem.Text = "Salvar";
-            // 
-            // salvarComoToolStripMenuItem
-            // 
-            this.salvarComoToolStripMenuItem.Name = "salvarComoToolStripMenuItem";
-            this.salvarComoToolStripMenuItem.Size = new System.Drawing.Size(139, 22);
-            this.salvarComoToolStripMenuItem.Text = "Salvar como";
-            // 
-            // salvarToolStripMenuItem1
-            // 
-            this.salvarToolStripMenuItem1.Name = "salvarToolStripMenuItem1";
-            this.salvarToolStripMenuItem1.Size = new System.Drawing.Size(139, 22);
-            this.salvarToolStripMenuItem1.Text = "Salvar";
-            // 
-            // importarToolStripMenuItem
-            // 
-            this.importarToolStripMenuItem.Name = "importarToolStripMenuItem";
-            this.importarToolStripMenuItem.Size = new System.Drawing.Size(65, 20);
-            this.importarToolStripMenuItem.Text = "Importar";
-            // 
-            // gerarSQLToolStripMenuItem
-            // 
-            this.gerarSQLToolStripMenuItem.Name = "gerarSQLToolStripMenuItem";
-            this.gerarSQLToolStripMenuItem.Size = new System.Drawing.Size(71, 20);
-            this.gerarSQLToolStripMenuItem.Text = "Gerar SQL";
-            this.gerarSQLToolStripMenuItem.Click += new System.EventHandler(this.gerarSQLToolStripMenuItem_Click);
             // 
             // Info
             // 
@@ -630,15 +577,17 @@
             // 
             // button2
             // 
+            this.button2.BackColor = System.Drawing.Color.AliceBlue;
             this.button2.BackgroundImage = global::FlowModel.Properties.Resources.flower_512;
             this.button2.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.button2.Enabled = false;
+            this.button2.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.button2.ForeColor = System.Drawing.SystemColors.ControlText;
             this.button2.Location = new System.Drawing.Point(67, 544);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(55, 58);
             this.button2.TabIndex = 813;
-            this.button2.UseVisualStyleBackColor = true;
+            this.button2.UseVisualStyleBackColor = false;
             // 
             // btn_padrao
             // 
@@ -729,41 +678,43 @@
             // 
             // Baixar
             // 
-            this.Baixar.BackColor = System.Drawing.Color.Transparent;
+            this.Baixar.BackColor = System.Drawing.Color.AliceBlue;
             this.Baixar.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("Baixar.BackgroundImage")));
             this.Baixar.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.Baixar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.Baixar.Location = new System.Drawing.Point(1080, 408);
+            this.Baixar.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.Baixar.Location = new System.Drawing.Point(1110, 552);
             this.Baixar.Name = "Baixar";
-            this.Baixar.Size = new System.Drawing.Size(78, 44);
+            this.Baixar.Size = new System.Drawing.Size(75, 75);
             this.Baixar.TabIndex = 817;
             this.Baixar.UseVisualStyleBackColor = false;
             // 
             // gerador
             // 
-            this.gerador.BackColor = System.Drawing.Color.Transparent;
+            this.gerador.BackColor = System.Drawing.Color.AliceBlue;
             this.gerador.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("gerador.BackgroundImage")));
             this.gerador.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.gerador.Cursor = System.Windows.Forms.Cursors.Hand;
             this.gerador.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.gerador.Location = new System.Drawing.Point(1149, 481);
+            this.gerador.Location = new System.Drawing.Point(1191, 552);
             this.gerador.Name = "gerador";
             this.gerador.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.gerador.Size = new System.Drawing.Size(151, 142);
+            this.gerador.Size = new System.Drawing.Size(75, 75);
             this.gerador.TabIndex = 818;
             this.gerador.UseVisualStyleBackColor = false;
+            this.gerador.Click += new System.EventHandler(this.gerador_Click);
             // 
             // button1
             // 
-            this.button1.BackColor = System.Drawing.Color.Transparent;
+            this.button1.BackColor = System.Drawing.Color.AliceBlue;
             this.button1.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("button1.BackgroundImage")));
             this.button1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button1.Location = new System.Drawing.Point(1285, 408);
+            this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.button1.Location = new System.Drawing.Point(1272, 552);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(78, 44);
+            this.button1.Size = new System.Drawing.Size(75, 75);
             this.button1.TabIndex = 819;
             this.button1.UseVisualStyleBackColor = false;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // EditPanel
             // 
@@ -794,18 +745,15 @@
             this.Controls.Add(this.btn_relacionamento);
             this.Controls.Add(this.btn_entidade);
             this.Controls.Add(this.pn_edit);
-            this.Controls.Add(this.menuStrip1);
             this.Controls.Add(this.textBox1);
             this.Cursor = System.Windows.Forms.Cursors.Default;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.MainMenuStrip = this.menuStrip1;
             this.Name = "EditPanel";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "FlowModel a entity-relationship modeler ";
             this.Load += new System.EventHandler(this.EditPanel_Load);
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.EditPanel_KeyDown);
             this.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.EditPanel_KeyPress);
-            this.menuStrip1.ResumeLayout(false);
-            this.menuStrip1.PerformLayout();
             this.BoxEntidade.ResumeLayout(false);
             this.BoxEntidade.PerformLayout();
             this.BoxAtributo.ResumeLayout(false);
@@ -825,12 +773,6 @@
         private System.Windows.Forms.Button btn_atributo;
         private System.Windows.Forms.Button btn_heranca;
         private System.Windows.Forms.Button btn_padrao;
-        private System.Windows.Forms.MenuStrip menuStrip1;
-        private System.Windows.Forms.ToolStripMenuItem salvarToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem salvarComoToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem salvarToolStripMenuItem1;
-        private System.Windows.Forms.ToolStripMenuItem importarToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem gerarSQLToolStripMenuItem;
         private System.Windows.Forms.Label Info;
         private System.Windows.Forms.GroupBox BoxEntidade;
         private System.Windows.Forms.TextBox NomeEntidade;

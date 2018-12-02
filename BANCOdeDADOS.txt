@@ -1,51 +1,65 @@
-CREATE DATABASE FLOWMODEL;
-USE FLOWMODEL;
+CREATE DATABASE Interdiciplinar;
+USE Interdiciplinar;
 
 CREATE TABLE Entidade(
-    	ID serial,
+    	ID serial Primary Key,
     	Nome varchar(255) NOT NULL,
-    	integer x NOT NULL,
-    	integer y NOT NULL
+    	x integer NOT NULL,
+    	y integer NOT NULL,
+	qtdAtributos integer NOT NULL
 );
 
 CREATE TABLE Relacionamento(
-    	ID serial NOT NULL,
+    	ID serial Primary Key,
     	Nome varchar(255) NOT NULL,
-	integer x NOT NULL,
-	integer y NOT NULL,
-	
-	integer ID_Relacionamento_Cardinalidade,
-
-	CONSTRAINT ID_RC FOREIGN KEY (ID_Relacionamento_Cardinalidade)
-	REFERENCES Relacionamento_Cardinalidade(ID)
+	x integer NOT NULL,
+	y integer NOT NULL
+	qtdAtributos integer NOT NULL,
+	qtdEnv integer NOT NULL,
+	idEntidade1 integer NOT NULL,
+	idEntidade2 integer,
+	idEntidade3 integer
 );
 
-CREATE TABLE Relacionamento_Cardinalidade(	
-	ID serial,
-	integer qtd_cards NOT NULL,
-	integer ID_Cardinalidade1 NOT NULL,
-	integer ID_Cardinalidade2 NOT NULL,
-	integer ID_Cardinalidade3, -- FOREIGN KEY REFERENCES Entidade(ID), 
-
-	CONSTRAINT ID_C1 FOREIGN KEY (ID_Cardinalidade1)
-	REFERENCES Entidade(ID),
-	CONSTRAINT ID_C2 FOREIGN KEY (ID_Cardinalidade2)
-	REFERENCES Entidade(ID),
-	CONSTRAINT ID_C3 FOREIGN KEY (ID_Cardinalidade3)
-	REFERENCES Entidade(ID)	
+CREATE TABLE Cardinalidade(
+    	ID serial Primary Key,
+    	cardMin varchar(1) NOT NULL,
+	cardMax varchar(1) NOT NULL,
+	x integer NOT NULL,
+	y integer NOT NULL,
+	IdRelacionamento integer FOREIGN KEY REFERENCES Relacionamento (ID)
 );
 
 CREATE TABLE Atributo(	
-	ID serial,
+	ID serial Primary Key,
 	Nome varchar(255) NOT NULL,
-	integer x NOT NULL,
-	integer y NOT NULL,
-	integer ID_Dado NOT NULL,
-	integer ID_propriedade NOT NULL,
-	integer ID_Proprietario NOT NULL,
-	integer Tipo_Proprietario NOT NULL
+	x integer NOT NULL,
+	y integer NOT NULL,
+	indice integer NOT NULL,
+	qtdAtributos integer NOT NULL,
+	dado integer NOT NULL,
+	propriedades varchar(20) NOT NULL,
+	ID_Proprietario integer NOT NULL,
+	Tipo_Proprietario varchar(15) NOT NULL
 
-	CONSTRAINT ID_PE FOREIGN KEY (ID_Proprietario)
-	REFERENCES Entidade(ID) and Relacionamento(ID)
-	CHECK (Tipo_Proprietario = "Entidade" OR Tipo_Proprietario = "Relacionamento")
+	CHECK (Tipo_Proprietario = "Entidade" 
+	OR Tipo_Proprietario = "Relacionamento" 
+	OR Tipo_Proprietario = "Atributo")
+);
+
+CREATE TABLE Padronizacao(
+    	ID serial Primary Key,
+    	Nome varchar(255) NOT NULL,
+    	x integer NOT NULL,
+    	y integer NOT NULL,
+	Padrao varchar(255) NOT NULL,
+	List varchar(60) NOT NULL
+);
+CREATE TABLE Especializacao(
+    	ID serial Primary Key,
+    	Nome varchar(255) NOT NULL,
+    	x integer NOT NULL,
+    	y integer NOT NULL,
+	Especial varchar(255) NOT NULL,
+	List varchar(60) NOT NULL
 );

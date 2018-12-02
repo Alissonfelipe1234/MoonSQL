@@ -52,7 +52,13 @@ namespace FlowModel
         {
             return escolhido;
         }
-
+        public int getIDDado()
+        {
+            for (int i = 0; i < possiveis.Count(); i++)
+                if (escolhido.Equals(possiveis[i]))
+                    return i;
+            return 1;
+        }
         public Dictionary<int, string> getDados()
         {
             return possiveis;
