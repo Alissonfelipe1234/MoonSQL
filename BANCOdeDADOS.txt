@@ -1,6 +1,9 @@
 CREATE DATABASE Interdiciplinar;
 USE Interdiciplinar;
-
+CREATE TABLE PROJETO
+(
+	nome varchar(255)
+);
 CREATE TABLE Entidade(
     	ID serial Primary Key,
     	Nome varchar(255) NOT NULL,
@@ -52,7 +55,7 @@ CREATE TABLE Padronizacao(
     	Nome varchar(255) NOT NULL,
     	x integer NOT NULL,
     	y integer NOT NULL,
-	Padrao varchar(255) NOT NULL,
+	Padrao integer NOT NULL,
 	List varchar(60) NOT NULL
 );
 CREATE TABLE Especializacao(
@@ -60,6 +63,6 @@ CREATE TABLE Especializacao(
     	Nome varchar(255) NOT NULL,
     	x integer NOT NULL,
     	y integer NOT NULL,
-	Especial varchar(255) NOT NULL,
+	Especial integer NOT NULL,
 	List varchar(60) NOT NULL
 );

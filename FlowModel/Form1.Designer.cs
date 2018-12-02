@@ -82,7 +82,7 @@
             this.Nome = new System.Windows.Forms.TextBox();
             this.Baixar = new System.Windows.Forms.Button();
             this.gerador = new System.Windows.Forms.Button();
-            this.button1 = new System.Windows.Forms.Button();
+            this.Salvar = new System.Windows.Forms.Button();
             this.BoxEntidade.SuspendLayout();
             this.BoxAtributo.SuspendLayout();
             this.BoxRelacionamento.SuspendLayout();
@@ -262,7 +262,6 @@
             this.label7.Size = new System.Drawing.Size(49, 18);
             this.label7.TabIndex = 15;
             this.label7.Text = "Dono:";
-            this.label7.Click += new System.EventHandler(this.label7_Click);
             // 
             // cbDonoAtributo
             // 
@@ -591,11 +590,11 @@
             // 
             // btn_padrao
             // 
-            this.btn_padrao.BackColor = System.Drawing.Color.White;
+            this.btn_padrao.BackColor = System.Drawing.Color.DeepSkyBlue;
             this.btn_padrao.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("btn_padrao.BackgroundImage")));
             this.btn_padrao.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.btn_padrao.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.btn_padrao.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btn_padrao.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.btn_padrao.Location = new System.Drawing.Point(0, 372);
             this.btn_padrao.Name = "btn_padrao";
             this.btn_padrao.Size = new System.Drawing.Size(130, 80);
@@ -607,11 +606,11 @@
             // 
             // btn_heranca
             // 
-            this.btn_heranca.BackColor = System.Drawing.Color.White;
+            this.btn_heranca.BackColor = System.Drawing.Color.DeepSkyBlue;
             this.btn_heranca.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("btn_heranca.BackgroundImage")));
             this.btn_heranca.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.btn_heranca.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.btn_heranca.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btn_heranca.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.btn_heranca.Location = new System.Drawing.Point(0, 458);
             this.btn_heranca.Name = "btn_heranca";
             this.btn_heranca.Size = new System.Drawing.Size(130, 80);
@@ -623,11 +622,11 @@
             // 
             // btn_atributo
             // 
-            this.btn_atributo.BackColor = System.Drawing.Color.White;
+            this.btn_atributo.BackColor = System.Drawing.Color.DeepSkyBlue;
             this.btn_atributo.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("btn_atributo.BackgroundImage")));
             this.btn_atributo.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.btn_atributo.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.btn_atributo.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btn_atributo.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.btn_atributo.Location = new System.Drawing.Point(0, 286);
             this.btn_atributo.Name = "btn_atributo";
             this.btn_atributo.Size = new System.Drawing.Size(130, 80);
@@ -639,10 +638,10 @@
             // 
             // btn_relacionamento
             // 
-            this.btn_relacionamento.BackColor = System.Drawing.Color.White;
+            this.btn_relacionamento.BackColor = System.Drawing.Color.DeepSkyBlue;
             this.btn_relacionamento.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("btn_relacionamento.BackgroundImage")));
             this.btn_relacionamento.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.btn_relacionamento.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btn_relacionamento.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.btn_relacionamento.Location = new System.Drawing.Point(0, 200);
             this.btn_relacionamento.Name = "btn_relacionamento";
             this.btn_relacionamento.Size = new System.Drawing.Size(130, 80);
@@ -653,12 +652,12 @@
             // 
             // btn_entidade
             // 
-            this.btn_entidade.BackColor = System.Drawing.Color.White;
+            this.btn_entidade.BackColor = System.Drawing.Color.DeepSkyBlue;
             this.btn_entidade.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("btn_entidade.BackgroundImage")));
             this.btn_entidade.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.btn_entidade.Cursor = System.Windows.Forms.Cursors.Default;
             this.btn_entidade.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.btn_entidade.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btn_entidade.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.btn_entidade.Location = new System.Drawing.Point(0, 114);
             this.btn_entidade.Name = "btn_entidade";
             this.btn_entidade.Size = new System.Drawing.Size(130, 80);
@@ -703,18 +702,18 @@
             this.gerador.UseVisualStyleBackColor = false;
             this.gerador.Click += new System.EventHandler(this.gerador_Click);
             // 
-            // button1
+            // Salvar
             // 
-            this.button1.BackColor = System.Drawing.Color.AliceBlue;
-            this.button1.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("button1.BackgroundImage")));
-            this.button1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.button1.Location = new System.Drawing.Point(1272, 552);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 75);
-            this.button1.TabIndex = 819;
-            this.button1.UseVisualStyleBackColor = false;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
+            this.Salvar.BackColor = System.Drawing.Color.AliceBlue;
+            this.Salvar.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("Salvar.BackgroundImage")));
+            this.Salvar.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.Salvar.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.Salvar.Location = new System.Drawing.Point(1272, 552);
+            this.Salvar.Name = "Salvar";
+            this.Salvar.Size = new System.Drawing.Size(75, 75);
+            this.Salvar.TabIndex = 819;
+            this.Salvar.UseVisualStyleBackColor = false;
+            this.Salvar.Click += new System.EventHandler(this.Salvar_Click);
             // 
             // EditPanel
             // 
@@ -726,7 +725,7 @@
             this.BackColor = System.Drawing.Color.Snow;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
             this.ClientSize = new System.Drawing.Size(1370, 647);
-            this.Controls.Add(this.button1);
+            this.Controls.Add(this.Salvar);
             this.Controls.Add(this.gerador);
             this.Controls.Add(this.Baixar);
             this.Controls.Add(this.Nome);
@@ -752,8 +751,6 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "FlowModel a entity-relationship modeler ";
             this.Load += new System.EventHandler(this.EditPanel_Load);
-            this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.EditPanel_KeyDown);
-            this.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.EditPanel_KeyPress);
             this.BoxEntidade.ResumeLayout(false);
             this.BoxEntidade.PerformLayout();
             this.BoxAtributo.ResumeLayout(false);
@@ -821,7 +818,7 @@
         private System.Windows.Forms.TextBox Nome;
         private System.Windows.Forms.Button Baixar;
         private System.Windows.Forms.Button gerador;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button Salvar;
     }
 }
 

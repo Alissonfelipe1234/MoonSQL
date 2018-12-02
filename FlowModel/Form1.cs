@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Npgsql;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -56,11 +57,7 @@ namespace FlowModel
             figuras[1].SeDesenhe(grpImage, pn_edit);
             */
         }
-
-        private void pn_edit_Click(object sender, EventArgs e)
-        {
         
-        }
 
         public Graphics getGraphics()
         {
@@ -120,16 +117,7 @@ namespace FlowModel
         {
 
         }
-
-        private void label1_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void gerarSQLToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            
-        }
+        
 
         private void NomeEntidade_TextChanged(object sender, EventArgs e)
         {
@@ -226,25 +214,6 @@ namespace FlowModel
         {
             Atributo Aselecionado = (Atributo)this.selecionado;
             Aselecionado.setDado(cbTipoAtributo.SelectedIndex);
-        }
-
-        private void label7_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void EditPanel_KeyPress(object sender, KeyPressEventArgs e)
-        {
-           
-        }
-
-        private void btn_entidade_KeyPress(object sender, KeyPressEventArgs e)
-        {
-
-        }
-
-        private void EditPanel_KeyDown(object sender, KeyEventArgs e)
-        {
         }
 
         private void textBox1_KeyDown(object sender, KeyEventArgs e)
@@ -1201,22 +1170,303 @@ namespace FlowModel
             richTextBox1.Text = sqlGerado;
         }
 
-        private void button1_Click(object sender, EventArgs e)
-        {
 
+        private void Salvar_Click(object sender, EventArgs e)
+        {
+            List<Entidade> entidades = new List<Entidade>();
+            List<Relacionamento> relacionamentos = new List<Relacionamento>();
+            List<Atributo> atributos = new List<Atributo>();
+            List<Padronizacao> padronizacaos = new List<Padronizacao>();
+            List<Especializacao> especializacaos = new List<Especializacao>();
+
+            foreach (Desenho i in figuras)
+            {
+                switch (i.QuemSou())
+                {
+                    case "Entidade":
+                        entidades.Add((Entidade)i);
+                        break;
+                    case "Relacionamento":
+                        relacionamentos.Add((Relacionamento)i);
+                        break;
+                    case "Atributo":
+                        atributos.Add((Atributo)i);
+                        break;
+                    case "Padronizacao":
+                        padronizacaos.Add((Padronizacao)i);
+                        break;
+                    case "Especializacao":
+                        especializacaos.Add((Especializacao)i);
+                        break;
+                }
+            }
+            string connString = @"Host=127.0.0.1;Username=postgres;Password=IFSP;Database=Interdiciplinar";
+
+            using (NpgsqlConnection conn = new NpgsqlConnection(connString))
+            {
+                conn.Open();
+                using (NpgsqlCommand cmd = new NpgsqlCommand())
+                {
+                    cmd.Connection = conn;
+
+                    string nomeProject = Nome.Text;
+                    cmd.CommandText = "Delete from PROJETO";
+                    cmd.ExecuteNonQuery();
+                    cmd.CommandText = "Delete from Entidade";
+                    cmd.ExecuteNonQuery();
+                    cmd.CommandText = "Delete from Relacionamento";
+                    cmd.ExecuteNonQuery();
+                    cmd.CommandText = "Delete from Cardinalidade";
+                    cmd.ExecuteNonQuery();
+                    cmd.CommandText = "Delete from Atributo";
+                    cmd.ExecuteNonQuery();
+                    cmd.CommandText = "Delete from Padronizacao";
+                    cmd.ExecuteNonQuery();
+                    cmd.CommandText = "Delete from Especializacao";
+                    cmd.ExecuteNonQuery();
+
+                }
+                using (NpgsqlCommand cmd = new NpgsqlCommand())
+                {
+                    cmd.Connection = conn;
+
+                    string nomeProject = Nome.Text;
+                    cmd.CommandText = "INSERT INTO PROJETO VALUES(@nome)";
+
+                    cmd.Parameters.AddWithValue("nome", nomeProject);
+                    cmd.ExecuteNonQuery();
+                }
+                string nome = "";
+                int x = 0;
+                int y = 0;
+                int qtd = 0;
+                int qtdEnv = 0;
+
+                foreach (Entidade salva in entidades)
+                {
+                    using (NpgsqlCommand cmd = new NpgsqlCommand())
+                    {
+                        cmd.Connection = conn;
+
+                        nome = salva.getName();
+                        x = salva.getX();
+                        y = salva.getY();
+                        qtd = salva.getQtdAtributos();
+
+                        cmd.CommandText = "INSERT INTO Entidade (Nome, x, y, qtdAtributos)" +
+                            " VALUES(@nome, @x, @y, @qtdAtributos)";
+
+                        cmd.Parameters.AddWithValue("nome", nome);
+                        cmd.Parameters.AddWithValue("x", x);
+                        cmd.Parameters.AddWithValue("y", y);
+                        cmd.Parameters.AddWithValue("qtdAtributos", qtd);
+                        cmd.ExecuteNonQuery();
+                    }
+                }
+                int i = 0;
+                foreach (Relacionamento salva in relacionamentos)
+                {
+                    using (NpgsqlCommand cmd = new NpgsqlCommand())
+                    {
+                        
+                        cmd.Connection = conn;
+
+                        nome = salva.getName();
+                        x = salva.getX();
+                        y = salva.getY();
+                        qtd = salva.getQtdAtributos();
+                        qtdEnv = salva.getQtdEnvolvidos();
+                        List<Entidade> envs = salva.getEnvolvidos();
+                        if (qtdEnv == 1)
+                        {
+                            int entidade1 = entidades.IndexOf(envs[0]);
+
+                            cmd.CommandText = "INSERT INTO Relacionamento (Nome, x, y, qtdAtributos, qtdEnv, idEntidade1)" +
+                                " VALUES(@nome, @x, @y, @qtdAtributos, @qtdEnv, @idEntidade1)";
+
+                            cmd.Parameters.AddWithValue("nome", nome);
+                            cmd.Parameters.AddWithValue("x", x);
+                            cmd.Parameters.AddWithValue("y", y);
+                            cmd.Parameters.AddWithValue("qtdAtributos", qtd);
+                            cmd.Parameters.AddWithValue("qtdEnv", qtdEnv);
+                            cmd.Parameters.AddWithValue("idEntidade1", entidade1);
+                            cmd.ExecuteNonQuery();
+                        }
+                        else if (qtdEnv == 2)
+                        {
+                            int entidade1 = entidades.IndexOf(envs[0]);
+                            int entidade2 = entidades.IndexOf(envs[1]);
+
+                            cmd.CommandText = "INSERT INTO Relacionamento (Nome, x, y, qtdAtributos, qtdEnv, idEntidade1, idEntidade2)" +
+                                " VALUES(@nome, @x, @y, @qtdAtributos, @qtdEnv, @idEntidade1, @idEntidade2)";
+
+                            cmd.Parameters.AddWithValue("nome", nome);
+                            cmd.Parameters.AddWithValue("x", x);
+                            cmd.Parameters.AddWithValue("y", y);
+                            cmd.Parameters.AddWithValue("qtdAtributos", qtd);
+                            cmd.Parameters.AddWithValue("qtdEnv", qtdEnv);
+                            cmd.Parameters.AddWithValue("idEntidade1", entidade1);
+                            cmd.Parameters.AddWithValue("idEntidade2", entidade2);
+                            cmd.ExecuteNonQuery();
+                        }
+                        else
+                        {
+                            int entidade1 = entidades.IndexOf(envs[0]);
+                            int entidade2 = entidades.IndexOf(envs[1]);
+                            int entidade3 = entidades.IndexOf(envs[2]);
+
+                            cmd.CommandText = "INSERT INTO Relacionamento (Nome, x, y, qtdAtributos, qtdEnv, idEntidade1, idEntidade2, idEntidade3)" +
+                                " VALUES(@nome, @x, @y, @qtdAtributos, @qtdEnv, @idEntidade1, @idEntidade2, @idEntidade3)";
+
+                            cmd.Parameters.AddWithValue("nome", nome);
+                            cmd.Parameters.AddWithValue("x", x);
+                            cmd.Parameters.AddWithValue("y", y);
+                            cmd.Parameters.AddWithValue("qtdAtributos", qtd);
+                            cmd.Parameters.AddWithValue("qtdEnv", qtdEnv);
+                            cmd.Parameters.AddWithValue("idEntidade1", entidade1);
+                            cmd.Parameters.AddWithValue("idEntidade2", entidade2);
+                            cmd.Parameters.AddWithValue("idEntidade3", entidade3); 
+                            cmd.ExecuteNonQuery();
+                        }
+                    }
+                    foreach (Cardinalidade card in salva.getCards())
+                    {
+                        using (NpgsqlCommand cmd = new NpgsqlCommand())
+                        {
+                            cmd.Connection = conn;
+
+                            string cardMin = card.getCardMin();
+                            string cardMax = card.getCardMax();
+
+                            x = card.getX();
+                            y = card.getY();
+
+                            int idRelacionamento = i;
+                            List<Entidade> envs = salva.getEnvolvidos();
+                            if (qtdEnv == 1)
+                            {
+                                int entidade1 = 0;
+                                entidade1 = entidades.IndexOf(envs[0]);
+
+                                cmd.CommandText = "INSERT INTO Cardinalidade (cardMin, cardMax,x, y, IdRelacionamento)" +
+                                    " VALUES(@cardMin, @cardMax, @x, @y, @IdRelacionamento)";
+
+                                cmd.Parameters.AddWithValue("cardMin", cardMin);
+                                cmd.Parameters.AddWithValue("cardMax", cardMax);
+                                cmd.Parameters.AddWithValue("x", x);
+                                cmd.Parameters.AddWithValue("y", y);
+                                cmd.Parameters.AddWithValue("IdRelacionamento", idRelacionamento);
+                                cmd.ExecuteNonQuery();
+                            }
+                        }
+                    }
+                    i++;
+                }
+                foreach(Padronizacao p in padronizacaos)
+                {
+                    using (NpgsqlCommand cmd = new NpgsqlCommand())
+                    {
+                        cmd.Connection = conn;
+                        nome = p.getName();
+                        x = p.getX();
+                        y = p.getY();
+                        int padrao = entidades.IndexOf(p.getEntidadePadrao());
+                        string list = "";
+                        foreach(Entidade g in p.getEntidades())
+                        {
+                            list += entidades.IndexOf(g);
+                            list += ";";
+                        }
+                        cmd.CommandText = "INSERT INTO Padronizacao (Nome, x, y, Padrao, List)" +
+                            " VALUES(@nome, @x, @y, @Padrao, @List)";
+
+                        cmd.Parameters.AddWithValue("nome", nome);
+                        cmd.Parameters.AddWithValue("x", x);
+                        cmd.Parameters.AddWithValue("y", y);
+                        cmd.Parameters.AddWithValue("Padrao", padrao);
+                        cmd.Parameters.AddWithValue("List", list);
+                        cmd.ExecuteNonQuery();
+                    }
+                }
+                foreach (Especializacao t in especializacaos)
+                {
+                    using (NpgsqlCommand cmd = new NpgsqlCommand())
+                    {
+                        cmd.Connection = conn;
+                        nome = t.getName();
+                        x = t.getX();
+                        y = t.getY();
+                        int espec = entidades.IndexOf(t.getEntidadeEspecializada());
+                        string list = "";
+                        foreach (Entidade g in t.getEntidades())
+                        {
+                            list += entidades.IndexOf(g);
+                            list += ";";
+                        }
+                        cmd.CommandText = "INSERT INTO Especializacao (Nome, x, y, Especial, List)" +
+                            " VALUES(@nome, @x, @y, @Especial, @List)";
+
+                        cmd.Parameters.AddWithValue("nome", nome);
+                        cmd.Parameters.AddWithValue("x", x);
+                        cmd.Parameters.AddWithValue("y", y);
+                        cmd.Parameters.AddWithValue("Especial", espec);
+                        cmd.Parameters.AddWithValue("List", list);
+                        cmd.ExecuteNonQuery();
+                    }
+                }
+                foreach (Atributo a in atributos)
+                {
+                    using (NpgsqlCommand cmd = new NpgsqlCommand())
+                    {
+                        /*
+                        ID serial Primary Key,
+	                    Nome varchar(255) NOT NULL,
+	                    x integer NOT NULL,
+	                    y integer NOT NULL,
+	                    indice integer NOT NULL,
+	                    qtdAtributos integer NOT NULL,
+	                    dado integer NOT NULL,
+	                    propriedades varchar(20) NOT NULL,
+	                    ID_Proprietario integer NOT NULL,
+	                    Tipo_Proprietario varchar(15) NOT NULL
+
+                         */
+                        cmd.Connection = conn;
+                        nome = a.getName();
+                        x = a.getX();
+                        y = a.getY();
+                        int indice = a.getIndice();
+                        int qtdAtributos = a.getQtdAtributos();
+                        int dado = a.getIntDado();
+                            propriedades
+                            ID_Proprietario
+                            Tipo_Proprietario
+                         entidades.IndexOf(a.getEntidadePadrao());
+                        string list = "";
+                        foreach (Entidade g in a.getEntidades())
+                        {
+                            list += entidades.IndexOf(g);
+                            list += ";";
+                        }
+                        cmd.CommandText = "INSERT INTO Atributo (Nome, x, y, indice, qtdAtributos, dado, propriedades, ID_Proprietario, Tipo_Proprietario)" +
+                            " VALUES(@nome, @x, @y, @indice, @qtdAtributos, @dado, @propriedades, @ID_Proprietario, @Tipo_Proprietario)";
+
+                        cmd.Parameters.AddWithValue("nome", nome);
+                        cmd.Parameters.AddWithValue("x", x);
+                        cmd.Parameters.AddWithValue("y", y);
+                        cmd.Parameters.AddWithValue("Padrao", padrao);
+                        cmd.Parameters.AddWithValue("List", list);
+                        cmd.ExecuteNonQuery();
+                    }
+                }
+
+            }
         }
 
         private void trackBar1_ValueChanged(object sender, EventArgs e)
         {
             if(trackBar1.Value == 0)
             {
-                /*
-                btn_atributo.BackColor = Color.White;
-                btn_entidade.BackColor = Color.White;
-                btn_heranca.BackColor = Color.White;
-                btn_padrao.BackColor = Color.White;
-                btn_relacionamento.BackColor = Color.White;
-                */
                 BatterySaver = false;
                 trackBar1.BackColor = Color.Snow;
                 this.BackColor = Color.Snow;
@@ -1256,16 +1506,6 @@ namespace FlowModel
                     break;
             }
                 
-        }
-
-        private void comboBox3_SelectedIndexChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void label2_Click(object sender, EventArgs e)
-        {
-
         }
 
         private void pn_edit_MouseMove(object sender, MouseEventArgs e)

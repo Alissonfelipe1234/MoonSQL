@@ -151,7 +151,10 @@ namespace FlowModel
         {
             return this.dado.getDado();
         }
-
+        public int getIntDado()
+        {
+            return this.dado.getIDDado();
+        }
         public List<int> getPropriedade()
         {
             return this.propriedades.GetStatus();
