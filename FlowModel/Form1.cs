@@ -1418,19 +1418,6 @@ namespace FlowModel
                 {
                     using (NpgsqlCommand cmd = new NpgsqlCommand())
                     {
-                        /*
-                        ID serial Primary Key,
-	                    Nome varchar(255) NOT NULL,
-	                    x integer NOT NULL,
-	                    y integer NOT NULL,
-	                    indice integer NOT NULL,
-	                    qtdAtributos integer NOT NULL,
-	                    dado integer NOT NULL,
-	                    propriedades varchar(20) NOT NULL,
-	                    ID_Proprietario integer NOT NULL,
-	                    Tipo_Proprietario varchar(15) NOT NULL
-
-                         */
                         cmd.Connection = conn;
                         nome = a.getName();
                         x = a.getX();
@@ -1438,24 +1425,39 @@ namespace FlowModel
                         int indice = a.getIndice();
                         int qtdAtributos = a.getQtdAtributos();
                         int dado = a.getIntDado();
-                            propriedades
-                            ID_Proprietario
-                            Tipo_Proprietario
-                         entidades.IndexOf(a.getEntidadePadrao());
-                        string list = "";
-                        foreach (Entidade g in a.getEntidades())
+                        string propriedades = "";
+                        foreach (int prop in a.getPropriedade())
                         {
-                            list += entidades.IndexOf(g);
-                            list += ";";
+                            propriedades += prop + ";";
                         }
+                        string Tipo_Proprietario = a.getProprietario().QuemSou();
+                        int ID_Proprietario = 0;
+                        switch (Tipo_Proprietario)
+                        {
+                            case "Entidade":
+                                ID_Proprietario = entidades.IndexOf((Entidade)a.getProprietario());
+                                break;
+                            case "Relacionamento":
+                                ID_Proprietario = relacionamentos.IndexOf((Relacionamento)a.getProprietario());
+                                break;
+                            case "Atributo":
+                                ID_Proprietario = atributos.IndexOf((Atributo)a.getProprietario());
+                                break;
+                        }
+
                         cmd.CommandText = "INSERT INTO Atributo (Nome, x, y, indice, qtdAtributos, dado, propriedades, ID_Proprietario, Tipo_Proprietario)" +
                             " VALUES(@nome, @x, @y, @indice, @qtdAtributos, @dado, @propriedades, @ID_Proprietario, @Tipo_Proprietario)";
 
                         cmd.Parameters.AddWithValue("nome", nome);
                         cmd.Parameters.AddWithValue("x", x);
                         cmd.Parameters.AddWithValue("y", y);
-                        cmd.Parameters.AddWithValue("Padrao", padrao);
-                        cmd.Parameters.AddWithValue("List", list);
+                        cmd.Parameters.AddWithValue("indice", indice);
+
+                        cmd.Parameters.AddWithValue("qtdAtributos", qtdAtributos);
+                        cmd.Parameters.AddWithValue("dado", dado);
+                        cmd.Parameters.AddWithValue("propriedades", propriedades);
+                        cmd.Parameters.AddWithValue("ID_Proprietario", ID_Proprietario);
+                        cmd.Parameters.AddWithValue("Tipo_Proprietario", Tipo_Proprietario);
                         cmd.ExecuteNonQuery();
                     }
                 }
