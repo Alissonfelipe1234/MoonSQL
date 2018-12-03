@@ -551,7 +551,6 @@
             this.pn_edit.Size = new System.Drawing.Size(932, 600);
             this.pn_edit.TabIndex = 1;
             this.pn_edit.TabStop = true;
-            this.pn_edit.Paint += new System.Windows.Forms.PaintEventHandler(this.pn_edit_Paint);
             this.pn_edit.MouseClick += new System.Windows.Forms.MouseEventHandler(this.pn_edit_MouseClick);
             this.pn_edit.MouseDown += new System.Windows.Forms.MouseEventHandler(this.pn_edit_MouseDown);
             this.pn_edit.MouseMove += new System.Windows.Forms.MouseEventHandler(this.pn_edit_MouseMove);
@@ -724,9 +723,9 @@
             this.label16.Font = new System.Drawing.Font("Noto Mono", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label16.Location = new System.Drawing.Point(1208, 531);
             this.label16.Name = "label16";
-            this.label16.Size = new System.Drawing.Size(44, 18);
+            this.label16.Size = new System.Drawing.Size(35, 18);
             this.label16.TabIndex = 821;
-            this.label16.Text = "Work";
+            this.label16.Text = "Run";
             // 
             // label17
             // 
@@ -776,6 +775,7 @@
             this.Name = "EditPanel";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "FlowModel a entity-relationship modeler ";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.EditPanel_FormClosing);
             this.Load += new System.EventHandler(this.EditPanel_Load);
             this.BoxEntidade.ResumeLayout(false);
             this.BoxEntidade.PerformLayout();

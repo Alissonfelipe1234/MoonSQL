@@ -75,6 +75,7 @@ namespace FlowModel
             desenhandoPadronizacao = false;
             desenhandoEspecializacao = false;
             desenhandoAtributo = false;
+            InfoOqueFazer.Text = "clique no quadro para desenhar";
         }
 
         private void btn_relacionamento_Click(object sender, EventArgs e)
@@ -84,6 +85,7 @@ namespace FlowModel
             desenhandoEspecializacao = false;
             desenhandoPadronizacao = false;
             desenhandoAtributo = false;
+            InfoOqueFazer.Text = "Selecione uma entidade";
         }
 
         private void btn_padrao_Click(object sender, EventArgs e)
@@ -93,6 +95,7 @@ namespace FlowModel
             desenhandoRelacionamento = false;
             desenhandoEspecializacao = false;
             desenhandoAtributo = false;
+            InfoOqueFazer.Text = "Selecione uma entidade";
         }
 
         private void btn_atributo_Click(object sender, EventArgs e)
@@ -101,7 +104,8 @@ namespace FlowModel
             desenhandoRelacionamento = false;
             desenhandoEntidade = false;
             desenhandoPadronizacao = false;
-            desenhandoAtributo = true; 
+            desenhandoAtributo = true;
+            InfoOqueFazer.Text = "clique em um objeto";
         }
 
         private void btn_heranca_Click(object sender, EventArgs e)
@@ -111,6 +115,7 @@ namespace FlowModel
             desenhandoEntidade = false;
             desenhandoPadronizacao = false;
             desenhandoAtributo = false;
+            InfoOqueFazer.Text = "Selecione uma entidade";
         }
 
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
@@ -504,7 +509,7 @@ namespace FlowModel
 
         private void gerador_Click(object sender, EventArgs e)
         {
-            string sqlGerado = "Create Database " + Nome.Text + "\nUSE " + Nome.Text + "\n";
+            string sqlGerado = "Create Database " + Nome.Text + ";\nUSE " + Nome.Text + ";\n";
             Dictionary<Entidade, string> sql = new Dictionary<Entidade, string>();
             Dictionary<Desenho, string> tablesAltenative = new Dictionary<Desenho, string>();
             Dictionary<Entidade, Atributo> PK = new Dictionary<Entidade, Atributo>();
@@ -1174,9 +1179,368 @@ namespace FlowModel
             tela.Visible = true;
         }
 
-        private void pn_edit_Paint(object sender, PaintEventArgs e)
+        private void EditPanel_FormClosing(object sender, FormClosingEventArgs e)
         {
+            List<Entidade> entidades = new List<Entidade>();
+            List<Relacionamento> relacionamentos = new List<Relacionamento>();
+            List<Atributo> atributos = new List<Atributo>();
+            List<Padronizacao> padronizacaos = new List<Padronizacao>();
+            List<Especializacao> especializacaos = new List<Especializacao>();
 
+            foreach (Desenho i in figuras)
+            {
+                switch (i.QuemSou())
+                {
+                    case "Entidade":
+                        entidades.Add((Entidade)i);
+                        break;
+                    case "Relacionamento":
+                        relacionamentos.Add((Relacionamento)i);
+                        break;
+                    case "Atributo":
+                        atributos.Add((Atributo)i);
+                        break;
+                    case "Padronizacao":
+                        padronizacaos.Add((Padronizacao)i);
+                        break;
+                    case "Especializacao":
+                        especializacaos.Add((Especializacao)i);
+                        break;
+                }
+            }
+            string connString = @"Host=127.0.0.1;Username=postgres;Password=230276;Database=Interdiciplinar";
+
+            using (NpgsqlConnection conn = new NpgsqlConnection(connString))
+            {
+                //CASO DE ERRO NA HORA DE FECHAR É PQ NÃO EXISTE O BANCO (string acima pode ser alterada)
+                conn.Open();
+                using (NpgsqlCommand cmd = new NpgsqlCommand())
+                {
+                    cmd.Connection = conn;
+
+                    string nomeProject = Nome.Text;
+                    cmd.CommandText = "Drop table PROJETO CASCADE";
+                    cmd.ExecuteNonQuery();
+                    cmd.CommandText = "Drop table Entidade CASCADE";
+                    cmd.ExecuteNonQuery();
+                    cmd.CommandText = "Drop table Relacionamento CASCADE";
+                    cmd.ExecuteNonQuery();
+                    cmd.CommandText = "Drop table Cardinalidade CASCADE";
+                    cmd.ExecuteNonQuery();
+                    cmd.CommandText = "Drop table Atributo CASCADE";
+                    cmd.ExecuteNonQuery();
+                    cmd.CommandText = "Drop table Padronizacao CASCADE";
+                    cmd.ExecuteNonQuery();
+                    cmd.CommandText = "Drop table Especializacao CASCADE";
+                    cmd.ExecuteNonQuery();
+                    cmd.CommandText = "COMMIT;";
+                    cmd.ExecuteNonQuery();
+                    cmd.CommandText = "CREATE TABLE PROJETO" +
+                    "(" +
+                    "	nome varchar(255)" +
+                    ");" +
+                    "CREATE TABLE Entidade(" +
+                    "    	ID serial Primary Key," +
+                    "    	Nome varchar(255) NOT NULL," +
+                    "    	x integer NOT NULL," +
+                    "    	y integer NOT NULL," +
+                    "		qtdAtributos integer NOT NULL" +
+                    ");" +
+                    "" +
+                    "CREATE TABLE Relacionamento(" +
+                    "    	ID serial Primary Key," +
+                    "    	Nome varchar(255) NOT NULL," +
+                    "	x integer NOT NULL," +
+                    "	y integer NOT NULL," +
+                    "	qtdAtributos integer NOT NULL," +
+                    "	qtdEnv integer NOT NULL," +
+                    "	idEntidade1 integer NOT NULL," +
+                    "	idEntidade2 integer," +
+                    "	idEntidade3 integer" +
+                    ");" +
+                    "" +
+                    "CREATE TABLE Cardinalidade(" +
+                    "    	ID serial Primary Key," +
+                    "    	cardMin varchar(1) NOT NULL," +
+                    "	cardMax varchar(1) NOT NULL," +
+                    "	x integer NOT NULL," +
+                    "	y integer NOT NULL," +
+                    "	IdRelacionamento integer," +
+                    "	FOREIGN KEY (IdRelacionamento) REFERENCES Relacionamento(ID)" +
+                    ");" +
+                    "" +
+                    "CREATE TABLE Atributo(	" +
+                    "	ID serial Primary Key," +
+                    "	Nome varchar(255) NOT NULL," +
+                    "	x integer NOT NULL," +
+                    "	y integer NOT NULL," +
+                    "	indice integer NOT NULL," +
+                    "	qtdAtributos integer NOT NULL," +
+                    "	dado integer NOT NULL," +
+                    "	propriedades varchar(20) NOT NULL," +
+                    "	ID_Proprietario integer NOT NULL," +
+                    "	Tipo_Proprietario varchar(15) NOT NULL" +
+                    ");" +
+                    "" +
+                    "CREATE TABLE Padronizacao(" +
+                    "    	ID serial Primary Key," +
+                    "    	Nome varchar(255) NOT NULL," +
+                    "    	x integer NOT NULL," +
+                    "    	y integer NOT NULL," +
+                    "	Padrao integer NOT NULL," +
+                    "	List varchar(60) NOT NULL" +
+                    ");" +
+                    "CREATE TABLE Especializacao(" +
+                    "    	ID serial Primary Key," +
+                    "    	Nome varchar(255) NOT NULL," +
+                    "    	x integer NOT NULL," +
+                    "    	y integer NOT NULL," +
+                    "	Especial integer NOT NULL," +
+                    "	List varchar(60) NOT NULL" +
+                    ");";
+                    cmd.ExecuteNonQuery();
+                    cmd.CommandText = "COMMIT;";
+                    cmd.ExecuteNonQuery();
+
+                }
+                using (NpgsqlCommand cmd = new NpgsqlCommand())
+                {
+                    cmd.Connection = conn;
+
+                    string nomeProject = Nome.Text;
+                    cmd.CommandText = "INSERT INTO PROJETO VALUES(@nome)";
+
+                    cmd.Parameters.AddWithValue("nome", nomeProject);
+                    cmd.ExecuteNonQuery();
+                }
+                string nome = "";
+                int x = 0;
+                int y = 0;
+                int qtd = 0;
+                int qtdEnv = 0;
+
+                foreach (Entidade salva in entidades)
+                {
+                    using (NpgsqlCommand cmd = new NpgsqlCommand())
+                    {
+                        cmd.Connection = conn;
+
+                        nome = salva.getName();
+                        x = salva.getX();
+                        y = salva.getY();
+                        qtd = salva.getQtdAtributos();
+
+                        cmd.CommandText = "INSERT INTO Entidade (Nome, x, y, qtdAtributos)" +
+                            " VALUES(@nome, @x, @y, @qtdAtributos)";
+
+                        cmd.Parameters.AddWithValue("nome", nome);
+                        cmd.Parameters.AddWithValue("x", x);
+                        cmd.Parameters.AddWithValue("y", y);
+                        cmd.Parameters.AddWithValue("qtdAtributos", qtd);
+                        cmd.ExecuteNonQuery();
+                    }
+                }
+                int i = 0;
+                foreach (Relacionamento salva in relacionamentos)
+                {
+                    using (NpgsqlCommand cmd = new NpgsqlCommand())
+                    {
+
+                        cmd.Connection = conn;
+
+                        nome = salva.getName();
+                        x = salva.getX();
+                        y = salva.getY();
+                        qtd = salva.getQtdAtributos();
+                        qtdEnv = salva.getQtdEnvolvidos();
+                        List<Entidade> envs = salva.getEnvolvidos();
+                        if (qtdEnv == 1)
+                        {
+                            int entidade1 = entidades.IndexOf(envs[0]);
+
+                            cmd.CommandText = "INSERT INTO Relacionamento (Nome, x, y, qtdAtributos, qtdEnv, idEntidade1)" +
+                                " VALUES(@nome, @x, @y, @qtdAtributos, @qtdEnv, @idEntidade1)";
+
+                            cmd.Parameters.AddWithValue("nome", nome);
+                            cmd.Parameters.AddWithValue("x", x);
+                            cmd.Parameters.AddWithValue("y", y);
+                            cmd.Parameters.AddWithValue("qtdAtributos", qtd);
+                            cmd.Parameters.AddWithValue("qtdEnv", qtdEnv);
+                            cmd.Parameters.AddWithValue("idEntidade1", entidade1);
+                            cmd.ExecuteNonQuery();
+                        }
+                        else if (qtdEnv == 2)
+                        {
+                            int entidade1 = entidades.IndexOf(envs[0]);
+                            int entidade2 = entidades.IndexOf(envs[1]);
+
+                            cmd.CommandText = "INSERT INTO Relacionamento (Nome, x, y, qtdAtributos, qtdEnv, idEntidade1, idEntidade2)" +
+                                " VALUES(@nome, @x, @y, @qtdAtributos, @qtdEnv, @idEntidade1, @idEntidade2)";
+
+                            cmd.Parameters.AddWithValue("nome", nome);
+                            cmd.Parameters.AddWithValue("x", x);
+                            cmd.Parameters.AddWithValue("y", y);
+                            cmd.Parameters.AddWithValue("qtdAtributos", qtd);
+                            cmd.Parameters.AddWithValue("qtdEnv", qtdEnv);
+                            cmd.Parameters.AddWithValue("idEntidade1", entidade1);
+                            cmd.Parameters.AddWithValue("idEntidade2", entidade2);
+                            cmd.ExecuteNonQuery();
+                        }
+                        else
+                        {
+                            int entidade1 = entidades.IndexOf(envs[0]);
+                            int entidade2 = entidades.IndexOf(envs[1]);
+                            int entidade3 = entidades.IndexOf(envs[2]);
+
+                            cmd.CommandText = "INSERT INTO Relacionamento (Nome, x, y, qtdAtributos, qtdEnv, idEntidade1, idEntidade2, idEntidade3)" +
+                                " VALUES(@nome, @x, @y, @qtdAtributos, @qtdEnv, @idEntidade1, @idEntidade2, @idEntidade3)";
+
+                            cmd.Parameters.AddWithValue("nome", nome);
+                            cmd.Parameters.AddWithValue("x", x);
+                            cmd.Parameters.AddWithValue("y", y);
+                            cmd.Parameters.AddWithValue("qtdAtributos", qtd);
+                            cmd.Parameters.AddWithValue("qtdEnv", qtdEnv);
+                            cmd.Parameters.AddWithValue("idEntidade1", entidade1);
+                            cmd.Parameters.AddWithValue("idEntidade2", entidade2);
+                            cmd.Parameters.AddWithValue("idEntidade3", entidade3);
+                            cmd.ExecuteNonQuery();
+                        }
+                    }
+                    foreach (Cardinalidade card in salva.getCards())
+                    {
+                        using (NpgsqlCommand cmd = new NpgsqlCommand())
+                        {
+                            cmd.Connection = conn;
+
+                            string cardMin = card.getCardMin();
+                            string cardMax = card.getCardMax();
+
+                            x = card.getX();
+                            y = card.getY();
+
+                            int idRelacionamento = i;
+                            List<Entidade> envs = salva.getEnvolvidos();
+                            if (qtdEnv == 1)
+                            {
+                                int entidade1 = 0;
+                                entidade1 = entidades.IndexOf(envs[0]);
+
+                                cmd.CommandText = "INSERT INTO Cardinalidade (cardMin, cardMax,x, y, IdRelacionamento)" +
+                                    " VALUES(@cardMin, @cardMax, @x, @y, @IdRelacionamento)";
+
+                                cmd.Parameters.AddWithValue("cardMin", cardMin);
+                                cmd.Parameters.AddWithValue("cardMax", cardMax);
+                                cmd.Parameters.AddWithValue("x", x);
+                                cmd.Parameters.AddWithValue("y", y);
+                                cmd.Parameters.AddWithValue("IdRelacionamento", idRelacionamento);
+                                cmd.ExecuteNonQuery();
+                            }
+                        }
+                    }
+                    i++;
+                }
+                foreach (Padronizacao p in padronizacaos)
+                {
+                    using (NpgsqlCommand cmd = new NpgsqlCommand())
+                    {
+                        cmd.Connection = conn;
+                        nome = p.getName();
+                        x = p.getX();
+                        y = p.getY();
+                        int padrao = entidades.IndexOf(p.getEntidadePadrao());
+                        string list = "";
+                        foreach (Entidade g in p.getEntidades())
+                        {
+                            list += entidades.IndexOf(g);
+                            list += ";";
+                        }
+                        cmd.CommandText = "INSERT INTO Padronizacao (Nome, x, y, Padrao, List)" +
+                            " VALUES(@nome, @x, @y, @Padrao, @List)";
+
+                        cmd.Parameters.AddWithValue("nome", nome);
+                        cmd.Parameters.AddWithValue("x", x);
+                        cmd.Parameters.AddWithValue("y", y);
+                        cmd.Parameters.AddWithValue("Padrao", padrao);
+                        cmd.Parameters.AddWithValue("List", list);
+                        cmd.ExecuteNonQuery();
+                    }
+                }
+                foreach (Especializacao t in especializacaos)
+                {
+                    using (NpgsqlCommand cmd = new NpgsqlCommand())
+                    {
+                        cmd.Connection = conn;
+                        nome = t.getName();
+                        x = t.getX();
+                        y = t.getY();
+                        int espec = entidades.IndexOf(t.getEntidadeEspecializada());
+                        string list = "";
+                        foreach (Entidade g in t.getEntidades())
+                        {
+                            list += entidades.IndexOf(g);
+                            list += ";";
+                        }
+                        cmd.CommandText = "INSERT INTO Especializacao (Nome, x, y, Especial, List)" +
+                            " VALUES(@nome, @x, @y, @Especial, @List)";
+
+                        cmd.Parameters.AddWithValue("nome", nome);
+                        cmd.Parameters.AddWithValue("x", x);
+                        cmd.Parameters.AddWithValue("y", y);
+                        cmd.Parameters.AddWithValue("Especial", espec);
+                        cmd.Parameters.AddWithValue("List", list);
+                        cmd.ExecuteNonQuery();
+                    }
+                }
+                foreach (Atributo a in atributos)
+                {
+                    using (NpgsqlCommand cmd = new NpgsqlCommand())
+                    {
+                        cmd.Connection = conn;
+                        nome = a.getName();
+                        x = a.getX();
+                        y = a.getY();
+                        int indice = a.getIndice();
+                        int qtdAtributos = a.getQtdAtributos();
+                        int dado = a.getIntDado();
+                        string propriedades = "";
+                        foreach (int prop in a.getPropriedade())
+                        {
+                            propriedades += prop + ";";
+                        }
+                        string Tipo_Proprietario = a.getProprietario().QuemSou();
+                        int ID_Proprietario = 0;
+                        switch (Tipo_Proprietario)
+                        {
+                            case "Entidade":
+                                ID_Proprietario = entidades.IndexOf((Entidade)a.getProprietario());
+                                break;
+                            case "Relacionamento":
+                                ID_Proprietario = relacionamentos.IndexOf((Relacionamento)a.getProprietario());
+                                break;
+                            case "Atributo":
+                                ID_Proprietario = atributos.IndexOf((Atributo)a.getProprietario());
+                                break;
+                        }
+
+                        cmd.CommandText = "INSERT INTO Atributo (Nome, x, y, indice, qtdAtributos, dado, propriedades, ID_Proprietario, Tipo_Proprietario)" +
+                            " VALUES(@nome, @x, @y, @indice, @qtdAtributos, @dado, @propriedades, @ID_Proprietario, @Tipo_Proprietario)";
+
+                        cmd.Parameters.AddWithValue("nome", nome);
+                        cmd.Parameters.AddWithValue("x", x);
+                        cmd.Parameters.AddWithValue("y", y);
+                        cmd.Parameters.AddWithValue("indice", indice);
+
+                        cmd.Parameters.AddWithValue("qtdAtributos", qtdAtributos);
+                        cmd.Parameters.AddWithValue("dado", dado);
+                        cmd.Parameters.AddWithValue("propriedades", propriedades);
+                        cmd.Parameters.AddWithValue("ID_Proprietario", ID_Proprietario);
+                        cmd.Parameters.AddWithValue("Tipo_Proprietario", Tipo_Proprietario);
+                        cmd.ExecuteNonQuery();
+                    }
+                }
+
+            }
+            InputMessage("Exportação concluida", "Modelo salvo com sucesso!");
         }
 
         private void Salvar_Click(object sender, EventArgs e)
@@ -1609,6 +1973,7 @@ namespace FlowModel
 
         private void pn_edit_MouseClick(object sender, MouseEventArgs e)
         {
+            InfoOqueFazer.Text = "";
             string value = "";
             BoxEntidade.Visible = false;
             BoxAtributo.Visible = false;
@@ -1768,6 +2133,7 @@ namespace FlowModel
 
             if(desenhandoAtributo)
             {
+                InfoOqueFazer.Text = "Selecione uma entidade, relacionamento ou atributo";
                 for (int i = figuras.Count - 1; i >= 0; i--)
                 {
                     string str = figuras[i].QuemSou();
@@ -1812,9 +2178,11 @@ namespace FlowModel
                         }
                     }
                 }
+                InfoOqueFazer.Text = "";
             }
             if (desenhandoPadronizacao)
             {
+                InfoOqueFazer.Text = "Selecione as etidades padronizadas";
                 click++;
                 this.achou = false;
                 if (click == 1)
@@ -1867,6 +2235,7 @@ namespace FlowModel
                         desenhandoPadronizacao = false;
                         this.textBox1.Focus();;
                         click = 0;
+                        InfoOqueFazer.Text = "";
                     }
                 }
 
@@ -1874,6 +2243,7 @@ namespace FlowModel
             }
             if (desenhandoEspecializacao)
             {
+                InfoOqueFazer.Text = "Selecione as etidades especializadas";
                 click++;
                 this.achou = false;
                 if (click == 1)
@@ -1926,6 +2296,7 @@ namespace FlowModel
                         desenhandoEspecializacao = false;
                         this.textBox1.Focus();;
                         click = 0;
+                        InfoOqueFazer.Text = "";
                     }
                 }
 
@@ -1945,6 +2316,7 @@ namespace FlowModel
             }
             if (desenhandoRelacionamento)
             {
+                InfoOqueFazer.Text = "Selecione uma entidade";
                 click++;
                 this.achou = false;
                 switch (click)
@@ -1985,6 +2357,7 @@ namespace FlowModel
                                     desenhandoRelacionamento = false;
                                     this.textBox1.Focus(); ;
                                     click = 0;
+                                    InfoOqueFazer.Text = "";
                                 }
                                 achou = true;
                                 break;
@@ -2016,6 +2389,7 @@ namespace FlowModel
                                     desenhandoRelacionamento = false;
                                     this.textBox1.Focus();;
                                     click = 0;
+                                    InfoOqueFazer.Text = "";
                                 }
                                 achou = true;
                                 break;
@@ -2045,7 +2419,7 @@ namespace FlowModel
                                 desenhandoRelacionamento = false;
                                 this.textBox1.Focus();;
                                 click = 0;
-
+                                InfoOqueFazer.Text = "";
                                 achou = true;
                                 break;
                             }
@@ -2101,26 +2475,39 @@ namespace FlowModel
         public static DialogResult InputMessage(string title, string promptText)
         {
             Form form = new Form();
-            TextBox textBox = new TextBox();
+            Label label = new Label();
+            Label textBox = new Label();
             Button buttonOk = new Button();
+            Button buttonCancel = new Button();
 
             form.Text = title;
+            label.Text = promptText;
+            textBox.Text = "Salvo no banco de dados";
 
             buttonOk.Text = "OK";
+            buttonCancel.Text = "Cancelar";
             buttonOk.DialogResult = DialogResult.OK;
-            
+            buttonCancel.DialogResult = DialogResult.Cancel;
+
+            label.SetBounds(9, 20, 372, 13);
             textBox.SetBounds(12, 36, 372, 20);
             buttonOk.SetBounds(228, 72, 75, 23);
-            
+            buttonCancel.SetBounds(309, 72, 75, 23);
+
+            label.AutoSize = true;
             textBox.Anchor = textBox.Anchor | AnchorStyles.Right;
             buttonOk.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
+            buttonCancel.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
 
             form.ClientSize = new Size(396, 107);
+            form.Controls.AddRange(new Control[] { label, textBox, buttonOk, buttonCancel });
+            form.ClientSize = new Size(Math.Max(300, label.Right + 10), form.ClientSize.Height);
             form.FormBorderStyle = FormBorderStyle.FixedDialog;
             form.StartPosition = FormStartPosition.CenterScreen;
             form.MinimizeBox = false;
             form.MaximizeBox = false;
             form.AcceptButton = buttonOk;
+            form.CancelButton = buttonCancel;
 
             DialogResult dialogResult = form.ShowDialog();
             return dialogResult;

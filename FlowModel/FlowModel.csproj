@@ -124,18 +124,6 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="resources\Atributo_Chave.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="resources\Atributo_Composto.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="resources\Atributo_Opcional.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="resources\Atributo_Simples.png" />
-  </ItemGroup>
-  <ItemGroup>
     <None Include="resources\Entidade.png" />
   </ItemGroup>
   <ItemGroup>
@@ -149,6 +137,18 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="resources\flower-512.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="resources\Atributo_Chave.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="resources\Atributo_Composto.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="resources\Atributo_Opcional.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="resources\Atributo_Simples.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
