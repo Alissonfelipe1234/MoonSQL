@@ -71,7 +71,6 @@
             this.trackBar1 = new System.Windows.Forms.TrackBar();
             this.label13 = new System.Windows.Forms.Label();
             this.pn_edit = new System.Windows.Forms.Panel();
-            this.richTextBox1 = new System.Windows.Forms.RichTextBox();
             this.label14 = new System.Windows.Forms.Label();
             this.button2 = new System.Windows.Forms.Button();
             this.btn_padrao = new System.Windows.Forms.Button();
@@ -83,6 +82,7 @@
             this.Baixar = new System.Windows.Forms.Button();
             this.gerador = new System.Windows.Forms.Button();
             this.Salvar = new System.Windows.Forms.Button();
+            this.richTextBox1 = new System.Windows.Forms.RichTextBox();
             this.BoxEntidade.SuspendLayout();
             this.BoxAtributo.SuspendLayout();
             this.BoxRelacionamento.SuspendLayout();
@@ -551,18 +551,11 @@
             this.pn_edit.Size = new System.Drawing.Size(932, 600);
             this.pn_edit.TabIndex = 1;
             this.pn_edit.TabStop = true;
+            this.pn_edit.Paint += new System.Windows.Forms.PaintEventHandler(this.pn_edit_Paint);
             this.pn_edit.MouseClick += new System.Windows.Forms.MouseEventHandler(this.pn_edit_MouseClick);
             this.pn_edit.MouseDown += new System.Windows.Forms.MouseEventHandler(this.pn_edit_MouseDown);
             this.pn_edit.MouseMove += new System.Windows.Forms.MouseEventHandler(this.pn_edit_MouseMove);
             this.pn_edit.MouseUp += new System.Windows.Forms.MouseEventHandler(this.pn_edit_MouseUp);
-            // 
-            // richTextBox1
-            // 
-            this.richTextBox1.Location = new System.Drawing.Point(679, 376);
-            this.richTextBox1.Name = "richTextBox1";
-            this.richTextBox1.Size = new System.Drawing.Size(250, 220);
-            this.richTextBox1.TabIndex = 815;
-            this.richTextBox1.Text = "";
             // 
             // label14
             // 
@@ -715,6 +708,15 @@
             this.Salvar.UseVisualStyleBackColor = false;
             this.Salvar.Click += new System.EventHandler(this.Salvar_Click);
             // 
+            // richTextBox1
+            // 
+            this.richTextBox1.Location = new System.Drawing.Point(679, 376);
+            this.richTextBox1.Name = "richTextBox1";
+            this.richTextBox1.Size = new System.Drawing.Size(250, 220);
+            this.richTextBox1.TabIndex = 815;
+            this.richTextBox1.Text = "";
+            this.richTextBox1.Visible = false;
+            // 
             // EditPanel
             // 
             this.AccessibleDescription = "FlowModel for entity relationship model";
@@ -813,12 +815,12 @@
         private System.Windows.Forms.Label DonoRelacionamento1;
         private System.Windows.Forms.ComboBox EntidadeDono1;
         private System.Windows.Forms.Panel pn_edit;
-        private System.Windows.Forms.RichTextBox richTextBox1;
         private System.Windows.Forms.Label label14;
         private System.Windows.Forms.TextBox Nome;
         private System.Windows.Forms.Button Baixar;
         private System.Windows.Forms.Button gerador;
         private System.Windows.Forms.Button Salvar;
+        private System.Windows.Forms.RichTextBox richTextBox1;
     }
 }
 

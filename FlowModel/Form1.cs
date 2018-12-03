@@ -1170,6 +1170,10 @@ namespace FlowModel
             richTextBox1.Text = sqlGerado;
         }
 
+        private void pn_edit_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
 
         private void Salvar_Click(object sender, EventArgs e)
         {
