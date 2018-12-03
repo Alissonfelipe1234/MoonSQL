@@ -504,7 +504,7 @@ namespace FlowModel
 
         private void gerador_Click(object sender, EventArgs e)
         {
-            string sqlGerado = "";
+            string sqlGerado = "Create Database " + Nome.Text + "\nUSE " + Nome.Text + "\n";
             Dictionary<Entidade, string> sql = new Dictionary<Entidade, string>();
             Dictionary<Desenho, string> tablesAltenative = new Dictionary<Desenho, string>();
             Dictionary<Entidade, Atributo> PK = new Dictionary<Entidade, Atributo>();
@@ -1167,7 +1167,11 @@ namespace FlowModel
                 sqlGerado += linha.Value + "\n);\n";
             foreach (KeyValuePair<Desenho, string> linha in tablesAltenative)
                 sqlGerado += linha.Value + "\n);\n";
-            richTextBox1.Text = sqlGerado;
+            this.Hide();
+            this.Visible = false;
+            SQLgerado tela = new SQLgerado(sqlGerado, this);
+            tela.Show();
+            tela.Visible = true;
         }
 
         private void pn_edit_Paint(object sender, PaintEventArgs e)
@@ -1535,6 +1539,7 @@ namespace FlowModel
                 }
 
             }
+            InputMessage("Exportação concluida", "Modelo salvo com sucesso!");
         }
 
         private void trackBar1_ValueChanged(object sender, EventArgs e)

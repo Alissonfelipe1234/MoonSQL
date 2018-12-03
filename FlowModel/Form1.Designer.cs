@@ -82,12 +82,13 @@
             this.Baixar = new System.Windows.Forms.Button();
             this.gerador = new System.Windows.Forms.Button();
             this.Salvar = new System.Windows.Forms.Button();
-            this.richTextBox1 = new System.Windows.Forms.RichTextBox();
+            this.label15 = new System.Windows.Forms.Label();
+            this.label16 = new System.Windows.Forms.Label();
+            this.label17 = new System.Windows.Forms.Label();
             this.BoxEntidade.SuspendLayout();
             this.BoxAtributo.SuspendLayout();
             this.BoxRelacionamento.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.trackBar1)).BeginInit();
-            this.pn_edit.SuspendLayout();
             this.SuspendLayout();
             // 
             // Info
@@ -545,7 +546,6 @@
             // pn_edit
             // 
             this.pn_edit.BackColor = System.Drawing.Color.WhiteSmoke;
-            this.pn_edit.Controls.Add(this.richTextBox1);
             this.pn_edit.Location = new System.Drawing.Point(142, 27);
             this.pn_edit.Name = "pn_edit";
             this.pn_edit.Size = new System.Drawing.Size(932, 600);
@@ -708,14 +708,35 @@
             this.Salvar.UseVisualStyleBackColor = false;
             this.Salvar.Click += new System.EventHandler(this.Salvar_Click);
             // 
-            // richTextBox1
+            // label15
             // 
-            this.richTextBox1.Location = new System.Drawing.Point(679, 376);
-            this.richTextBox1.Name = "richTextBox1";
-            this.richTextBox1.Size = new System.Drawing.Size(250, 220);
-            this.richTextBox1.TabIndex = 815;
-            this.richTextBox1.Text = "";
-            this.richTextBox1.Visible = false;
+            this.label15.AutoSize = true;
+            this.label15.Font = new System.Drawing.Font("Noto Mono", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label15.Location = new System.Drawing.Point(1110, 531);
+            this.label15.Name = "label15";
+            this.label15.Size = new System.Drawing.Size(80, 18);
+            this.label15.TabIndex = 820;
+            this.label15.Text = "Download";
+            // 
+            // label16
+            // 
+            this.label16.AutoSize = true;
+            this.label16.Font = new System.Drawing.Font("Noto Mono", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label16.Location = new System.Drawing.Point(1208, 531);
+            this.label16.Name = "label16";
+            this.label16.Size = new System.Drawing.Size(44, 18);
+            this.label16.TabIndex = 821;
+            this.label16.Text = "Work";
+            // 
+            // label17
+            // 
+            this.label17.AutoSize = true;
+            this.label17.Font = new System.Drawing.Font("Noto Mono", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label17.Location = new System.Drawing.Point(1277, 531);
+            this.label17.Name = "label17";
+            this.label17.Size = new System.Drawing.Size(62, 18);
+            this.label17.TabIndex = 822;
+            this.label17.Text = "Upload";
             // 
             // EditPanel
             // 
@@ -727,6 +748,9 @@
             this.BackColor = System.Drawing.Color.Snow;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
             this.ClientSize = new System.Drawing.Size(1370, 647);
+            this.Controls.Add(this.label17);
+            this.Controls.Add(this.label16);
+            this.Controls.Add(this.label15);
             this.Controls.Add(this.Salvar);
             this.Controls.Add(this.gerador);
             this.Controls.Add(this.Baixar);
@@ -760,7 +784,6 @@
             this.BoxRelacionamento.ResumeLayout(false);
             this.BoxRelacionamento.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.trackBar1)).EndInit();
-            this.pn_edit.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -820,7 +843,9 @@
         private System.Windows.Forms.Button Baixar;
         private System.Windows.Forms.Button gerador;
         private System.Windows.Forms.Button Salvar;
-        private System.Windows.Forms.RichTextBox richTextBox1;
+        private System.Windows.Forms.Label label15;
+        private System.Windows.Forms.Label label16;
+        private System.Windows.Forms.Label label17;
     }
 }
 
