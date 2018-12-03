@@ -1200,7 +1200,7 @@ namespace FlowModel
                         break;
                 }
             }
-            string connString = @"Host=127.0.0.1;Username=postgres;Password=IFSP;Database=Interdiciplinar";
+            string connString = @"Host=127.0.0.1;Username=postgres;Password=230276;Database=Interdiciplinar";
 
             using (NpgsqlConnection conn = new NpgsqlConnection(connString))
             {
@@ -1210,19 +1210,87 @@ namespace FlowModel
                     cmd.Connection = conn;
 
                     string nomeProject = Nome.Text;
-                    cmd.CommandText = "Delete from PROJETO";
+                    cmd.CommandText = "Drop table PROJETO CASCADE";
                     cmd.ExecuteNonQuery();
-                    cmd.CommandText = "Delete from Entidade";
+                    cmd.CommandText = "Drop table Entidade CASCADE";
                     cmd.ExecuteNonQuery();
-                    cmd.CommandText = "Delete from Relacionamento";
+                    cmd.CommandText = "Drop table Relacionamento CASCADE";
                     cmd.ExecuteNonQuery();
-                    cmd.CommandText = "Delete from Cardinalidade";
+                    cmd.CommandText = "Drop table Cardinalidade CASCADE";
                     cmd.ExecuteNonQuery();
-                    cmd.CommandText = "Delete from Atributo";
+                    cmd.CommandText = "Drop table Atributo CASCADE";
                     cmd.ExecuteNonQuery();
-                    cmd.CommandText = "Delete from Padronizacao";
+                    cmd.CommandText = "Drop table Padronizacao CASCADE";
                     cmd.ExecuteNonQuery();
-                    cmd.CommandText = "Delete from Especializacao";
+                    cmd.CommandText = "Drop table Especializacao CASCADE";
+                    cmd.ExecuteNonQuery();
+                    cmd.CommandText = "COMMIT;";
+                    cmd.ExecuteNonQuery();
+                    cmd.CommandText = "CREATE TABLE PROJETO" +
+                    "(" +
+                    "	nome varchar(255)" +
+                    ");" +
+                    "CREATE TABLE Entidade(" +
+                    "    	ID serial Primary Key," +
+                    "    	Nome varchar(255) NOT NULL," +
+                    "    	x integer NOT NULL," +
+                    "    	y integer NOT NULL," +
+                    "		qtdAtributos integer NOT NULL" +
+                    ");" +
+                    "" +
+                    "CREATE TABLE Relacionamento(" +
+                    "    	ID serial Primary Key," +
+                    "    	Nome varchar(255) NOT NULL," +
+                    "	x integer NOT NULL," +
+                    "	y integer NOT NULL," +
+                    "	qtdAtributos integer NOT NULL," +
+                    "	qtdEnv integer NOT NULL," +
+                    "	idEntidade1 integer NOT NULL," +
+                    "	idEntidade2 integer," +
+                    "	idEntidade3 integer" +
+                    ");" +
+                    "" +
+                    "CREATE TABLE Cardinalidade(" +
+                    "    	ID serial Primary Key," +
+                    "    	cardMin varchar(1) NOT NULL," +
+                    "	cardMax varchar(1) NOT NULL," +
+                    "	x integer NOT NULL," +
+                    "	y integer NOT NULL," +
+                    "	IdRelacionamento integer," +
+                    "	FOREIGN KEY (IdRelacionamento) REFERENCES Relacionamento(ID)" +
+                    ");" +
+                    "" +
+                    "CREATE TABLE Atributo(	" +
+                    "	ID serial Primary Key," +
+                    "	Nome varchar(255) NOT NULL," +
+                    "	x integer NOT NULL," +
+                    "	y integer NOT NULL," +
+                    "	indice integer NOT NULL," +
+                    "	qtdAtributos integer NOT NULL," +
+                    "	dado integer NOT NULL," +
+                    "	propriedades varchar(20) NOT NULL," +
+                    "	ID_Proprietario integer NOT NULL," +
+                    "	Tipo_Proprietario varchar(15) NOT NULL" +
+                    ");" +
+                    "" +
+                    "CREATE TABLE Padronizacao(" +
+                    "    	ID serial Primary Key," +
+                    "    	Nome varchar(255) NOT NULL," +
+                    "    	x integer NOT NULL," +
+                    "    	y integer NOT NULL," +
+                    "	Padrao integer NOT NULL," +
+                    "	List varchar(60) NOT NULL" +
+                    ");" +
+                    "CREATE TABLE Especializacao(" +
+                    "    	ID serial Primary Key," +
+                    "    	Nome varchar(255) NOT NULL," +
+                    "    	x integer NOT NULL," +
+                    "    	y integer NOT NULL," +
+                    "	Especial integer NOT NULL," +
+                    "	List varchar(60) NOT NULL" +
+                    ");";
+                    cmd.ExecuteNonQuery();
+                    cmd.CommandText = "COMMIT;";
                     cmd.ExecuteNonQuery();
 
                 }
@@ -2019,6 +2087,33 @@ namespace FlowModel
 
             DialogResult dialogResult = form.ShowDialog();
             value = textBox.Text;
+            return dialogResult;
+        }
+        public static DialogResult InputMessage(string title, string promptText)
+        {
+            Form form = new Form();
+            TextBox textBox = new TextBox();
+            Button buttonOk = new Button();
+
+            form.Text = title;
+
+            buttonOk.Text = "OK";
+            buttonOk.DialogResult = DialogResult.OK;
+            
+            textBox.SetBounds(12, 36, 372, 20);
+            buttonOk.SetBounds(228, 72, 75, 23);
+            
+            textBox.Anchor = textBox.Anchor | AnchorStyles.Right;
+            buttonOk.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
+
+            form.ClientSize = new Size(396, 107);
+            form.FormBorderStyle = FormBorderStyle.FixedDialog;
+            form.StartPosition = FormStartPosition.CenterScreen;
+            form.MinimizeBox = false;
+            form.MaximizeBox = false;
+            form.AcceptButton = buttonOk;
+
+            DialogResult dialogResult = form.ShowDialog();
             return dialogResult;
         }
     }

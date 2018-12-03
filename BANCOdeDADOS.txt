@@ -1,5 +1,3 @@
-CREATE DATABASE Interdiciplinar;
-USE Interdiciplinar;
 CREATE TABLE PROJETO
 (
 	nome varchar(255)
@@ -9,14 +7,14 @@ CREATE TABLE Entidade(
     	Nome varchar(255) NOT NULL,
     	x integer NOT NULL,
     	y integer NOT NULL,
-	qtdAtributos integer NOT NULL
+		qtdAtributos integer NOT NULL
 );
 
 CREATE TABLE Relacionamento(
     	ID serial Primary Key,
     	Nome varchar(255) NOT NULL,
 	x integer NOT NULL,
-	y integer NOT NULL
+	y integer NOT NULL,
 	qtdAtributos integer NOT NULL,
 	qtdEnv integer NOT NULL,
 	idEntidade1 integer NOT NULL,
@@ -30,7 +28,8 @@ CREATE TABLE Cardinalidade(
 	cardMax varchar(1) NOT NULL,
 	x integer NOT NULL,
 	y integer NOT NULL,
-	IdRelacionamento integer FOREIGN KEY REFERENCES Relacionamento (ID)
+	IdRelacionamento integer,
+	FOREIGN KEY (IdRelacionamento) REFERENCES Relacionamento(ID)
 );
 
 CREATE TABLE Atributo(	
@@ -44,10 +43,6 @@ CREATE TABLE Atributo(
 	propriedades varchar(20) NOT NULL,
 	ID_Proprietario integer NOT NULL,
 	Tipo_Proprietario varchar(15) NOT NULL
-
-	CHECK (Tipo_Proprietario = "Entidade" 
-	OR Tipo_Proprietario = "Relacionamento" 
-	OR Tipo_Proprietario = "Atributo")
 );
 
 CREATE TABLE Padronizacao(
