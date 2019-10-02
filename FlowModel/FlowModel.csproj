@@ -112,6 +112,9 @@
       <DependentUpon>telaDeLoad.cs</DependentUpon>
     </Compile>
     <Compile Include="Classes\Tipo.cs" />
+    <EmbeddedResource Include="Screens\Inicio.resx">
+      <DependentUpon>Inicio.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Screens\Paint.resx">
       <DependentUpon>Paint.cs</DependentUpon>
     </EmbeddedResource>
