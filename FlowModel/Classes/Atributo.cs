@@ -1,14 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace FlowModel
 {
-    class Atributo:Desenho
+    class Atributo : Desenho
     {
         private string nome;
         private int x;
@@ -65,7 +62,7 @@ namespace FlowModel
             return this.derivado;
         }
 
-        public void setDerivado (Atributo a)
+        public void setDerivado(Atributo a)
         {
             this.derivado = a;
         }
@@ -100,7 +97,7 @@ namespace FlowModel
         public void setCardMin(int cardMin)
         {
             List<int> atual = this.propriedades.GetStatus();
-            if(cardMin != 0)
+            if (cardMin != 0)
                 this.propriedades.Altera(false, Convert.ToBoolean(atual[1]), Convert.ToBoolean(atual[2]), cardMin, atual[4]);
             else
                 this.propriedades.Altera(Convert.ToBoolean(atual[0]), Convert.ToBoolean(atual[1]), Convert.ToBoolean(atual[2]), cardMin, atual[4]);
@@ -122,7 +119,7 @@ namespace FlowModel
             return atual[4];
         }
 
-        public void AlteraTipo (List<int> status)
+        public void AlteraTipo(List<int> status)
         {
             this.propriedades.Altera(Convert.ToBoolean(status[0]), Convert.ToBoolean(status[1]), Convert.ToBoolean(status[2]), status[3], status[4]);
         }
@@ -165,7 +162,7 @@ namespace FlowModel
         }
         public void comumToPrimario()
         {
-            if(this.propriedades.getPropriedades().Equals("Comum"))
+            if (this.propriedades.getPropriedades().Equals("Comum"))
             {
                 List<int> atual = this.propriedades.GetStatus();
                 this.propriedades.Altera(true, Convert.ToBoolean(atual[1]), Convert.ToBoolean(atual[2]), atual[3], atual[4]);
@@ -233,10 +230,10 @@ namespace FlowModel
             Image newImage;
             System.Drawing.SolidBrush drawBrush = new System.Drawing.SolidBrush(System.Drawing.Color.Black);
             switch (this.propriedades.getPropriedades())
-            {                
+            {
                 case "Primario":
                     newImage = (Image)Properties.Resources.ResourceManager.GetObject("Atributo_Chave");
-                    g.DrawImage(newImage, this.x, this.y);                    
+                    g.DrawImage(newImage, this.x, this.y);
                     g.DrawString(this.nome, new Font(new FontFamily("Arial"), 9), drawBrush, this.x + 18, this.y + 12 - (this.indice * 14));
                     break;
                 case "Opcional":
@@ -252,7 +249,7 @@ namespace FlowModel
                 case "Comum":
                     newImage = (Image)Properties.Resources.ResourceManager.GetObject("Atributo_Simples");
                     g.DrawImage(newImage, this.x, this.y);
-                    g.DrawString(this.nome, new Font(new FontFamily("Arial"), 9), drawBrush, this.x + 18, this.y + 28 +(this.indice * 14));
+                    g.DrawString(this.nome, new Font(new FontFamily("Arial"), 9), drawBrush, this.x + 18, this.y + 28 + (this.indice * 14));
                     break;
             }
         }
@@ -285,7 +282,7 @@ namespace FlowModel
                     break;
                 case "Primario":
                     if (x - this.x >= 18 && x - this.x <= tamanhoString.Width + 18)
-                        if (y - this.y <= 12 - (this.indice * 14) && y - this.y >= 12 - (this.indice * 14)  + tamanhoString.Height)
+                        if (y - this.y <= 12 - (this.indice * 14) && y - this.y >= 12 - (this.indice * 14) + tamanhoString.Height)
                             return true;
                     break;
                 case "Opcional":

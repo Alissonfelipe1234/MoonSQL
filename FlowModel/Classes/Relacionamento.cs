@@ -1,14 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace FlowModel
 {
-    class Relacionamento:Desenho
+    class Relacionamento : Desenho
     {
         private string nome;
         private int x;
@@ -18,13 +15,13 @@ namespace FlowModel
         private int qtdAtributos;
         private int qtdEnv;
 
-        public Relacionamento (string n, int Px, int Py, int qtdEntidadesEnvolvidas)
+        public Relacionamento(string n, int Px, int Py, int qtdEntidadesEnvolvidas)
         {
             this.nome = n;
             this.x = Px;
             this.y = Py;
-            this.card   = new List<Cardinalidade>();
-            this.ent    = new List<Entidade>();
+            this.card = new List<Cardinalidade>();
+            this.ent = new List<Entidade>();
             this.qtdEnv = qtdEntidadesEnvolvidas;
             this.qtdAtributos = 0;
         }
@@ -53,7 +50,7 @@ namespace FlowModel
             return this.card;
         }
 
-        public string getName ()
+        public string getName()
         {
             return this.nome;
         }
@@ -77,24 +74,24 @@ namespace FlowModel
             return this.ent;
         }
 
-        public void adicionarCardinalidade (Cardinalidade nova)
+        public void adicionarCardinalidade(Cardinalidade nova)
         {
             if (this.card.Count < 3)
                 this.card.Add(nova);
         }
         public void relacionarEntidade(Entidade e)
         {
-            if(this.ent.Count < 3)
+            if (this.ent.Count < 3)
                 this.ent.Add(e);
         }
-        
+
         public void SeDesenhe(Graphics g)
         {
             Pen caneta = new Pen(Color.FromArgb(255, 0, 0, 0), 2);
             for (int i = 0; i < this.qtdEnv; i++)
             {
                 this.card[i].SeDesenhe(g);
-                g.DrawLine(caneta, this.x + 50, this.y + 50, this.ent[i].getX()+50, this.ent[i].getY()+25);
+                g.DrawLine(caneta, this.x + 50, this.y + 50, this.ent[i].getX() + 50, this.ent[i].getY() + 25);
                 this.ent[i].SeDesenhe(g);
             }
 

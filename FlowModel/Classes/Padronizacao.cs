@@ -1,14 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace FlowModel
 {
-    class Padronizacao:Desenho
+    class Padronizacao : Desenho
     {
         private string nome;
         private int x;
@@ -53,7 +50,7 @@ namespace FlowModel
             return this.y;
         }
 
-        public void setPadrao (Entidade x)
+        public void setPadrao(Entidade x)
         {
             this.padrao = x;
         }
@@ -89,7 +86,7 @@ namespace FlowModel
         public bool GetArea(int x, int y)
         {
             if (x - this.x >= 0 && x - this.x <= 100)
-                if(y - this.y >= 0 && y - this.y <= 52)
+                if (y - this.y >= 0 && y - this.y <= 52)
                     return true;
 
             return false;

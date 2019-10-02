@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace FlowModel
 {
@@ -11,7 +9,7 @@ namespace FlowModel
         private Dictionary<int, string> possiveis;
         private string escolhido;
 
-        public Dados (int id)
+        public Dados(int id)
         {
             this.possiveis = new Dictionary<int, string>();
             this.possiveis.Add(0, "varchar");
@@ -31,7 +29,7 @@ namespace FlowModel
 
             //"integer", "boolean", "serial", "double", "smallint", "bigint", 
             //"numeric", "decimal", "real", "char", "text", "date", "bit";
-            
+
             if (id > -1 && id < 14)
             {
                 this.escolhido = possiveis[id];
@@ -40,7 +38,7 @@ namespace FlowModel
             {
                 new Exception();
             }
-            
+
         }
 
         public string getDadoById(int id)
@@ -64,6 +62,6 @@ namespace FlowModel
             return possiveis;
         }
 
-        
+
     }
 }

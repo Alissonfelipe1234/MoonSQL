@@ -1,14 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace FlowModel
 {
-    class Entidade:Desenho
+    class Entidade : Desenho
     {
         private string nome;
         private int x;

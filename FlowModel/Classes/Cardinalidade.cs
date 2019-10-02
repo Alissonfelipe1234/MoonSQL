@@ -1,14 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace FlowModel
 {
-    class Cardinalidade:Desenho
+    class Cardinalidade : Desenho
     {
         private string cardMin;
         private string cardMax;
@@ -25,7 +21,7 @@ namespace FlowModel
             this.y = y;
         }
 
-        public void setCardMin (string min)
+        public void setCardMin(string min)
         {
             this.cardMin = min;
         }

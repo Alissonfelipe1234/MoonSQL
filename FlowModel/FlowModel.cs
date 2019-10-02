@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using Npgsql;
 
@@ -15,7 +12,7 @@ namespace FlowModel
         [STAThread]
         static void Main()
         {
-            /*
+            
             string connString = @"Host=127.0.0.1;Username=postgres;Password=IFSP;Database=FLOWMODEL";
             
             using (NpgsqlConnection conn = new NpgsqlConnection(connString))
@@ -37,7 +34,7 @@ namespace FlowModel
                     cmd.ExecuteNonQuery();
                 }
             } 
-            */
+            
 
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);

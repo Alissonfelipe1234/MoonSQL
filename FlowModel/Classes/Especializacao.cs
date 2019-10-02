@@ -1,14 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace FlowModel
 {
-    class Especializacao:Desenho
+    class Especializacao : Desenho
     {
         private string nome;
         private int x;
@@ -87,7 +84,7 @@ namespace FlowModel
         public bool GetArea(int x, int y)
         {
             if (x - this.x >= 0 && x - this.x <= 100)
-                if(y - this.y >= 0 && y - this.y <= 43)
+                if (y - this.y >= 0 && y - this.y <= 43)
                     return true;
 
             return false;

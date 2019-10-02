@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 
 namespace FlowModel
 {
@@ -26,7 +22,7 @@ namespace FlowModel
             this.cardMax = 1;
         }
 
-        public void Altera(bool p,  bool c, bool d, int min, int max)
+        public void Altera(bool p, bool c, bool d, int min, int max)
         {
             this.primario = p;
             this.composto = c;

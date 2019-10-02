@@ -1,11 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace FlowModel
@@ -58,7 +51,7 @@ namespace FlowModel
 
         private void telaDeLoad_VisibleChanged(object sender, EventArgs e)
         {
-            
+
         }
 
         private void telaDeLoad_Activated(object sender, EventArgs e)
@@ -68,12 +61,12 @@ namespace FlowModel
 
         private void telaDeLoad_Leave(object sender, EventArgs e)
         {
-            
+
         }
 
         private void telaDeLoad_Layout(object sender, LayoutEventArgs e)
         {
-            
+
         }
 
         private void telaDeLoad_BackgroundImageChanged(object sender, EventArgs e)
@@ -82,14 +75,14 @@ namespace FlowModel
 
         private void label1_MouseMove(object sender, MouseEventArgs e)
         {
-            
+
 
         }
 
         private void telaDeLoad_MouseHover(object sender, EventArgs e)
         {
-            
-            
+
+
         }
     }
 }
