@@ -78,17 +78,19 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Classes\Atributo.cs" />
+    <Compile Include="Classes\Banco.cs" />
     <Compile Include="Classes\Cardinalidade.cs" />
     <Compile Include="Classes\Dados.cs" />
     <Compile Include="Classes\Desenho.cs" />
     <Compile Include="Classes\Especializacao.cs" />
+    <Compile Include="Classes\Gerador.cs" />
     <Compile Include="Classes\Padronizacao.cs" />
     <Compile Include="Classes\Entidade.cs" />
-    <Compile Include="Screens\Paint.cs">
+    <Compile Include="Screens\Quadro.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Screens\Paint.Designer.cs">
-      <DependentUpon>Paint.cs</DependentUpon>
+    <Compile Include="Screens\Quadro.Designer.cs">
+      <DependentUpon>Quadro.cs</DependentUpon>
     </Compile>
     <Compile Include="FlowModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -99,24 +101,18 @@
     <Compile Include="Screens\Inicio.Designer.cs">
       <DependentUpon>Inicio.cs</DependentUpon>
     </Compile>
-    <Compile Include="Screens\SQLgerado.cs">
+    <Compile Include="Screens\ResultadoSQL.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Screens\SQLgerado.Designer.cs">
-      <DependentUpon>SQLgerado.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Screens\telaDeLoad.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Screens\telaDeLoad.Designer.cs">
-      <DependentUpon>telaDeLoad.cs</DependentUpon>
+    <Compile Include="Screens\ResultadoSQL.Designer.cs">
+      <DependentUpon>ResultadoSQL.cs</DependentUpon>
     </Compile>
     <Compile Include="Classes\Tipo.cs" />
     <EmbeddedResource Include="Screens\Inicio.resx">
       <DependentUpon>Inicio.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Screens\Paint.resx">
-      <DependentUpon>Paint.cs</DependentUpon>
+    <EmbeddedResource Include="Screens\Quadro.resx">
+      <DependentUpon>Quadro.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -128,14 +124,8 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
-    <EmbeddedResource Include="Screens\SQLgerado.resx">
-      <DependentUpon>SQLgerado.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Screens\telaDeLoad.resx">
-      <DependentUpon>telaDeLoad.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Screens\telaDeLoad.zu-ZA.resx">
-      <DependentUpon>telaDeLoad.cs</DependentUpon>
+    <EmbeddedResource Include="Screens\ResultadoSQL.resx">
+      <DependentUpon>ResultadoSQL.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">

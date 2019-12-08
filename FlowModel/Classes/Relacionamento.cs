@@ -50,17 +50,17 @@ namespace FlowModel
             return this.card;
         }
 
-        public string getName()
+        public string GetName()
         {
             return this.nome;
         }
 
-        public int getX()
+        public int GetX()
         {
             return this.x;
         }
 
-        public int getY()
+        public int GetY()
         {
             return this.y;
         }
@@ -91,7 +91,7 @@ namespace FlowModel
             for (int i = 0; i < this.qtdEnv; i++)
             {
                 this.card[i].SeDesenhe(g);
-                g.DrawLine(caneta, this.x + 50, this.y + 50, this.ent[i].getX() + 50, this.ent[i].getY() + 25);
+                g.DrawLine(caneta, this.x + 50, this.y + 50, this.ent[i].GetX() + 50, this.ent[i].GetY() + 25);
                 this.ent[i].SeDesenhe(g);
             }
 
@@ -119,17 +119,17 @@ namespace FlowModel
             return false;
         }
 
-        public void setName(string name)
+        public void SetName(string name)
         {
             this.nome = name;
         }
 
-        public void setX(int X)
+        public void SetX(int X)
         {
             this.x = X;
         }
 
-        public void setY(int Y)
+        public void SetY(int Y)
         {
             this.y = Y;
         }

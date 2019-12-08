@@ -40,12 +40,12 @@ namespace FlowModel
             return this.cardMax;
         }
 
-        public int getX()
+        public int GetX()
         {
             return this.x;
         }
 
-        public int getY()
+        public int GetY()
         {
             return this.y;
         }
@@ -53,7 +53,7 @@ namespace FlowModel
         public void SeDesenhe(Graphics g)
         {
             System.Drawing.SolidBrush drawBrush = new System.Drawing.SolidBrush(System.Drawing.Color.Black);
-            g.DrawString(this.getName(), new Font(new FontFamily("Arial"), 8), drawBrush, this.x, this.y);
+            g.DrawString(this.GetName(), new Font(new FontFamily("Arial"), 8), drawBrush, this.x, this.y);
         }
 
         public string QuemSou()
@@ -70,7 +70,7 @@ namespace FlowModel
         {
             Bitmap bmpImagem = new Bitmap(1015, 600);
             Graphics medidor = Graphics.FromImage(bmpImagem);
-            SizeF tamanhoString = medidor.MeasureString(this.getName(), new Font(new FontFamily("Arial"), 8));
+            SizeF tamanhoString = medidor.MeasureString(this.GetName(), new Font(new FontFamily("Arial"), 8));
 
             if (x - this.x >= 0 && x - this.x <= tamanhoString.Width)
                 if (y - this.y >= 0 && y - this.y <= tamanhoString.Height)
@@ -79,25 +79,25 @@ namespace FlowModel
             return false;
         }
 
-        public string getName()
+        public string GetName()
         {
             return this.cardMin + "," + this.cardMax;
         }
 
         //recebe as duas cardinalidades separadas por virgula
-        public void setName(string name)
+        public void SetName(string name)
         {
             string[] cards = name.Split(',');
             this.cardMin = cards[0];
             this.cardMax = cards[1];
         }
 
-        public void setX(int X)
+        public void SetX(int X)
         {
             this.x = X;
         }
 
-        public void setY(int Y)
+        public void SetY(int Y)
         {
             this.y = Y;
         }

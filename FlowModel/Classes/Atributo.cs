@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
-using System.Windows.Forms;
 
 namespace FlowModel
 {
@@ -10,18 +9,17 @@ namespace FlowModel
         private string nome;
         private int x;
         private int y;
-        private int indice;
+        private readonly int indice;
         private int qtdAtributos;
         private Dados dado;
-        private Tipo propriedades;
+        private readonly Tipo propriedades;
         private Desenho proprietario;
         private Atributo derivado;
 
-        private int id;
 
         public override string ToString()
         {
-            return this.getName();
+            return this.GetName();
         }
 
         public Atributo(string n, int Px, int Py, Desenho p)
@@ -39,8 +37,8 @@ namespace FlowModel
             {
                 case "Entidade":
                     Entidade ent = (Entidade)this.proprietario;
-                    this.indice = ent.getQtdAtributos();
-                    ent.addAtributo();
+                    this.indice = ent.GetQtdAtributos();
+                    ent.AddAtributo();
                     break;
                 case "Relacionamento":
                     Relacionamento rel = (Relacionamento)this.proprietario;
@@ -49,52 +47,52 @@ namespace FlowModel
                     break;
                 case "Atributo":
                     Atributo atr = (Atributo)this.proprietario;
-                    this.indice = atr.getQtdAtributos();
-                    atr.addAtributo();
+                    this.indice = atr.GetQtdAtributos();
+                    atr.AddAtributo();
                     this.propriedades.Altera(false, true, false, 1, 1);
                     break;
             }
 
         }
 
-        public Atributo getDerivado()
+        public Atributo GetDerivado()
         {
             return this.derivado;
         }
 
-        public void setDerivado(Atributo a)
+        public void SetDerivado(Atributo a)
         {
             this.derivado = a;
         }
 
-        public void setProprietario(Desenho a)
+        public void SetProprietario(Desenho a)
         {
             this.proprietario = a;
         }
 
-        public void addAtributo()
+        public void AddAtributo()
         {
             this.qtdAtributos++;
         }
-        public void removeAtributo()
+        public void RemoveAtributo()
         {
             this.qtdAtributos--;
         }
-        public int getQtdAtributos()
+        public int GetQtdAtributos()
         {
             return this.qtdAtributos;
         }
 
-        public void setDado(int idDado)
+        public void SetDado(int idDado)
         {
             this.dado = new Dados(idDado);
         }
-        public Dados getDados()
+        public Dados GetDados()
         {
             return this.dado;
         }
 
-        public void setCardMin(int cardMin)
+        public void SetCardMin(int cardMin)
         {
             List<int> atual = this.propriedades.GetStatus();
             if (cardMin != 0)
@@ -103,17 +101,17 @@ namespace FlowModel
                 this.propriedades.Altera(Convert.ToBoolean(atual[0]), Convert.ToBoolean(atual[1]), Convert.ToBoolean(atual[2]), cardMin, atual[4]);
 
         }
-        public void setCardMax(int cardMax)
+        public void SetCardMax(int cardMax)
         {
             List<int> atual = this.propriedades.GetStatus();
             this.propriedades.Altera(Convert.ToBoolean(atual[0]), Convert.ToBoolean(atual[1]), Convert.ToBoolean(atual[2]), atual[3], cardMax);
         }
-        public int getCardMin()
+        public int GetCardMin()
         {
             List<int> atual = this.propriedades.GetStatus();
             return atual[3];
         }
-        public int getCardMax()
+        public int GetCardMax()
         {
             List<int> atual = this.propriedades.GetStatus();
             return atual[4];
@@ -124,59 +122,59 @@ namespace FlowModel
             this.propriedades.Altera(Convert.ToBoolean(status[0]), Convert.ToBoolean(status[1]), Convert.ToBoolean(status[2]), status[3], status[4]);
         }
 
-        public int getIndice()
+        public int GetIndice()
         {
             return indice;
         }
 
-        public string getName()
+        public string GetName()
         {
             return nome;
         }
 
-        public int getX()
+        public int GetX()
         {
             return this.x;
         }
 
-        public int getY()
+        public int GetY()
         {
             return this.y;
         }
 
-        public string getIdDado()
+        public string GetIdDado()
         {
-            return this.dado.getDado();
+            return this.dado.GetDado();
         }
-        public int getIntDado()
+        public int GetIntDado()
         {
-            return this.dado.getIDDado();
+            return this.dado.GetIDDado();
         }
-        public List<int> getPropriedade()
+        public List<int> GetPropriedade()
         {
             return this.propriedades.GetStatus();
         }
-        public string getTipo()
+        public string GetTipo()
         {
             return this.propriedades.getPropriedades();
         }
-        public void comumToPrimario()
+        public void ComumToPrimario()
         {
             if (this.propriedades.getPropriedades().Equals("Comum"))
             {
                 List<int> atual = this.propriedades.GetStatus();
                 this.propriedades.Altera(true, Convert.ToBoolean(atual[1]), Convert.ToBoolean(atual[2]), atual[3], atual[4]);
-                this.y = this.y - 86;
+                this.y -= 86;
             }
         }
-        public void comumToOpcional()
+        public void ComumToOpcional()
         {
             if (this.propriedades.getPropriedades().Equals("Comum"))
             {
                 List<int> atual = this.propriedades.GetStatus();
                 this.propriedades.Altera(Convert.ToBoolean(atual[0]), Convert.ToBoolean(atual[1]), Convert.ToBoolean(atual[2]), 0, atual[4]);
-                this.x = this.x + 86;
-                this.y = this.y - 90; //tamanho 90 veio do recuo do tamanho da entidade  + o recuo do tamamnho do proprio atributo
+                this.x += 86;
+                this.y -= 90; //tamanho 90 veio do recuo do tamanho da entidade  + o recuo do tamamnho do proprio atributo
             }
         }
         public void PrimarioToComum()
@@ -185,7 +183,7 @@ namespace FlowModel
             {
                 List<int> atual = this.propriedades.GetStatus();
                 this.propriedades.Altera(false, Convert.ToBoolean(atual[1]), Convert.ToBoolean(atual[2]), atual[3], atual[4]);
-                this.y = this.y + 86;
+                this.y += 86;
             }
         }
         public void OpcionalToComum()
@@ -194,15 +192,15 @@ namespace FlowModel
             {
                 List<int> atual = this.propriedades.GetStatus();
                 this.propriedades.Altera(Convert.ToBoolean(atual[0]), Convert.ToBoolean(atual[1]), Convert.ToBoolean(atual[2]), 1, atual[4]);
-                this.x = this.x - 86;
-                this.y = this.y + 90;
+                this.x -= 86;
+                this.y += 90;
             }
         }
-        public string getSql()
+        public string GetSql()
         {
             string str = "";
-            str += this.getName().Split(' ')[0] + " ";
-            str += this.dado.getDado() + " ";
+            str += this.GetName().Split(' ')[0] + " ";
+            str += this.dado.GetDado() + " ";
             switch (this.propriedades.getPropriedades())
             {
                 case "Primario":
@@ -216,7 +214,7 @@ namespace FlowModel
             }
             return str;
         }
-        public Desenho getProprietario()
+        public Desenho GetProprietario()
         {
             return this.proprietario;
         }
@@ -228,37 +226,34 @@ namespace FlowModel
         public void SeDesenhe(Graphics g)
         {
             Image newImage;
-            System.Drawing.SolidBrush drawBrush = new System.Drawing.SolidBrush(System.Drawing.Color.Black);
-            switch (this.propriedades.getPropriedades())
+            using (SolidBrush drawBrush = new SolidBrush(Color.Black))
             {
-                case "Primario":
-                    newImage = (Image)Properties.Resources.ResourceManager.GetObject("Atributo_Chave");
-                    g.DrawImage(newImage, this.x, this.y);
-                    g.DrawString(this.nome, new Font(new FontFamily("Arial"), 9), drawBrush, this.x + 18, this.y + 12 - (this.indice * 14));
-                    break;
-                case "Opcional":
-                    newImage = (Image)Properties.Resources.ResourceManager.GetObject("Atributo_Opcional");
-                    g.DrawImage(newImage, this.x, this.y);
-                    g.DrawString(this.nome, new Font(new FontFamily("Arial"), 9), drawBrush, this.x + 18, this.y + 12 - (this.indice * 14));
-                    break;
-                case "Composto":
-                    newImage = (Image)Properties.Resources.ResourceManager.GetObject("Atributo_Composto");
-                    g.DrawImage(newImage, this.x, this.y);
-                    g.DrawString(this.nome, new Font(new FontFamily("Arial"), 9), drawBrush, this.x + 40 + (this.indice * 50), this.y + 5);
-                    break;
-                case "Comum":
-                    newImage = (Image)Properties.Resources.ResourceManager.GetObject("Atributo_Simples");
-                    g.DrawImage(newImage, this.x, this.y);
-                    g.DrawString(this.nome, new Font(new FontFamily("Arial"), 9), drawBrush, this.x + 18, this.y + 28 + (this.indice * 14));
-                    break;
+                switch (this.propriedades.getPropriedades())
+                {
+                    case "Primario":
+                        newImage = (Image)Properties.Resources.ResourceManager.GetObject("Atributo_Chave");
+                        g.DrawImage(newImage, this.x, this.y);
+                        g.DrawString(this.nome, new Font(new FontFamily("Arial"), 9), drawBrush, this.x + 18, this.y + 12 - (this.indice * 14));
+                        break;
+                    case "Opcional":
+                        newImage = (Image)Properties.Resources.ResourceManager.GetObject("Atributo_Opcional");
+                        g.DrawImage(newImage, this.x, this.y);
+                        g.DrawString(this.nome, new Font(new FontFamily("Arial"), 9), drawBrush, this.x + 18, this.y + 12 - (this.indice * 14));
+                        break;
+                    case "Composto":
+                        newImage = (Image)Properties.Resources.ResourceManager.GetObject("Atributo_Composto");
+                        g.DrawImage(newImage, this.x, this.y);
+                        g.DrawString(this.nome, new Font(new FontFamily("Arial"), 9), drawBrush, this.x + 40 + (this.indice * 50), this.y + 5);
+                        break;
+                    case "Comum":
+                        newImage = (Image)Properties.Resources.ResourceManager.GetObject("Atributo_Simples");
+                        g.DrawImage(newImage, this.x, this.y);
+                        g.DrawString(this.nome, new Font(new FontFamily("Arial"), 9), drawBrush, this.x + 18, this.y + 28 + (this.indice * 14));
+                        break;
+                }
             }
         }
-
-        public void Propriedades(Panel p)
-        {
-            throw new NotImplementedException();
-        }
-        public int getTam()
+        public int GetTam()
         {
             Bitmap bmpImagem = new Bitmap(1015, 600);
             Graphics medidor = Graphics.FromImage(bmpImagem);
@@ -301,17 +296,17 @@ namespace FlowModel
             return false;
         }
 
-        public void setName(string name)
+        public void SetName(string name)
         {
             this.nome = name;
         }
 
-        public void setX(int X)
+        public void SetX(int X)
         {
             this.x = X;
         }
 
-        public void setY(int Y)
+        public void SetY(int Y)
         {
             this.y = Y;
         }

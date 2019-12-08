@@ -356,7 +356,7 @@
         AAAAAElFTkSuQmCC
 </value>
   </data>
-  <data name="gerador.BackgroundImage" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+  <data name="gerarSQL.BackgroundImage" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAAwAAAAMACAYAAACTgQCOAAAABGdBTUEAALGPC/xhBQAAVgpJREFUeF7t
         3Qfcbfl89/3DjF6G0evovY9O9EQnwZDkZiREbyFCdOHGCBKCMLqJKKP3XqIkCIIYvY9uzGCGGaM8z/eX

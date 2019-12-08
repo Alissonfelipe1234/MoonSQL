@@ -6,26 +6,28 @@ namespace FlowModel
 {
     class Dados
     {
-        private Dictionary<int, string> possiveis;
-        private string escolhido;
+        private readonly Dictionary<int, string> possiveis;
+        private readonly string escolhido;
 
         public Dados(int id)
         {
-            this.possiveis = new Dictionary<int, string>();
-            this.possiveis.Add(0, "varchar");
-            this.possiveis.Add(1, "integer");
-            this.possiveis.Add(2, "boolean");
-            this.possiveis.Add(3, "serial");
-            this.possiveis.Add(4, "double");
-            this.possiveis.Add(5, "smallint");
-            this.possiveis.Add(6, "bigint");
-            this.possiveis.Add(7, "numeric");
-            this.possiveis.Add(8, "decimal");
-            this.possiveis.Add(9, "real");
-            this.possiveis.Add(10, "char");
-            this.possiveis.Add(11, "text");
-            this.possiveis.Add(12, "date");
-            this.possiveis.Add(13, "bit");
+            this.possiveis = new Dictionary<int, string>
+            {
+                { 0, "varchar" },
+                { 1, "integer" },
+                { 2, "boolean" },
+                { 3, "serial" },
+                { 4, "double" },
+                { 5, "smallint" },
+                { 6, "bigint" },
+                { 7, "numeric" },
+                { 8, "decimal" },
+                { 9, "real" },
+                { 10, "char" },
+                { 11, "text" },
+                { 12, "date" },
+                { 13, "bit" }
+            };
 
             //"integer", "boolean", "serial", "double", "smallint", "bigint", 
             //"numeric", "decimal", "real", "char", "text", "date", "bit";
@@ -41,23 +43,23 @@ namespace FlowModel
 
         }
 
-        public string getDadoById(int id)
+        public string GetDadoById(int id)
         {
             return possiveis[id];
         }
 
-        public string getDado()
+        public string GetDado()
         {
             return escolhido;
         }
-        public int getIDDado()
+        public int GetIDDado()
         {
             for (int i = 0; i < possiveis.Count(); i++)
                 if (escolhido.Equals(possiveis[i]))
                     return i;
             return 1;
         }
-        public Dictionary<int, string> getDados()
+        public Dictionary<int, string> GetDados()
         {
             return possiveis;
         }

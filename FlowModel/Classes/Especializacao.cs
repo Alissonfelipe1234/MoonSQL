@@ -14,7 +14,6 @@ namespace FlowModel
         private Entidade especializada;
         private List<Entidade> entidades;
 
-        private int id;
 
 
         public Especializacao(string n, int Px, int Py)
@@ -35,17 +34,17 @@ namespace FlowModel
             return this.entidades;
         }
 
-        public string getName()
+        public string GetName()
         {
             return this.nome;
         }
 
-        public int getX()
+        public int GetX()
         {
             return this.x;
         }
 
-        public int getY()
+        public int GetY()
         {
             return this.y;
         }
@@ -65,11 +64,11 @@ namespace FlowModel
         public void SeDesenhe(Graphics g)
         {
             Pen caneta = new Pen(new System.Drawing.SolidBrush(System.Drawing.Color.Black));
-            g.DrawLine(caneta, this.x + 50, this.y, this.especializada.getX() + 50, this.especializada.getY() + 25);
+            g.DrawLine(caneta, this.x + 50, this.y, this.especializada.GetX() + 50, this.especializada.GetY() + 25);
             this.especializada.SeDesenhe(g);
             for (int i = 0; i < this.entidades.Count; i++)
             {
-                g.DrawLine(caneta, this.x + 50, this.y + 40, this.entidades[i].getX(), this.entidades[i].getY() + 25);
+                g.DrawLine(caneta, this.x + 50, this.y + 40, this.entidades[i].GetX(), this.entidades[i].GetY() + 25);
                 this.entidades[i].SeDesenhe(g);
             }
             Image newImage = (Image)Properties.Resources.ResourceManager.GetObject("Especializacao");
@@ -89,17 +88,17 @@ namespace FlowModel
 
             return false;
         }
-        public void setName(string name)
+        public void SetName(string name)
         {
             this.nome = name;
         }
 
-        public void setX(int X)
+        public void SetX(int X)
         {
             this.x = X;
         }
 
-        public void setY(int Y)
+        public void SetY(int Y)
         {
             this.y = Y;
         }

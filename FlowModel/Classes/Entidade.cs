@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Drawing;
-using System.Windows.Forms;
 
 namespace FlowModel
 {
@@ -11,11 +10,10 @@ namespace FlowModel
         private int y;
 
         private int qtdAtributos;
-        private int id;
 
         public override string ToString()
         {
-            return this.getName();
+            return this.GetName();
         }
 
         public Entidade(string n, int Px, int Py)
@@ -27,27 +25,27 @@ namespace FlowModel
             qtdAtributos = 0;
         }
 
-        public string getName()
+        public string GetName()
         {
             return this.nome;
         }
 
-        public int getX()
+        public int GetX()
         {
             return this.x;
         }
 
-        public int getY()
+        public int GetY()
         {
             return this.y;
         }
 
-        public int getQtdAtributos()
+        public int GetQtdAtributos()
         {
             return this.qtdAtributos;
         }
 
-        public void addAtributo()
+        public void AddAtributo()
         {
             this.qtdAtributos++;
         }
@@ -66,7 +64,7 @@ namespace FlowModel
             g.DrawString(this.nome, new Font(new FontFamily("Arial"), 12), drawBrush, this.x + 5, this.y + 15);
         }
 
-        public void Propriedades(Panel p)
+        public void Propriedades()
         {
             throw new NotImplementedException();
         }
@@ -80,17 +78,17 @@ namespace FlowModel
             return false;
         }
 
-        public void setName(string name)
+        public void SetName(string name)
         {
             this.nome = name;
         }
 
-        public void setX(int X)
+        public void SetX(int X)
         {
             this.x = X;
         }
 
-        public void setY(int Y)
+        public void SetY(int Y)
         {
             this.y = Y;
         }

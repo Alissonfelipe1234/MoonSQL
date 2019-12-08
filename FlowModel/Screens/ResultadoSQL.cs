@@ -4,11 +4,11 @@ using System.Windows.Forms;
 
 namespace FlowModel
 {
-    public partial class SQLgerado : Form
+    public partial class ResultadoSQL : Form
     {
         private Form telaAnterior;
 
-        public SQLgerado(string sql, Form f)
+        public ResultadoSQL(string sql, Form f)
         {
             InitializeComponent();
             telaAnterior = f;

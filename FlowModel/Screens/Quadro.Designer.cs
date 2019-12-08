@@ -1,6 +1,6 @@
 ﻿namespace FlowModel
 {
-    partial class EditPanel
+    partial class Quadro
     {
         /// <summary>
         /// Variável de designer necessária.
@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(EditPanel));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Quadro));
             this.Info = new System.Windows.Forms.Label();
             this.BoxEntidade = new System.Windows.Forms.GroupBox();
             this.txtEntidadeY = new System.Windows.Forms.TextBox();
@@ -80,7 +80,7 @@
             this.btn_entidade = new System.Windows.Forms.Button();
             this.Nome = new System.Windows.Forms.TextBox();
             this.Baixar = new System.Windows.Forms.Button();
-            this.gerador = new System.Windows.Forms.Button();
+            this.gerarSQL = new System.Windows.Forms.Button();
             this.Salvar = new System.Windows.Forms.Button();
             this.label15 = new System.Windows.Forms.Label();
             this.label16 = new System.Windows.Forms.Label();
@@ -125,7 +125,7 @@
             this.txtEntidadeY.Name = "txtEntidadeY";
             this.txtEntidadeY.Size = new System.Drawing.Size(51, 23);
             this.txtEntidadeY.TabIndex = 7;
-            this.txtEntidadeY.TextChanged += new System.EventHandler(this.txtEntidadeY_TextChanged);
+            this.txtEntidadeY.TextChanged += new System.EventHandler(this.TxtEntidadeY_TextChanged);
             // 
             // label3
             // 
@@ -136,7 +136,7 @@
             this.label3.Size = new System.Drawing.Size(21, 18);
             this.label3.TabIndex = 5;
             this.label3.Text = "Y:";
-            this.label3.Click += new System.EventHandler(this.label3_Click);
+            this.label3.Click += new System.EventHandler(this.Label3_Click);
             // 
             // txtEntidadeX
             // 
@@ -144,7 +144,7 @@
             this.txtEntidadeX.Name = "txtEntidadeX";
             this.txtEntidadeX.Size = new System.Drawing.Size(51, 23);
             this.txtEntidadeX.TabIndex = 4;
-            this.txtEntidadeX.TextChanged += new System.EventHandler(this.txtEntidadeX_TextChanged);
+            this.txtEntidadeX.TextChanged += new System.EventHandler(this.TxtEntidadeX_TextChanged);
             // 
             // label2
             // 
@@ -227,7 +227,7 @@
             this.txtCardAtributoMax.Name = "txtCardAtributoMax";
             this.txtCardAtributoMax.Size = new System.Drawing.Size(33, 23);
             this.txtCardAtributoMax.TabIndex = 18;
-            this.txtCardAtributoMax.TextChanged += new System.EventHandler(this.txtCardAtributoMax_TextChanged);
+            this.txtCardAtributoMax.TextChanged += new System.EventHandler(this.TxtCardAtributoMax_TextChanged);
             // 
             // cbDerivado
             // 
@@ -241,7 +241,7 @@
             this.cbDerivado.TabIndex = 17;
             this.cbDerivado.UseWaitCursor = true;
             this.cbDerivado.Visible = false;
-            this.cbDerivado.SelectedIndexChanged += new System.EventHandler(this.cbDerivado_SelectedIndexChanged);
+            this.cbDerivado.SelectedIndexChanged += new System.EventHandler(this.CbDerivado_SelectedIndexChanged);
             // 
             // Composto
             // 
@@ -274,7 +274,7 @@
             this.cbDonoAtributo.Name = "cbDonoAtributo";
             this.cbDonoAtributo.Size = new System.Drawing.Size(182, 24);
             this.cbDonoAtributo.TabIndex = 14;
-            this.cbDonoAtributo.SelectedIndexChanged += new System.EventHandler(this.cbDonoAtributo_SelectedIndexChanged);
+            this.cbDonoAtributo.SelectedIndexChanged += new System.EventHandler(this.CbDonoAtributo_SelectedIndexChanged);
             // 
             // Derivado
             // 
@@ -304,7 +304,7 @@
             this.txtCardAtributoMin.Name = "txtCardAtributoMin";
             this.txtCardAtributoMin.Size = new System.Drawing.Size(33, 23);
             this.txtCardAtributoMin.TabIndex = 11;
-            this.txtCardAtributoMin.TextChanged += new System.EventHandler(this.txtCardAtributoMin_TextChanged);
+            this.txtCardAtributoMin.TextChanged += new System.EventHandler(this.TxtCardAtributoMin_TextChanged);
             // 
             // label11
             // 
@@ -336,7 +336,7 @@
             this.cbTipoAtributo.Name = "cbTipoAtributo";
             this.cbTipoAtributo.Size = new System.Drawing.Size(182, 24);
             this.cbTipoAtributo.TabIndex = 8;
-            this.cbTipoAtributo.SelectedIndexChanged += new System.EventHandler(this.comboTipo_SelectedIndexChanged);
+            this.cbTipoAtributo.SelectedIndexChanged += new System.EventHandler(this.ComboTipo_SelectedIndexChanged);
             // 
             // NomeAtributo
             // 
@@ -510,7 +510,7 @@
             this.textBox1.Name = "textBox1";
             this.textBox1.Size = new System.Drawing.Size(100, 20);
             this.textBox1.TabIndex = 0;
-            this.textBox1.KeyDown += new System.Windows.Forms.KeyEventHandler(this.textBox1_KeyDown);
+            this.textBox1.KeyDown += new System.Windows.Forms.KeyEventHandler(this.TextBox1_KeyDown);
             // 
             // InfoOqueFazer
             // 
@@ -531,7 +531,7 @@
             this.trackBar1.Name = "trackBar1";
             this.trackBar1.Size = new System.Drawing.Size(49, 45);
             this.trackBar1.TabIndex = 2;
-            this.trackBar1.ValueChanged += new System.EventHandler(this.trackBar1_ValueChanged);
+            this.trackBar1.ValueChanged += new System.EventHandler(this.TrackBar1_ValueChanged);
             // 
             // label13
             // 
@@ -551,10 +551,10 @@
             this.pn_edit.Size = new System.Drawing.Size(932, 600);
             this.pn_edit.TabIndex = 1;
             this.pn_edit.TabStop = true;
-            this.pn_edit.MouseClick += new System.Windows.Forms.MouseEventHandler(this.pn_edit_MouseClick);
-            this.pn_edit.MouseDown += new System.Windows.Forms.MouseEventHandler(this.pn_edit_MouseDown);
-            this.pn_edit.MouseMove += new System.Windows.Forms.MouseEventHandler(this.pn_edit_MouseMove);
-            this.pn_edit.MouseUp += new System.Windows.Forms.MouseEventHandler(this.pn_edit_MouseUp);
+            this.pn_edit.MouseClick += new System.Windows.Forms.MouseEventHandler(this.Pn_edit_MouseClick);
+            this.pn_edit.MouseDown += new System.Windows.Forms.MouseEventHandler(this.Pn_edit_MouseDown);
+            this.pn_edit.MouseMove += new System.Windows.Forms.MouseEventHandler(this.Pn_edit_MouseMove);
+            this.pn_edit.MouseUp += new System.Windows.Forms.MouseEventHandler(this.Pn_edit_MouseUp);
             // 
             // label14
             // 
@@ -594,7 +594,7 @@
             this.btn_padrao.Text = "Padronização";
             this.btn_padrao.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             this.btn_padrao.UseVisualStyleBackColor = false;
-            this.btn_padrao.Click += new System.EventHandler(this.btn_padrao_Click);
+            this.btn_padrao.Click += new System.EventHandler(this.Btn_padrao_Click);
             // 
             // btn_heranca
             // 
@@ -610,7 +610,7 @@
             this.btn_heranca.Text = "Especialização";
             this.btn_heranca.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
             this.btn_heranca.UseVisualStyleBackColor = false;
-            this.btn_heranca.Click += new System.EventHandler(this.btn_heranca_Click);
+            this.btn_heranca.Click += new System.EventHandler(this.Btn_heranca_Click);
             // 
             // btn_atributo
             // 
@@ -626,7 +626,7 @@
             this.btn_atributo.Text = "Atributo";
             this.btn_atributo.TextAlign = System.Drawing.ContentAlignment.BottomLeft;
             this.btn_atributo.UseVisualStyleBackColor = false;
-            this.btn_atributo.Click += new System.EventHandler(this.btn_atributo_Click);
+            this.btn_atributo.Click += new System.EventHandler(this.Btn_atributo_Click);
             // 
             // btn_relacionamento
             // 
@@ -640,7 +640,7 @@
             this.btn_relacionamento.TabIndex = 1;
             this.btn_relacionamento.Text = "Relacionamento";
             this.btn_relacionamento.UseVisualStyleBackColor = false;
-            this.btn_relacionamento.Click += new System.EventHandler(this.btn_relacionamento_Click);
+            this.btn_relacionamento.Click += new System.EventHandler(this.Btn_relacionamento_Click);
             // 
             // btn_entidade
             // 
@@ -656,7 +656,7 @@
             this.btn_entidade.TabIndex = 1;
             this.btn_entidade.Text = "Entidade";
             this.btn_entidade.UseVisualStyleBackColor = false;
-            this.btn_entidade.Click += new System.EventHandler(this.btn_entidade_Click);
+            this.btn_entidade.Click += new System.EventHandler(this.Btn_entidade_Click);
             // 
             // Nome
             // 
@@ -679,20 +679,20 @@
             this.Baixar.TabIndex = 817;
             this.Baixar.UseVisualStyleBackColor = false;
             // 
-            // gerador
+            // gerarSQL
             // 
-            this.gerador.BackColor = System.Drawing.Color.AliceBlue;
-            this.gerador.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("gerador.BackgroundImage")));
-            this.gerador.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.gerador.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.gerador.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.gerador.Location = new System.Drawing.Point(1191, 552);
-            this.gerador.Name = "gerador";
-            this.gerador.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.gerador.Size = new System.Drawing.Size(75, 75);
-            this.gerador.TabIndex = 818;
-            this.gerador.UseVisualStyleBackColor = false;
-            this.gerador.Click += new System.EventHandler(this.gerador_Click);
+            this.gerarSQL.BackColor = System.Drawing.Color.AliceBlue;
+            this.gerarSQL.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("gerarSQL.BackgroundImage")));
+            this.gerarSQL.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.gerarSQL.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.gerarSQL.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.gerarSQL.Location = new System.Drawing.Point(1191, 552);
+            this.gerarSQL.Name = "gerarSQL";
+            this.gerarSQL.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.gerarSQL.Size = new System.Drawing.Size(75, 75);
+            this.gerarSQL.TabIndex = 818;
+            this.gerarSQL.UseVisualStyleBackColor = false;
+            this.gerarSQL.Click += new System.EventHandler(this.GerarSQL_Click);
             // 
             // Salvar
             // 
@@ -737,7 +737,7 @@
             this.label17.TabIndex = 822;
             this.label17.Text = "Upload";
             // 
-            // EditPanel
+            // Quadro
             // 
             this.AccessibleDescription = "FlowModel for entity relationship model";
             this.AccessibleName = "Flow Model";
@@ -751,7 +751,7 @@
             this.Controls.Add(this.label16);
             this.Controls.Add(this.label15);
             this.Controls.Add(this.Salvar);
-            this.Controls.Add(this.gerador);
+            this.Controls.Add(this.gerarSQL);
             this.Controls.Add(this.Baixar);
             this.Controls.Add(this.Nome);
             this.Controls.Add(this.label14);
@@ -772,7 +772,7 @@
             this.Controls.Add(this.textBox1);
             this.Cursor = System.Windows.Forms.Cursors.Default;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.Name = "EditPanel";
+            this.Name = "Quadro";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "FlowModel a entity-relationship modeler ";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.EditPanel_FormClosing);
@@ -841,7 +841,7 @@
         private System.Windows.Forms.Label label14;
         private System.Windows.Forms.TextBox Nome;
         private System.Windows.Forms.Button Baixar;
-        private System.Windows.Forms.Button gerador;
+        private System.Windows.Forms.Button gerarSQL;
         private System.Windows.Forms.Button Salvar;
         private System.Windows.Forms.Label label15;
         private System.Windows.Forms.Label label16;

@@ -30,9 +30,9 @@
         {
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.TextoInicial = new System.Windows.Forms.Label();
-            this.SqlToImage = new System.Windows.Forms.Button();
             this.NewProject = new System.Windows.Forms.Button();
             this.OpenProject = new System.Windows.Forms.Button();
+            this.SqlToImage = new System.Windows.Forms.Button();
             this.tableLayoutPanel1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -44,9 +44,9 @@
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 30F));
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 35F));
             this.tableLayoutPanel1.Controls.Add(this.TextoInicial, 1, 0);
-            this.tableLayoutPanel1.Controls.Add(this.SqlToImage, 2, 1);
             this.tableLayoutPanel1.Controls.Add(this.NewProject, 0, 1);
             this.tableLayoutPanel1.Controls.Add(this.OpenProject, 1, 1);
+            this.tableLayoutPanel1.Controls.Add(this.SqlToImage, 2, 1);
             this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 0);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
@@ -69,45 +69,49 @@
             this.TextoInicial.Text = "Flow Model ";
             this.TextoInicial.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // SqlToImage
-            // 
-            this.SqlToImage.BackColor = System.Drawing.SystemColors.ActiveCaption;
-            this.SqlToImage.Cursor = System.Windows.Forms.Cursors.No;
-            this.SqlToImage.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.SqlToImage.Font = new System.Drawing.Font("Arial", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.SqlToImage.Location = new System.Drawing.Point(523, 153);
-            this.SqlToImage.Name = "SqlToImage";
-            this.SqlToImage.Size = new System.Drawing.Size(274, 88);
-            this.SqlToImage.TabIndex = 1;
-            this.SqlToImage.Text = "Conversão SQ";
-            this.SqlToImage.UseVisualStyleBackColor = false;
-            // 
             // NewProject
             // 
+            this.NewProject.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.NewProject.BackColor = System.Drawing.SystemColors.ActiveCaption;
             this.NewProject.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
             this.NewProject.Cursor = System.Windows.Forms.Cursors.Hand;
             this.NewProject.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.NewProject.Font = new System.Drawing.Font("Arial", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.NewProject.Location = new System.Drawing.Point(3, 153);
+            this.NewProject.Location = new System.Drawing.Point(3, 181);
             this.NewProject.Name = "NewProject";
             this.NewProject.Size = new System.Drawing.Size(274, 88);
             this.NewProject.TabIndex = 2;
             this.NewProject.Text = "Criar Novo";
             this.NewProject.UseVisualStyleBackColor = false;
+            this.NewProject.Click += new System.EventHandler(this.NewProject_Click);
             // 
             // OpenProject
             // 
+            this.OpenProject.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.OpenProject.BackColor = System.Drawing.SystemColors.ActiveCaption;
             this.OpenProject.Cursor = System.Windows.Forms.Cursors.Hand;
             this.OpenProject.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.OpenProject.Font = new System.Drawing.Font("Arial", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.OpenProject.Location = new System.Drawing.Point(283, 153);
+            this.OpenProject.Location = new System.Drawing.Point(283, 181);
             this.OpenProject.Name = "OpenProject";
             this.OpenProject.Size = new System.Drawing.Size(234, 88);
             this.OpenProject.TabIndex = 3;
             this.OpenProject.Text = "Abrir Projeto";
             this.OpenProject.UseVisualStyleBackColor = false;
+            // 
+            // SqlToImage
+            // 
+            this.SqlToImage.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.SqlToImage.BackColor = System.Drawing.SystemColors.ActiveCaption;
+            this.SqlToImage.Cursor = System.Windows.Forms.Cursors.No;
+            this.SqlToImage.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.SqlToImage.Font = new System.Drawing.Font("Arial", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.SqlToImage.Location = new System.Drawing.Point(523, 181);
+            this.SqlToImage.Name = "SqlToImage";
+            this.SqlToImage.Size = new System.Drawing.Size(274, 88);
+            this.SqlToImage.TabIndex = 1;
+            this.SqlToImage.Text = "Conversão SQL";
+            this.SqlToImage.UseVisualStyleBackColor = false;
             // 
             // Inicio
             // 

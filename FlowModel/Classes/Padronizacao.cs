@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
-using System.Windows.Forms;
 
 namespace FlowModel
 {
@@ -12,9 +11,7 @@ namespace FlowModel
         private int y;
 
         private Entidade padrao;
-        private List<Entidade> entidades;
-
-        private int id;
+        private readonly List<Entidade> entidades;
 
 
         public Padronizacao(string n, int Px, int Py)
@@ -26,35 +23,35 @@ namespace FlowModel
             this.padrao = null;
             this.entidades = new List<Entidade>();
         }
-        public Entidade getEntidadePadrao()
+        public Entidade GetEntidadePadrao()
         {
             return this.padrao;
         }
-        public List<Entidade> getEntidades()
+        public List<Entidade> GetEntidades()
         {
             return this.entidades;
         }
 
-        public string getName()
+        public string GetName()
         {
             return this.nome;
         }
 
-        public int getX()
+        public int GetX()
         {
             return this.x;
         }
 
-        public int getY()
+        public int GetY()
         {
             return this.y;
         }
 
-        public void setPadrao(Entidade x)
+        public void SetPadrao(Entidade x)
         {
             this.padrao = x;
         }
-        public void addEntidade(Entidade x)
+        public void AddEntidade(Entidade x)
         {
             this.entidades.Add(x);
         }
@@ -67,18 +64,18 @@ namespace FlowModel
         public void SeDesenhe(Graphics g)
         {
             Pen caneta = new Pen(new System.Drawing.SolidBrush(System.Drawing.Color.Black));
-            g.DrawLine(caneta, this.x + 50, this.y + 43, this.padrao.getX() + 50, this.padrao.getY() + 25);
+            g.DrawLine(caneta, this.x + 50, this.y + 43, this.padrao.GetX() + 50, this.padrao.GetY() + 25);
             this.padrao.SeDesenhe(g);
             for (int i = 0; i < this.entidades.Count; i++)
             {
-                g.DrawLine(caneta, this.x + 50, this.y, this.entidades[i].getX(), this.entidades[i].getY() + 25);
+                g.DrawLine(caneta, this.x + 50, this.y, this.entidades[i].GetX(), this.entidades[i].GetY() + 25);
                 this.entidades[i].SeDesenhe(g);
             }
             Image newImage = (Image)Properties.Resources.ResourceManager.GetObject("Generalizacao");
             g.DrawImage(newImage, this.x, this.y);
         }
 
-        public void Propriedades(Panel p)
+        public void Propriedades()
         {
             throw new NotImplementedException();
         }
@@ -92,17 +89,17 @@ namespace FlowModel
             return false;
         }
 
-        public void setName(string name)
+        public void SetName(string name)
         {
             this.nome = name;
         }
 
-        public void setX(int X)
+        public void SetX(int X)
         {
             this.x = X;
         }
 
-        public void setY(int Y)
+        public void SetY(int Y)
         {
             this.y = Y;
         }

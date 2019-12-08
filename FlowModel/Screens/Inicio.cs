@@ -1,11 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace FlowModel.Screens
@@ -15,6 +8,13 @@ namespace FlowModel.Screens
         public Inicio()
         {
             InitializeComponent();
+        }
+
+        private void NewProject_Click(object sender, EventArgs e)
+        {
+            this.Hide();
+            Quadro paint = new Quadro();
+            paint.Show();
         }
     }
 }
