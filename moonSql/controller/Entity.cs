@@ -4,15 +4,26 @@ using System.Drawing;
 
 namespace moonSql.controller
 {
-    class Entity : Drawable
+    class Relationship : Drawable
     {
         private int x;
         private int y;
 
         private List<Drawable> childs;
 
+        public Relationship(int x, int y)
+        {
+            this.x = x;
+            this.y = y;
+            this.childs = new List<Drawable>();
+        }
+
         public void DrawIt(Graphics g)
         {
+            foreach (Drawable child in childs)
+            {
+                child.DrawIt(g);
+            }
             throw new NotImplementedException();
         }
         public int GetX()
@@ -33,7 +44,12 @@ namespace moonSql.controller
         }
         public void SetY(int newY)
         {
-            this.x = newY;
+            this.y = newY;
+        }
+
+        public void AddChild(Drawable child)
+        {
+            this.childs.Add(child);
         }
     }
 }
