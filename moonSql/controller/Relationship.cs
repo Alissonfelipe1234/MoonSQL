@@ -12,20 +12,28 @@ namespace moonSql.controller
 
         private List<Tuple<Drawable, Cardinality>> childs;
 
-        public Relationship(int x, int y)
+        public Relationship(int x, int y, string name)
         {
             this.x = x;
             this.y = y;
+            this.name = name;
             this.childs = new List<Tuple<Drawable, Cardinality>>();
         }
         public void DrawIt(Graphics g)
         {
+            Pen pencil = new Pen(Color.Black, 2);
+
+            Image stamp = (Image)Properties.Resources.ResourceManager.GetObject("relationship");
+            g.DrawImage(stamp, this.x, this.y);
+            SolidBrush drawBrush = new SolidBrush(Color.Black);
+            g.DrawString(this.name, new Font(new FontFamily("Arial"), 10), drawBrush, this.x + 12, this.y + 37);
+
             foreach (Tuple<Drawable, Cardinality> tuple in childs)
             {
+                g.DrawLine(pencil, this.x + 50, this.y + 50, tuple.Item1.GetX() + 50, tuple.Item1.GetY() + 25);
                 tuple.Item1.DrawIt(g);
                 tuple.Item2.DrawIt(g);
             }
-            throw new NotImplementedException();
         }
         public int GetX()
         {
@@ -37,7 +45,12 @@ namespace moonSql.controller
         }
         public bool IsThere(int x, int y)
         {
-            throw new NotImplementedException();
+            int horizontal = x - this.x;
+            int vertical = y - this.y;
+            if ((horizontal >= 0 && horizontal <= 100) && (vertical >= 21 && vertical <= 72))
+                return true;
+
+            return false;
         }
         public void SetX(int newX)
         {
