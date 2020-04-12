@@ -4,52 +4,71 @@ using System.Drawing;
 
 namespace moonSql.controller
 {
-    class Relationship : Drawable
+    class Entity : Drawable
     {
         private int x;
         private int y;
 
+        private string name;
+
         private List<Drawable> childs;
 
-        public Relationship(int x, int y)
+        public Entity(int x, int y, string name)
         {
-            this.x = x;
-            this.y = y;
+            this.x = x-50;
+            this.y = y-16;
+            this.name = name;
             this.childs = new List<Drawable>();
         }
 
         public void DrawIt(Graphics g)
         {
-            foreach (Drawable child in childs)
+            foreach (Drawable child in this.childs)
             {
                 child.DrawIt(g);
             }
-            throw new NotImplementedException();
+            Image square = (Image)Properties.Resources.ResourceManager.GetObject("entity");
+            g.DrawImage(square, this.x, this.y);
+            SolidBrush title = new SolidBrush(Color.Black);
+            g.DrawString(this.name, new Font(new FontFamily("Arial"), 12), title, this.x + 5, this.y + 15);
         }
         public int GetX()
         {
-            return this.x;
+            return this.x+50;
         }
         public int GetY()
         {
-            return this.y;
+            return this.y+16;
         }
         public bool IsThere(int x, int y)
         {
-            throw new NotImplementedException();
+            int horizontal = x - this.x;
+            int vertical = y - this.y;
+            if ((horizontal >= 0 && horizontal <= 100) && (vertical >= 0 && vertical <= 52))
+                return true;
+
+            return false;
         }
         public void SetX(int newX)
         {
-            this.x = newX;
+            this.x = newX-50;
         }
         public void SetY(int newY)
         {
-            this.y = newY;
+            this.y = newY-16;
         }
-
+        public void SetName(string name)
+        {
+            this.name = name;
+        }
         public void AddChild(Drawable child)
         {
             this.childs.Add(child);
+        }
+        public void SetXY(int X, int Y)
+        {
+            SetX(X);
+            SetY(Y);
         }
     }
 }

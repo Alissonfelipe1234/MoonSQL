@@ -9,6 +9,7 @@ namespace moonSql.controller
         bool IsThere(int x, int y);
         void SetX(int newX);
         void SetY(int newY);
+        void SetXY(int X, int Y);
         void DrawIt(Graphics g);
     }
 }
