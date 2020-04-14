@@ -209,11 +209,11 @@ namespace moonSql
         }
         private void Paint_MouseDown(object sender, MouseEventArgs e)
         {
-            foreach (Drawable draw in drawables)
+            for(int i = drawables.Count-1; i >= 0; i--)
             {
-                if (draw.IsThere(e.X, e.Y))
+                if (drawables[i].IsThere(e.X, e.Y))
                 {
-                    this.selected = draw;
+                    this.selected = drawables[i];
                     break;
                 }
             }
