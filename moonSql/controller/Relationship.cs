@@ -14,8 +14,8 @@ namespace moonSql.controller
 
         public Relationship(int x, int y, string name)
         {
-            this.x = x;
-            this.y = y;
+            this.x = x - 50;
+            this.y = y - 50;
             this.name = name;
             this.childs = new List<Tuple<Drawable, Cardinality>>();
         }
@@ -23,17 +23,17 @@ namespace moonSql.controller
         {
             Pen pencil = new Pen(Color.Black, 2);
 
+            foreach (Tuple<Drawable, Cardinality> tuple in childs)
+            {
+                g.DrawLine(pencil, this.x + 50, this.y + 50, tuple.Item1.GetX(), tuple.Item1.GetY()+10);
+                tuple.Item1.DrawIt(g);
+                tuple.Item2.DrawIt(g);
+            }
+
             Image stamp = (Image)Properties.Resources.ResourceManager.GetObject("relationship");
             g.DrawImage(stamp, this.x, this.y);
             SolidBrush drawBrush = new SolidBrush(Color.Black);
             g.DrawString(this.name, new Font(new FontFamily("Arial"), 10), drawBrush, this.x + 12, this.y + 37);
-
-            foreach (Tuple<Drawable, Cardinality> tuple in childs)
-            {
-                g.DrawLine(pencil, this.x + 50, this.y + 50, tuple.Item1.GetX() + 50, tuple.Item1.GetY() + 25);
-                tuple.Item1.DrawIt(g);
-                tuple.Item2.DrawIt(g);
-            }
         }
         public int GetX()
         {
@@ -54,11 +54,11 @@ namespace moonSql.controller
         }
         public void SetX(int newX)
         {
-            this.x = newX;
+            this.x = newX - 50;
         }
         public void SetY(int newY)
         {
-            this.y = newY;
+            this.y = newY - 50;
         }
         public void AddChild(Drawable child, Cardinality card)
         {
@@ -66,8 +66,8 @@ namespace moonSql.controller
         }
         public void SetXY(int X, int Y)
         {
-            SetX(x);
-            SetY(y);
+            SetX(X);
+            SetY(Y);
         }
     }
 }

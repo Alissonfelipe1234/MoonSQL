@@ -25,7 +25,8 @@ namespace moonSql.controller
 
         public void DrawIt(Graphics g)
         {
-            throw new NotImplementedException();
+            SolidBrush pencil = new SolidBrush(Color.Black);
+            g.DrawString(this.min + ", " + this.max, new Font(new FontFamily("Arial Black"), 8), pencil, this.x, this.y);
         }
         public int GetX()
         {
@@ -45,7 +46,13 @@ namespace moonSql.controller
         }
         public bool IsThere(int x, int y)
         {
-            throw new NotImplementedException();
+            int horizontal = x - this.x;
+            int vertical = y - this.y;
+
+            if ((horizontal >= 0 && horizontal <= 20) && (vertical >= 0 && vertical <= 12))
+                return true;
+
+            return false;
         }
         public void SetX(int newX)
         {
@@ -65,8 +72,8 @@ namespace moonSql.controller
         }
         public void SetXY(int X, int Y)
         {
-            SetX(x);
-            SetY(y);
+            SetX(X);
+            SetY(Y);
         }
     }
 }

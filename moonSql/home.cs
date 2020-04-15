@@ -41,34 +41,44 @@ namespace moonSql
             }
             else if (this.status.Equals("new relationship"))
             {
-                if (this.clickCounter == 3)
+                string name = InputBox("new relationship", "put relationship's name");
+                Relationship new_r = new Relationship(e.X, e.Y, name);
+                this.previous = new_r;
+                new_r.DrawIt(this.graphic);
+                InputMessage("Choose entity", "Click on " + this.clickCounter + " entities");
+                this.status = "creating relationship";
+            }
+            else if(this.status.Equals("creating relationship"))
+            {
+                if (this.clickCounter > 0)
                 {
-                    string name = InputBox("new relationship", "put relationship's name");
-                    Relationship new_r = new Relationship(e.X, e.Y, name);
-                    this.previous = new_r;
-                    new_r.DrawIt(this.graphic);
-                    this.clickCounter--;
-                    InputMessage("Choose a entity", "Click on entities");
-                }
-                else
-                {
-                    if (this.clickCounter > 0)
+                    this.selected = EntityHere(e.X, e.Y);
+                    if(this.selected != null)
                     {
-                        foreach (Drawable draw in this.drawables)
+                        Relationship pre = (Relationship)this.previous;
+                        bool min = InputCardinality("Cardinality for relationship", "choose minimum cardinality");
+                        bool max = InputCardinality("Cardinality for relationship", "choose maximum cardinality");
+                        Cardinality new_c = new Cardinality((this.selected.GetX() + 50), (this.selected.GetY() + 35), (min ? "1" : "N"), (max ? "1" : "N"));
+                        this.drawables.Add(new_c);
+                        pre.AddChild(this.selected, new_c);
+                        this.previous.DrawIt(this.graphic);
+                        this.clickCounter--;
+                        if (this.clickCounter == 0)
                         {
-                            if (draw.IsThere(e.X, e.Y) && (draw.GetType() == typeof(Entity)))
-                            {
-                                Relationship pre = (Relationship)this.previous;
-                                bool min = InputCardinality("Cardinality for relationship", "choose minimum cardinality");
-                                bool max = InputCardinality("Cardinality for relationship", "choose maximum cardinality");
-                                Cardinality new_c = new Cardinality((draw.GetX() + 50), (draw.GetY() + 35), (min ? "1" : "N"), (max ? "1" : "N"));
-                                pre.AddChild(draw, new_c);
-                                this.previous.DrawIt(this.graphic);
-                                this.clickCounter--;
-                                break;
-                            }
+                            this.drawables.Add(this.previous);
+                            this.previous = null;
+                            this.status = "";
                         }
                     }
+                }
+            }
+            else if(this.status.Equals("new special"))
+            {
+                this.selected = EntityHere(e.X, e.Y);
+                if (this.selected!=null)
+                {
+                    this.previous = this.selected;
+                    string click = InputBox("Specialização configuration", "number of specializations");
                 }
             }
             paint.Refresh();
@@ -87,17 +97,59 @@ namespace moonSql
             foreach (Drawable draw in drawables)
                 draw.DrawIt(this.graphic);
         }
+        private Drawable WhatIsThere(int x, int y)
+        {
+            for (int i = drawables.Count - 1; i >= 0; i--)
+            {
+                if (drawables[i].IsThere(x, y))
+                {
+                    return drawables[i];
+                }
+            }
+
+            return null;
+        }
+        private Entity EntityHere(int x, int y)
+        {
+            for (int i = drawables.Count - 1; i >= 0; i--)
+            {
+                if (drawables[i].IsThere(x, y))
+                {
+                    return (Entity) drawables[i];
+                }
+            }
+
+            return null;
+        }
         private void New_entity_Click(object sender, System.EventArgs e)
         {
-            this.status = "new entity";            
+            if(this.status == "")
+                this.status = "new entity";            
         }
         private void New_relationship_Click(object sender, EventArgs e)
         {
-            if (this.clickCounter == 0)
+            if (this.status == "")
             {
+                string kind = InputBox("Relationshiop configuration", "how many entities? 1(unary), 2(binary), 3(ternary)");
                 this.status = "new relationship";
-                this.clickCounter = 3;
+                switch (kind)
+                {
+                    case "1":
+                        this.clickCounter = 1;
+                        break;
+                    case "3":
+                        this.clickCounter = 3;
+                        break;
+                    default:
+                        this.clickCounter = 2;
+                        break;
+                }
             }
+        }
+        private void new_specialization_Click(object sender, EventArgs e)
+        {
+            if (this.status == "")
+                this.status = "new special";
         }
         public static string InputBox(string title, string promptText)
         {
@@ -209,14 +261,7 @@ namespace moonSql
         }
         private void Paint_MouseDown(object sender, MouseEventArgs e)
         {
-            for(int i = drawables.Count-1; i >= 0; i--)
-            {
-                if (drawables[i].IsThere(e.X, e.Y))
-                {
-                    this.selected = drawables[i];
-                    break;
-                }
-            }
+            this.selected = WhatIsThere(e.X, e.Y);
         }
         private void Paint_MouseUp(object sender, MouseEventArgs e)
         {

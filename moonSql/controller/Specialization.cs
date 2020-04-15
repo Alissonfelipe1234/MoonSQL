@@ -50,8 +50,8 @@ namespace moonSql.controller
         }
         public void SetXY(int X, int Y)
         {
-            SetX(x);
-            SetY(y);
+            SetX(X);
+            SetY(Y);
         }
     }
 }

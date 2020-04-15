@@ -199,6 +199,7 @@
             this.new_specialization.TabIndex = 4;
             this.new_specialization.Text = "Specialization";
             this.new_specialization.UseVisualStyleBackColor = false;
+            this.new_specialization.Click += new System.EventHandler(this.new_specialization_Click);
             // 
             // new_generalization
             // 
