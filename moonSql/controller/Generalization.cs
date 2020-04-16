@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Drawing;
 
-namespace moonSql.controller
+namespace moonSql.Controller
 {
     class Generalization : Drawable
     {
@@ -12,16 +12,27 @@ namespace moonSql.controller
         private Entity generic;
         private List<Entity> entities;
 
-        public Generalization(int x, int y, Entity generic)
+        public Generalization(int x, int y)
         {
-            this.x = x;
-            this.y = y;
-            this.generic = generic;
+            this.x = x - 50;
+            this.y = y - 20;
             this.entities = new List<Entity>();
         }
         public void DrawIt(Graphics g)
         {
-            throw new NotImplementedException();
+            Pen pencil = new Pen(new SolidBrush(Color.Black));
+            if (this.generic != null)
+            {
+                g.DrawLine(pencil, this.x + 50, this.y, generic.GetX(), generic.GetY() + 10);
+                this.generic.DrawIt(g);
+            }
+            foreach (Entity entity in entities)
+            {
+                g.DrawLine(pencil, this.x + 50, this.y + 43, entity.GetX(), entity.GetY() + 10);
+                entity.DrawIt(g);
+            }
+            Image stamp = (Image)Properties.Resources.ResourceManager.GetObject("generalization");
+            g.DrawImage(stamp, this.x, this.y);
         }
         public int GetX()
         {
@@ -33,15 +44,25 @@ namespace moonSql.controller
         }
         public bool IsThere(int x, int y)
         {
-            throw new NotImplementedException();
+            int horizontal = x - this.x;
+            int vertical = y - this.y;
+            if ((horizontal >= 0 && horizontal <= 100) && (vertical >= 0 && vertical <= 56))
+                return true;
+
+            return false;
         }
         public void SetX(int newX)
         {
-            this.x = newX;
+            this.x = newX - 50;
         }
         public void SetY(int newY)
         {
-            this.y = newY;
+            this.y = newY - 25;
+        }
+        public void SetGeneric(Entity entity)
+        {
+            if (this.generic == null)
+                this.generic = entity;
         }
         public void addEntity(Entity entity)
         {

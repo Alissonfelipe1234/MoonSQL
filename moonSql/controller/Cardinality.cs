@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace moonSql.controller
+namespace moonSql.Controller
 {
     class Cardinality : Drawable
     {

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Drawing;
 
-namespace moonSql.controller
+namespace moonSql.Controller
 {
     class Entity : Drawable
     {

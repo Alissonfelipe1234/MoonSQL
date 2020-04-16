@@ -1,6 +1,6 @@
 ﻿using System.Drawing;
 
-namespace moonSql.controller
+namespace moonSql.Controller
 {
     interface Drawable
     {

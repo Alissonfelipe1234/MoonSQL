@@ -1,4 +1,4 @@
-﻿using moonSql.controller;
+﻿using moonSql.Controller;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -48,12 +48,12 @@ namespace moonSql
                 InputMessage("Choose entity", "Click on " + this.clickCounter + " entities");
                 this.status = "creating relationship";
             }
-            else if(this.status.Equals("creating relationship"))
+            else if (this.status.Equals("creating relationship"))
             {
                 if (this.clickCounter > 0)
                 {
                     this.selected = EntityHere(e.X, e.Y);
-                    if(this.selected != null)
+                    if (this.selected != null)
                     {
                         Relationship pre = (Relationship)this.previous;
                         bool min = InputCardinality("Cardinality for relationship", "choose minimum cardinality");
@@ -72,15 +72,84 @@ namespace moonSql
                     }
                 }
             }
-            else if(this.status.Equals("new special"))
+            else if (this.status.Equals("new special"))
+            {
+                Specialization new_s = new Specialization(e.X, e.Y);
+                this.previous = new_s;
+                this.drawables.Add(new_s);
+                this.status = "selecting special";
+                new_s.DrawIt(this.graphic);
+            }
+            else if (this.status.Equals("selecting special"))
             {
                 this.selected = EntityHere(e.X, e.Y);
-                if (this.selected!=null)
+                if (this.selected != null)
                 {
-                    this.previous = this.selected;
-                    string click = InputBox("Specialização configuration", "number of specializations");
+                    Specialization new_s = (Specialization)this.previous;
+                    new_s.SetSpecial((Entity)this.selected);
+
+                    new_s.DrawIt(this.graphic);
+                    string click = InputBox("Specialization configuration", "number of specializations");
+                    this.clickCounter = Int32.Parse(click);
+                    this.status = "creating a special";
                 }
             }
+            else if (this.status.Equals("creating a special"))
+            {
+                this.selected = EntityHere(e.X, e.Y);
+                if (this.selected != null && this.clickCounter > 0)
+                {
+                    Specialization new_s = (Specialization)this.previous;
+
+                    new_s.addEntity((Entity)this.selected);
+                    new_s.DrawIt(this.graphic);
+                    this.clickCounter--;
+                    if (this.clickCounter == 0)
+                        this.status = "";
+                }
+            }
+            else if (this.status.Equals("new generic"))
+            {
+                Generalization new_s = new Generalization(e.X, e.Y);
+                this.previous = new_s;
+                this.drawables.Add(new_s);
+                this.status = "selecting generic";
+                new_s.DrawIt(this.graphic);
+            }
+            else if (this.status.Equals("selecting generic"))
+            {
+                this.selected = EntityHere(e.X, e.Y);
+                if (this.selected != null)
+                {
+                    Generalization new_s = (Generalization)this.previous;
+                    new_s.SetGeneric((Entity)this.selected);
+
+                    new_s.DrawIt(this.graphic);
+                    string click = InputBox("Generalization configuration", "number of generalizations");
+                    this.clickCounter = Int32.Parse(click);
+                    this.status = "creating a generic";
+                }
+            }
+            else if (this.status.Equals("creating a generic"))
+            {
+                this.selected = EntityHere(e.X, e.Y);
+                if (this.selected != null && this.clickCounter > 0)
+                {
+                    Generalization new_s = (Generalization)this.previous;
+
+                    new_s.addEntity((Entity)this.selected);
+                    new_s.DrawIt(this.graphic);
+                    this.clickCounter--;
+                    if (this.clickCounter == 0)
+                        this.status = "";
+                }
+            }
+            else if (this.status.Equals("new attribute"))
+            {
+
+            }
+            else
+                status = "";
             paint.Refresh();
         }
         private void RestartPaint()
@@ -113,7 +182,7 @@ namespace moonSql
         {
             for (int i = drawables.Count - 1; i >= 0; i--)
             {
-                if (drawables[i].IsThere(x, y))
+                if (drawables[i].IsThere(x, y) && drawables[i].GetType() == typeof(Entity))
                 {
                     return (Entity) drawables[i];
                 }
@@ -150,6 +219,16 @@ namespace moonSql
         {
             if (this.status == "")
                 this.status = "new special";
+        }
+        private void new_generalization_Click(object sender, EventArgs e)
+        {
+            if (this.status == "")
+                this.status = "new generic";
+        }
+        private void new_attribute_Click(object sender, EventArgs e)
+        {
+            if (this.status == "")
+                this.status = "new attribute";
         }
         public static string InputBox(string title, string promptText)
         {

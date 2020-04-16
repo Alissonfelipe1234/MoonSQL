@@ -2,15 +2,15 @@
 using System.Collections.Generic;
 using System.Drawing;
 
-namespace moonSql.controller
+namespace moonSql.Controller
 {
     class Relationship : Drawable
     {
         private int x;
         private int y;
-        private string name;
+        private readonly string name;
 
-        private List<Tuple<Drawable, Cardinality>> childs;
+        private readonly List<Tuple<Drawable, Cardinality>> childs;
 
         public Relationship(int x, int y, string name)
         {
@@ -33,15 +33,15 @@ namespace moonSql.controller
             Image stamp = (Image)Properties.Resources.ResourceManager.GetObject("relationship");
             g.DrawImage(stamp, this.x, this.y);
             SolidBrush drawBrush = new SolidBrush(Color.Black);
-            g.DrawString(this.name, new Font(new FontFamily("Arial"), 10), drawBrush, this.x + 12, this.y + 37);
+            g.DrawString(this.name, new Font(new FontFamily("Arial"), 10), drawBrush, this.x + 35, this.y + 37);
         }
         public int GetX()
         {
-            return this.x;
+            return this.x ;
         }
         public int GetY()
         {
-            return this.y;
+            return this.y ;
         }
         public bool IsThere(int x, int y)
         {

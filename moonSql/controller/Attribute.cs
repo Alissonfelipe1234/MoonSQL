@@ -2,15 +2,12 @@
 using System.Collections.Generic;
 using System.Drawing;
 
-namespace moonSql.controller
+namespace moonSql.Controller
 {
     class Attribute : Drawable
     {
         private int x;
         private int y;
-
-        private string name;
-
         private bool primary;
         private bool composite;
         private bool optional;
@@ -18,7 +15,7 @@ namespace moonSql.controller
         private int min;
         private int max;
 
-        private Drawable owner;
+        private readonly Drawable owner;
 
         private List<Drawable> childs;
 
@@ -27,6 +24,8 @@ namespace moonSql.controller
         public bool Primary { get => primary; set => primary = value; }
         public bool Composite { get => composite; set => composite = value; }
         public bool Optional { get => optional; set => optional = value; }
+
+        public string Name { get; }
 
         public Attribute(int x, int y)
         {
