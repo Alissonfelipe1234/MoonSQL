@@ -54,6 +54,7 @@
             this.type_lbl = new System.Windows.Forms.Label();
             this.combo_attr = new System.Windows.Forms.ComboBox();
             this.attr_table = new System.Windows.Forms.TableLayoutPanel();
+            this.save_attr = new System.Windows.Forms.Button();
             this.layout.SuspendLayout();
             this.toolBox.SuspendLayout();
             this.tableButtons.SuspendLayout();
@@ -73,7 +74,6 @@
             this.layout.Controls.Add(this.toolBox, 1, 1);
             this.layout.Controls.Add(this.paint, 2, 1);
             this.layout.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.layout.Enabled = false;
             this.layout.ForeColor = System.Drawing.SystemColors.ButtonFace;
             this.layout.GrowStyle = System.Windows.Forms.TableLayoutPanelGrowStyle.FixedSize;
             this.layout.Location = new System.Drawing.Point(0, 0);
@@ -258,6 +258,7 @@
             this.generate_sql.TabIndex = 6;
             this.generate_sql.Text = "SQL generator ⚡";
             this.generate_sql.UseVisualStyleBackColor = false;
+            this.generate_sql.Click += new System.EventHandler(this.generate_sql_Click);
             // 
             // category_lbl
             // 
@@ -298,6 +299,7 @@
             this.cb_primary.TabIndex = 1;
             this.cb_primary.Text = "Primary";
             this.cb_primary.UseVisualStyleBackColor = true;
+            this.cb_primary.CheckedChanged += new System.EventHandler(this.cb_primary_CheckedChanged);
             // 
             // cb_opcional
             // 
@@ -310,6 +312,7 @@
             this.cb_opcional.TabIndex = 2;
             this.cb_opcional.Text = "Opcional";
             this.cb_opcional.UseVisualStyleBackColor = true;
+            this.cb_opcional.CheckedChanged += new System.EventHandler(this.cb_opcional_CheckedChanged);
             // 
             // card_lbl
             // 
@@ -423,6 +426,7 @@
             this.name_attr.Name = "name_attr";
             this.name_attr.Size = new System.Drawing.Size(204, 26);
             this.name_attr.TabIndex = 4;
+            this.name_attr.TextChanged += new System.EventHandler(this.name_attr_TextChanged);
             // 
             // type_lbl
             // 
@@ -441,8 +445,41 @@
             // combo_attr
             // 
             this.combo_attr.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.combo_attr.AutoCompleteCustomSource.AddRange(new string[] {
+            "varchar",
+            "char",
+            "text",
+            "integer",
+            "int",
+            "float",
+            "double",
+            "boolean",
+            "json",
+            "binary",
+            "decimal",
+            "date",
+            "time",
+            "datetime",
+            "year"});
+            this.combo_attr.DisplayMember = "(nenhum)";
             this.combo_attr.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.combo_attr.FormattingEnabled = true;
+            this.combo_attr.Items.AddRange(new object[] {
+            "varchar",
+            "char",
+            "text",
+            "integer",
+            "int",
+            "float",
+            "double",
+            "boolean",
+            "json",
+            "binary",
+            "decimal",
+            "date",
+            "time",
+            "datetime",
+            "year"});
             this.combo_attr.Location = new System.Drawing.Point(843, 40);
             this.combo_attr.Name = "combo_attr";
             this.combo_attr.Size = new System.Drawing.Size(204, 26);
@@ -466,6 +503,7 @@
             this.attr_table.Controls.Add(this.card_lbl, 3, 1);
             this.attr_table.Controls.Add(this.tableLayoutPanel2, 2, 1);
             this.attr_table.Controls.Add(this.category_lbl, 1, 1);
+            this.attr_table.Controls.Add(this.save_attr, 3, 2);
             this.attr_table.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.attr_table.Location = new System.Drawing.Point(0, 357);
             this.attr_table.Name = "attr_table";
@@ -476,6 +514,21 @@
             this.attr_table.Size = new System.Drawing.Size(1264, 324);
             this.attr_table.TabIndex = 1;
             this.attr_table.Visible = false;
+            // 
+            // save_attr
+            // 
+            this.save_attr.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.save_attr.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(63)))), ((int)(((byte)(1)))), ((int)(((byte)(124)))));
+            this.save_attr.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.save_attr.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.save_attr.Font = new System.Drawing.Font("Verdana", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.save_attr.Location = new System.Drawing.Point(633, 257);
+            this.save_attr.Name = "save_attr";
+            this.save_attr.Size = new System.Drawing.Size(204, 23);
+            this.save_attr.TabIndex = 13;
+            this.save_attr.Text = "Save";
+            this.save_attr.UseVisualStyleBackColor = false;
+            this.save_attr.Click += new System.EventHandler(this.save_attr_Click);
             // 
             // Home
             // 
@@ -538,6 +591,7 @@
         private System.Windows.Forms.Label type_lbl;
         private System.Windows.Forms.ComboBox combo_attr;
         private System.Windows.Forms.TableLayoutPanel attr_table;
+        private System.Windows.Forms.Button save_attr;
     }
 }
 

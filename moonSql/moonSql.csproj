@@ -141,30 +141,27 @@
   <ItemGroup>
     <Compile Include="Controller\Cardinality.cs" />
     <Compile Include="Controller\Drawable.cs" />
-    <Compile Include="Controller\Attribute.cs" />
+    <Compile Include="Controller\Attr.cs" />
     <Compile Include="Controller\Specialization.cs" />
     <Compile Include="Controller\Generalization.cs" />
     <Compile Include="Controller\Relationship.cs" />
     <Compile Include="Controller\Entity.cs" />
-    <Compile Include="Form1.cs">
+    <Compile Include="Home.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Form1.Designer.cs">
-      <DependentUpon>Form1.cs</DependentUpon>
-    </Compile>
-    <Compile Include="home.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="home.Designer.cs">
-      <DependentUpon>home.cs</DependentUpon>
+    <Compile Include="Home.Designer.cs">
+      <DependentUpon>Home.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <EmbeddedResource Include="Form1.resx">
-      <DependentUpon>Form1.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="home.resx">
-      <DependentUpon>home.cs</DependentUpon>
+    <Compile Include="Result.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Result.Designer.cs">
+      <DependentUpon>Result.cs</DependentUpon>
+    </Compile>
+    <EmbeddedResource Include="Home.resx">
+      <DependentUpon>Home.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -176,6 +173,9 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
+    <EmbeddedResource Include="Result.resx">
+      <DependentUpon>Result.cs</DependentUpon>
+    </EmbeddedResource>
     <None Include="moonSql_TemporaryKey.pfx" />
     <None Include="Properties\app.manifest" />
     <None Include="Properties\Settings.settings">
@@ -199,7 +199,7 @@
     <EmbeddedResource Include="Resources\attribute_primary_key.png" />
     <EmbeddedResource Include="Resources\entity.png" />
     <EmbeddedResource Include="Resources\generalization.png" />
-    <Content Include="assets\moon.ico" />
+    <Content Include="Assets\moon.ico" />
     <Resource Include="Resources\relationship.png" />
     <EmbeddedResource Include="Resources\specialization.png" />
   </ItemGroup>

@@ -146,11 +146,32 @@ namespace moonSql
             }
             else if (this.status.Equals("new attribute"))
             {
-
+                Drawable draw = WhatIsThere(e.X, e.Y);
+                if((draw != null) && (draw.GetType() == typeof(Entity) || draw.GetType() == typeof(Relationship)))
+                {
+                    Attr attr = new Attr(draw.GetX(), draw.GetY(), draw);
+                    attr.DrawIt(graphic);
+                    AddOwner(attr, draw);
+                    this.drawables.Add(attr);
+                    this.previous = attr;
+                    RestoreAttr();
+                    this.status = "";
+                }
             }
             else
                 status = "";
             paint.Refresh();
+        }
+        public void RestoreAttr()
+        {
+            Attr attr = (Attr)this.previous;
+            name_attr.Text = attr.GetName();
+            combo_attr.Text = attr.data;
+            cb_opcional.Checked = attr.Optional;
+            cb_primary.Checked = attr.Primary;
+            layout.Enabled = false;
+            attr_table.Visible = true;
+
         }
         private void RestartPaint()
         {
@@ -189,6 +210,13 @@ namespace moonSql
             }
 
             return null;
+        }
+        private void AddOwner(Attr attr, Drawable draw)
+        {
+            if(draw.GetType() == typeof(Entity))
+                ((Entity)draw).AddChild(attr);
+            else
+                ((Relationship)draw).AddAttr(attr);
         }
         private void New_entity_Click(object sender, System.EventArgs e)
         {
@@ -229,6 +257,52 @@ namespace moonSql
         {
             if (this.status == "")
                 this.status = "new attribute";
+        }
+        private void save_attr_Click(object sender, EventArgs e)
+        {
+            layout.Enabled = true;
+            attr_table.Visible = false;
+        }
+        private void name_attr_TextChanged(object sender, EventArgs e)
+        {
+            ((Attr)this.previous).SetName(name_attr.Text);
+            graphic.Clear(Color.FloralWhite);
+            DrawAll();
+            paint.Refresh();
+        }
+        private void cb_primary_CheckedChanged(object sender, EventArgs e)
+        {
+            Attr attr = (Attr)this.previous;
+            if (attr.Optional && cb_primary.Checked)
+            {
+                attr.Optional = false;
+                cb_opcional.Checked = false;
+            }
+            if (cb_primary.Checked)
+                attr.SetXY(attr.GetX(), attr.GetY() - 75);
+            else
+                attr.SetXY(attr.GetX(), attr.GetY() + 75);
+            attr.Primary = cb_primary.Checked;
+            graphic.Clear(Color.FloralWhite);
+            DrawAll();
+            paint.Refresh();
+        }
+        private void cb_opcional_CheckedChanged(object sender, EventArgs e)
+        {
+            Attr attr = (Attr)this.previous;
+            if (attr.Primary && cb_opcional.Checked)
+            {
+                attr.Primary = false;
+                cb_primary.Checked = false;
+            }
+            if (cb_opcional.Checked)
+                attr.SetXY(attr.GetX() - 52, attr.GetY() - 75);
+            else
+                attr.SetXY(attr.GetX() + 52, attr.GetY() + 75);
+            attr.Optional = cb_opcional.Checked;
+            graphic.Clear(Color.FloralWhite);
+            DrawAll();
+            paint.Refresh();
         }
         public static string InputBox(string title, string promptText)
         {
@@ -340,10 +414,15 @@ namespace moonSql
         }
         private void Paint_MouseDown(object sender, MouseEventArgs e)
         {
-            this.selected = WhatIsThere(e.X, e.Y);
+            this.selected = WhatIsThere(e.X, e.Y);            
         }
         private void Paint_MouseUp(object sender, MouseEventArgs e)
         {
+            if (selected != null && selected.GetType() == typeof(Attr))
+            {
+                previous = selected;
+                RestoreAttr();
+            }
             this.selected = null;
         }
         private void Paint_MouseMove(object sender, MouseEventArgs e)
@@ -355,6 +434,18 @@ namespace moonSql
                 DrawAll();
                 paint.Refresh();
             }
+        }
+
+        private void generate_sql_Click(object sender, EventArgs e)
+        {
+            string sqlGerado = "teste";
+            this.Hide();
+            this.Visible = false;
+
+            Result window = new Result(sqlGerado, this);
+            window.Show();
+            window.Visible = true;
+            
         }
     }
 }

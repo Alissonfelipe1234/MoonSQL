@@ -23,10 +23,6 @@ namespace moonSql.Controller
 
         public void DrawIt(Graphics g)
         {
-            foreach (Drawable child in this.childs)
-            {
-                child.DrawIt(g);
-            }
             Image square = (Image)Properties.Resources.ResourceManager.GetObject("entity");
             g.DrawImage(square, this.x, this.y);
             SolidBrush title = new SolidBrush(Color.Black);
@@ -39,6 +35,15 @@ namespace moonSql.Controller
         public int GetY()
         {
             return this.y+16;
+        }
+        public int GetAttrs()
+        {
+            int counter = 0;
+            foreach (Drawable draw in childs)
+                if (draw.GetType() == typeof(Attr))
+                    counter++;
+
+            return counter;
         }
         public bool IsThere(int x, int y)
         {

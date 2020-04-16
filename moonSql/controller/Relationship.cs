@@ -9,14 +9,16 @@ namespace moonSql.Controller
         private int x;
         private int y;
         private readonly string name;
-
         private readonly List<Tuple<Drawable, Cardinality>> childs;
+
+        internal List<Attr> Attributes { get; set; }
 
         public Relationship(int x, int y, string name)
         {
             this.x = x - 50;
             this.y = y - 50;
             this.name = name;
+            this.Attributes = new List<Attr>();
             this.childs = new List<Tuple<Drawable, Cardinality>>();
         }
         public void DrawIt(Graphics g)
@@ -43,6 +45,10 @@ namespace moonSql.Controller
         {
             return this.y ;
         }
+        public int GetAttrs()
+        {
+            return Attributes.Count;
+        }
         public bool IsThere(int x, int y)
         {
             int horizontal = x - this.x;
@@ -63,6 +69,10 @@ namespace moonSql.Controller
         public void AddChild(Drawable child, Cardinality card)
         {
             this.childs.Add( new Tuple<Drawable, Cardinality>(child, card));
+        }
+        internal void AddAttr(Attr attr)
+        {
+            this.Attributes.Add(attr);
         }
         public void SetXY(int X, int Y)
         {
