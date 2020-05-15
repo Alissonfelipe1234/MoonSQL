@@ -17,5 +17,10 @@ namespace moonSql
             prev.Show();
             prev.Visible = true;
         }
+
+        private void sql_TextChanged(object sender, System.EventArgs e)
+        {
+
+        }
     }
 }
