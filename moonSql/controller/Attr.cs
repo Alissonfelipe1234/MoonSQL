@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Drawing;
+﻿using System.Drawing;
 
 namespace moonSql.Controller
 {
@@ -23,7 +21,7 @@ namespace moonSql.Controller
         public bool Primary { get => primary; set => primary = value; }
         public bool Optional { get => optional; set => optional = value; }
         public string Name { get => name; set => name = value; }
-        public string data { get;  set; }
+        public string data { get; set; }
 
         public Attr(int x, int y, Drawable draw)
         {
@@ -82,9 +80,9 @@ namespace moonSql.Controller
             string str = "";
             str += this.GetName().Split(' ')[0] + " ";
             str += this.data + " ";
-            if(this.primary)
-               str += "PRIMARY KEY";
-            else if(!this.optional)
+            if (this.primary)
+                str += "PRIMARY KEY";
+            else if (!this.optional)
                 str += "NOT NULL";
 
             return str;

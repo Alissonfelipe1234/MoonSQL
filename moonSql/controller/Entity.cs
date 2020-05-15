@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Drawing;
 
 namespace moonSql.Controller
@@ -15,8 +14,8 @@ namespace moonSql.Controller
 
         public Entity(int x, int y, string name)
         {
-            this.x = x-50;
-            this.y = y-16;
+            this.x = x - 50;
+            this.y = y - 16;
             this.name = name;
             this.childs = new List<Drawable>();
         }
@@ -30,11 +29,11 @@ namespace moonSql.Controller
         }
         public int GetX()
         {
-            return this.x+50;
+            return this.x + 50;
         }
         public int GetY()
         {
-            return this.y+16;
+            return this.y + 16;
         }
         public int GetAttrs()
         {
@@ -60,11 +59,11 @@ namespace moonSql.Controller
         }
         public void SetX(int newX)
         {
-            this.x = newX-50;
+            this.x = newX - 50;
         }
         public void SetY(int newY)
         {
-            this.y = newY-16;
+            this.y = newY - 16;
         }
         public void SetName(string name)
         {

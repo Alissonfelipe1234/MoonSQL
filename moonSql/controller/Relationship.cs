@@ -27,7 +27,7 @@ namespace moonSql.Controller
 
             foreach (Tuple<Drawable, Cardinality> tuple in childs)
             {
-                g.DrawLine(pencil, this.x + 50, this.y + 50, tuple.Item1.GetX(), tuple.Item1.GetY()+10);
+                g.DrawLine(pencil, this.x + 50, this.y + 50, tuple.Item1.GetX(), tuple.Item1.GetY() + 10);
                 tuple.Item1.DrawIt(g);
                 tuple.Item2.DrawIt(g);
             }
@@ -39,11 +39,11 @@ namespace moonSql.Controller
         }
         public int GetX()
         {
-            return this.x ;
+            return this.x;
         }
         public int GetY()
         {
-            return this.y ;
+            return this.y;
         }
         public string GetName()
         {
@@ -80,7 +80,7 @@ namespace moonSql.Controller
         }
         public void AddChild(Drawable child, Cardinality card)
         {
-            this.childs.Add( new Tuple<Drawable, Cardinality>(child, card));
+            this.childs.Add(new Tuple<Drawable, Cardinality>(child, card));
         }
         internal void AddAttr(Attr attr)
         {

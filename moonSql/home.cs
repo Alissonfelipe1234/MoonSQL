@@ -24,7 +24,7 @@ namespace moonSql
             this.status = "";
             this.clickCounter = 0;
         }
-              
+
         private void Home_Resize(object sender, System.EventArgs e)
         {
             RestartPaint();
@@ -147,7 +147,7 @@ namespace moonSql
             else if (this.status.Equals("new attribute"))
             {
                 Drawable draw = WhatIsThere(e.X, e.Y);
-                if((draw != null) && (draw.GetType() == typeof(Entity) || draw.GetType() == typeof(Relationship)))
+                if ((draw != null) && (draw.GetType() == typeof(Entity) || draw.GetType() == typeof(Relationship)))
                 {
                     Attr attr = new Attr(draw.GetX(), draw.GetY(), draw);
                     attr.DrawIt(graphic);
@@ -205,7 +205,7 @@ namespace moonSql
             {
                 if (drawables[i].IsThere(x, y) && drawables[i].GetType() == typeof(Entity))
                 {
-                    return (Entity) drawables[i];
+                    return (Entity)drawables[i];
                 }
             }
 
@@ -213,15 +213,15 @@ namespace moonSql
         }
         private void AddOwner(Attr attr, Drawable draw)
         {
-            if(draw.GetType() == typeof(Entity))
+            if (draw.GetType() == typeof(Entity))
                 ((Entity)draw).AddChild(attr);
             else
                 ((Relationship)draw).AddAttr(attr);
         }
         private void New_entity_Click(object sender, System.EventArgs e)
         {
-            if(this.status == "")
-                this.status = "new entity";            
+            if (this.status == "")
+                this.status = "new entity";
         }
         private void New_relationship_Click(object sender, EventArgs e)
         {
@@ -414,7 +414,7 @@ namespace moonSql
         }
         private void Paint_MouseDown(object sender, MouseEventArgs e)
         {
-            this.selected = WhatIsThere(e.X, e.Y);            
+            this.selected = WhatIsThere(e.X, e.Y);
         }
         private void Paint_MouseUp(object sender, MouseEventArgs e)
         {
@@ -445,7 +445,7 @@ namespace moonSql
             Result window = new Result(finale, this);
             window.Show();
             window.Visible = true;
-            
+
         }
         private string SQL_generator()
         {
@@ -530,8 +530,8 @@ namespace moonSql
                             catch { sql[major] += " FOREIGN KEY REFERENCES " + major.GetName() + "(" + major.GetName() + "ID  )"; }
                             break;
                         case 2:
-                            Entity major1 = (Entity) relaty.GetChilds()[0].Item1;
-                            Entity major2 = (Entity) relaty.GetChilds()[0].Item1;
+                            Entity major1 = (Entity)relaty.GetChilds()[0].Item1;
+                            Entity major2 = (Entity)relaty.GetChilds()[0].Item1;
                             Cardinality card1 = relaty.GetChilds()[0].Item2;
                             Cardinality card2 = relaty.GetChilds()[0].Item2;
                             if (card1.GetMax().Equals("1") && card2.GetMax().Equals("1"))
