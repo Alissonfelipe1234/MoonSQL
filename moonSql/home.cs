@@ -438,14 +438,709 @@ namespace moonSql
 
         private void generate_sql_Click(object sender, EventArgs e)
         {
-            string sqlGerado = "teste";
             this.Hide();
             this.Visible = false;
+            string finale = SQL_generator();
 
-            Result window = new Result(sqlGerado, this);
+            Result window = new Result(finale, this);
             window.Show();
             window.Visible = true;
             
+        }
+        private string SQL_generator()
+        {
+            string generate = "CREATE DATABASE IF NOT EXISTS moonsql ;\nUSE moonsql;\n";
+            Dictionary<Entity, string> sql = new Dictionary<Entity, string>();
+            Dictionary<Drawable, string> tablesAltenative = new Dictionary<Drawable, string>();
+            Dictionary<Entity, Attr> PK = new Dictionary<Entity, Attr>();
+            foreach (Drawable draw in drawables)
+            {
+                if (draw.GetType() == typeof(Entity))
+                {
+
+                    Entity ent = (Entity)draw;
+                    sql.Add(ent, "Create Table " + ent.GetName() + " (\n");
+                }
+            }
+            foreach (Drawable attrs in drawables)
+            {
+                if (attrs.GetType() == typeof(Attr))
+                {
+                    Attr attribute = (Attr)attrs;
+                    if (attribute.GetOwner().GetType() == typeof(Entity))
+                    {
+                        if (attribute.Primary)
+                        {
+                            try
+                            {
+                                PK.Add((Entity)attribute.GetOwner(), attribute);
+                            }
+                            catch { }
+                        }
+                        if (attribute.Max == 1)
+                        {
+                            Entity ownerEntity = (Entity)attribute.GetOwner();
+                            sql[ownerEntity] += attribute.GetSql();
+                            if (attribute.GetIndex() + 1 != ownerEntity.GetAttrs())
+                                sql[ownerEntity] += ",\n";
+                        }
+                        else
+                        {
+                            Entity entityMulti = (Entity)attribute.GetOwner();
+                            string name = attribute.GetName().Split(' ')[0];
+                            sql[entityMulti] += name + "FK integer";
+                            if (attribute.Min != 0)
+                                sql[entityMulti] += " NOT NULL";
+                            if (attribute.GetIndex() + 1 != entityMulti.GetAttrs())
+                                sql[entityMulti] += ",\n";
+
+                            tablesAltenative.Add(attribute, "Create Table " + name + " (\n");
+                            tablesAltenative[attribute] += "ID" + name + " serial Primary Key,\n";
+                            tablesAltenative[attribute] += attribute.GetSql() + ",\n";
+                            tablesAltenative[attribute] += entityMulti.GetName() + "FK integer,\n";
+                            tablesAltenative[attribute] += "CONSTRAINT " + name + "_" + entityMulti.GetName() + " FOREIGN KEY(FK" + entityMulti.GetName() + ")\n";
+                            tablesAltenative[attribute] += "REFERENCES " + entityMulti.GetName() + "(" + name + "FK)\n)";
+                            tablesAltenative[attribute] += ");";
+                        }
+                    }
+                }
+            }
+            foreach (Drawable relations in drawables)
+            {
+                if (relations.GetType() == typeof(Relationship))
+                {
+                    Relationship relaty = (Relationship)relations;
+                    int envolvidos = relaty.GetSize();
+                    switch (envolvidos)
+                    {
+                        case 1:
+                            Entity major = (Entity)relaty.GetChilds()[0].Item1;
+                            if (PK.ContainsKey(major))
+                            {
+                                if (major.GetAttrs() > 0)
+                                    sql[major] += ",\n" + major.GetName() + "ID Integer PRIMARY KEY";
+                                else
+                                    sql[major] += major.GetName() + "ID Integer PRIMARY KEY";
+                            }
+
+                            sql[major] += ",\n" + relaty.GetName();
+                            if (relaty.GetChilds()[0].Item2.GetMin().Equals("1"))
+                                sql[major] += " NOT NULL";
+                            try { sql[major] += " FOREIGN KEY REFERENCES " + major.GetName() + "(" + PK[major].GetName() + ")"; }
+                            catch { sql[major] += " FOREIGN KEY REFERENCES " + major.GetName() + "(" + major.GetName() + "ID  )"; }
+                            break;
+                        case 2:
+                            Entity major1 = (Entity) relaty.GetChilds()[0].Item1;
+                            Entity major2 = (Entity) relaty.GetChilds()[0].Item1;
+                            Cardinality card1 = relaty.GetChilds()[0].Item2;
+                            Cardinality card2 = relaty.GetChilds()[0].Item2;
+                            if (card1.GetMax().Equals("1") && card2.GetMax().Equals("1"))
+                            {
+                                if (card1.GetMin().Equals("1"))
+                                {
+                                    if (major1.GetAttrs() > 0)
+                                        sql[major1] += ",\n" + major2.GetName() + " Integer";
+                                    else
+                                        sql[major1] += major2.GetName() + " Integer";
+                                    if (card2.GetMin().Equals("1"))
+                                        sql[major1] += " NOT NULL";
+                                    try { sql[major1] += " FOREIGN KEY REFERENCES " + major2.GetName() + "(" + PK[major2].GetName() + ")"; }
+                                    catch
+                                    {
+                                        sql[major1] += " FOREIGN KEY REFERENCES " + major2.GetName() + "(" + major2.GetName() + "ID  )";
+                                        if (major2.GetAttrs() > 0)
+                                            sql[major2] += ",\n" + major2.GetName() + "ID Integer PRIMARY KEY";
+                                        else
+                                            sql[major2] += major2.GetName() + "ID Integer PRIMARY KEY";
+                                    }
+                                    int atr = relaty.GetAttrs();
+                                    if (atr > 0)
+                                    {
+                                        sql[major1] += ",\n";
+                                        foreach (Drawable figuresIT in drawables)
+                                        {
+                                            if (figuresIT.GetType() == typeof(Attr))
+                                            {
+                                                Attr maybe = (Attr)figuresIT;
+                                                if (maybe.GetOwner() == relaty)
+                                                {
+                                                    sql[major1] += maybe.GetSql();
+                                                    atr--;
+                                                    if (atr > 0)
+                                                        sql[major1] += ",\n";
+                                                    else
+                                                        break;
+
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                                else
+                                {
+                                    if (major2.GetAttrs() > 0)
+                                        sql[major2] += ",\n" + major1.GetName() + " Integer";
+                                    else
+                                        sql[major2] += major1.GetName() + " Integer";
+                                    if (card2.GetMin().Equals("1"))
+                                        sql[major2] += " NOT NULL";
+                                    try { sql[major2] += " FOREIGN KEY REFERENCES " + major1.GetName() + "(" + PK[major1].GetName() + ")"; }
+                                    catch
+                                    {
+                                        sql[major2] += " FOREIGN KEY REFERENCES " + major1.GetName() + "(" + major1.GetName() + "ID  )";
+                                        if (major1.GetAttrs() > 0)
+                                            sql[major1] += ",\n" + major1.GetName() + "ID Integer PRIMARY KEY";
+                                        else
+                                            sql[major1] += major1.GetName() + "ID Integer PRIMARY KEY";
+                                    }
+                                    int atr = relaty.GetAttrs();
+                                    if (atr > 0)
+                                    {
+                                        sql[major2] += ",\n";
+                                        foreach (Drawable figuresIR in drawables)
+                                        {
+                                            if (figuresIR.GetType() == typeof(Attr))
+                                            {
+                                                Attr maybe = (Attr)figuresIR;
+                                                if (maybe.GetOwner() == relaty)
+                                                {
+                                                    sql[major2] += maybe.GetSql();
+                                                    atr--;
+                                                    if (atr > 0)
+                                                        sql[major2] += ",\n";
+                                                    else
+                                                        break;
+
+                                                }
+                                            }
+                                        }
+                                    }
+
+                                }
+                            }
+                            else if (!card1.GetMax().Equals(card2.GetMax()))
+                            {
+                                if (card1.GetMax().Equals("N"))
+                                {
+                                    sql[major1] += ",\n" + major2.GetName() + " Integer";
+                                    if (card2.GetMin().Equals("1"))
+                                        sql[major1] += " NOT NULL";
+                                    try { sql[major1] += " FOREIGN KEY REFERENCES " + major2.GetName() + "(" + PK[major2].GetName() + ")"; }
+                                    catch
+                                    {
+
+                                        sql[major1] += " FOREIGN KEY REFERENCES " + major2.GetName() + "(" + major2.GetName() + "ID  )";
+                                        if (major2.GetAttrs() > 0)
+                                            sql[major2] += ",\n" + major2.GetName() + "ID Integer PRIMARY KEY";
+                                        else
+                                            sql[major2] += major2.GetName() + "ID Integer PRIMARY KEY";
+                                    }
+                                    int atr = relaty.GetAttrs();
+                                    if (atr > 0)
+                                    {
+                                        sql[major1] += ",\n";
+                                        foreach (Drawable figuresIE in drawables)
+                                        {
+                                            if (figuresIE.GetType() == typeof(Attr))
+                                            {
+                                                Attr maybe = (Attr)figuresIE;
+                                                if (maybe.GetOwner() == relaty)
+                                                {
+                                                    sql[major1] += maybe.GetSql();
+                                                    atr--;
+                                                    if (atr > 0)
+                                                        sql[major1] += ",\n";
+                                                    else
+                                                        break;
+
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                                else
+                                {
+                                    sql[major2] += ",\n" + major1.GetName() + " Integer";
+                                    if (card2.GetMin().Equals("1"))
+                                        sql[major2] += " NOT NULL";
+                                    try { sql[major2] += " FOREIGN KEY REFERENCES " + major1.GetName() + "(" + PK[major1].GetName() + ")"; }
+                                    catch
+                                    {
+                                        sql[major2] += " FOREIGN KEY REFERENCES " + major1.GetName() + "(" + major1.GetName() + "ID  )";
+                                        if (major1.GetAttrs() > 0)
+                                            sql[major1] += ",\n" + major1.GetName() + "ID Integer PRIMARY KEY";
+                                        else
+                                            sql[major1] += major1.GetName() + "ID Integer PRIMARY KEY";
+                                    }
+                                    int atr = relaty.GetAttrs();
+                                    if (atr > 0)
+                                    {
+                                        sql[major2] += ",\n";
+                                        foreach (Drawable figuresIW in drawables)
+                                        {
+                                            if (figuresIW.GetType() == typeof(Attr))
+                                            {
+                                                Attr maybe = (Attr)figuresIW;
+                                                if (maybe.GetOwner() == relaty)
+                                                {
+                                                    sql[major2] += maybe.GetSql();
+                                                    atr--;
+                                                    if (atr > 0)
+                                                        sql[major2] += ",\n";
+                                                    else
+                                                        break;
+
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                            else
+                            {
+                                tablesAltenative.Add(relaty, "Create Table " + relaty.GetSize() + " (\n");
+                                try
+                                {
+                                    tablesAltenative[relaty] += PK[major1].GetSql() + ",\n";
+                                }
+                                catch
+                                {
+                                    tablesAltenative[relaty] += major1.GetName() + "ID  integer,\n";
+                                    Attr newd = new Attr(-50, -50, major1);
+                                    newd.SetName(major1.GetName() + "ID");
+                                    PK.Add(major1, newd);
+                                    if (major1.GetAttrs() > 0)
+                                        sql[major1] += ",\n" + major1.GetName() + "ID Integer PRIMARY KEY";
+                                    else
+                                        sql[major1] += major1.GetName() + "ID Integer PRIMARY KEY";
+                                }
+                                try
+                                {
+                                    tablesAltenative[relaty] += PK[major2].GetSql();
+                                }
+                                catch
+                                {
+                                    tablesAltenative[relaty] += major2.GetName() + "ID  integer";
+                                    Attr newd = new Attr(-50, -50, major2);
+                                    newd.SetName(major2.GetName() + "ID");
+                                    PK.Add(major2, newd);
+                                    if (major1.GetAttrs() > 0)
+                                        sql[major2] += ",\n" + major2.GetName() + "ID Integer PRIMARY KEY";
+                                    else
+                                        sql[major2] += major2.GetName() + "ID Integer PRIMARY KEY";
+                                }
+                                int atr = relaty.GetAttrs();
+                                if (atr > 0)
+                                {
+                                    foreach (Drawable figuresIQ in drawables)
+                                    {
+
+                                        if (figuresIQ.GetType() == typeof(Attr))
+                                        {
+                                            Attr maybe = (Attr)figuresIQ;
+                                            if (maybe.GetOwner() == relaty)
+                                            {
+                                                tablesAltenative[relaty] += ",\n";
+                                                tablesAltenative[relaty] += maybe.GetSql();
+                                                atr--;
+                                                if (atr > 0)
+                                                    tablesAltenative[relaty] += ",\n";
+                                                else
+                                                    break;
+
+                                            }
+                                        }
+                                    }
+                                }
+                                tablesAltenative[relaty] += ",\nPRIMARY KEY (" + PK[major1].GetName() + ", " + PK[major2].GetName() + "),\n";
+                                tablesAltenative[relaty] += "CONTRAINT " + relaty.GetName() + "FK1 FOREIGN KEY (" + PK[major1].GetName() + ")\n";
+                                tablesAltenative[relaty] += "REFERENCES " + major1.GetName() + " (" + PK[major1].GetName() + "),\n";
+                                tablesAltenative[relaty] += "CONTRAINT " + relaty.GetName() + "FK2 FOREIGN KEY (" + PK[major2].GetName() + ")\n";
+                                tablesAltenative[relaty] += "REFERENCES " + major2.GetName() + " (" + PK[major2].GetName() + ")";
+                            }
+                            break;
+                        case 3:
+                            Entity tern1 = (Entity)relaty.GetChilds()[0].Item1;
+                            Entity tern2 = (Entity)relaty.GetChilds()[1].Item1;
+                            Entity tern3 = (Entity)relaty.GetChilds()[2].Item1;
+                            Cardinality carT1 = relaty.GetChilds()[0].Item2;
+                            Cardinality carT2 = relaty.GetChilds()[1].Item2;
+                            Cardinality carT3 = relaty.GetChilds()[2].Item2;
+
+                            //case 1:1:1 or N:N:N
+                            if (carT1.GetMax() == carT2.GetMax() && carT1.GetMax() == carT3.GetMax())
+                            {
+                                tablesAltenative.Add(relaty, "Create Table " + relaty.GetName() + " (\n");
+                                try
+                                {
+                                    tablesAltenative[relaty] += PK[tern1].GetSql() + " FOREIGN KEY REFERENCES " + tern1.GetName() +
+                                        "(" + PK[tern1].GetName() + "),\n";
+                                }
+                                catch
+                                {
+                                    tablesAltenative[relaty] += tern1.GetName() + "ID  integer PRIMARY KEY FOREIGN " + tern1.GetName() +
+                                        "(" + tern1.GetName() + "ID),\n";
+                                    PK.Add(tern1, new Attr(-50, -50, tern1));
+                                    if (tern1.GetAttrs() > 0)
+                                        sql[tern1] += ",\n" + tern1.GetName() + "ID Integer PRIMARY KEY";
+                                    else
+                                        sql[tern1] += tern1.GetName() + "ID Integer PRIMARY KEY";
+                                }
+                                try
+                                {
+                                    tablesAltenative[relaty] += PK[tern2].GetSql() + " FOREIGN KEY REFERENCES " + tern2.GetName() +
+                                        "(" + PK[tern2].GetName() + "),\n";
+                                }
+                                catch
+                                {
+                                    tablesAltenative[relaty] += tern2.GetName() + "ID  integer PRIMARY KEY FOREIGN " + tern2.GetName() +
+                                        "(" + tern2.GetName() + "ID),\n";
+                                    Attr newd = new Attr(-50, -50, tern2);
+                                    newd.SetName(tern2.GetName() + "ID");
+                                    PK.Add(tern2, newd);
+                                    if (tern2.GetAttrs() > 0)
+                                        sql[tern2] += ",\n" + tern2.GetName() + "ID Integer PRIMARY KEY";
+                                    else
+                                        sql[tern2] += tern2.GetName() + "ID Integer PRIMARY KEY";
+                                }
+                                try
+                                {
+                                    tablesAltenative[relaty] += PK[tern3].GetSql() + " FOREIGN KEY REFERENCES " + tern3.GetName() +
+                                        "(" + PK[tern3].GetName() + ")";
+                                }
+                                catch
+                                {
+                                    tablesAltenative[relaty] += tern3.GetName() + "ID  integer PRIMARY KEY FOREIGN " + tern3.GetName() +
+                                        "(" + tern3.GetName() + "ID)";
+                                    Attr newd = new Attr(-50, -50, tern3);
+                                    newd.SetName(tern3.GetName() + "ID");
+                                    PK.Add(tern3, newd);
+                                    sql[tern3] += ",\n" + tern3.GetName() + "ID Integer PRIMARY KEY";
+                                }
+                                int atr = relaty.GetAttrs();
+                                if (atr > 0)
+                                {
+                                    tablesAltenative[relaty] += ",\n";
+                                    foreach (Drawable f in drawables)
+                                    {
+                                        if (f.GetType() == typeof(Attr))
+                                        {
+                                            Attr maybe = (Attr)f;
+                                            if (maybe.GetOwner() == relaty)
+                                            {
+                                                tablesAltenative[relaty] += maybe.GetSql();
+                                                atr--;
+                                                if (atr > 0)
+                                                    tablesAltenative[relaty] += ",\n";
+                                                else
+                                                    break;
+
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                            else
+                            {
+                                int qtdN = 0;
+                                if (carT1.GetMax() == "N")
+                                    qtdN++;
+                                if (carT2.GetMax() == "N")
+                                    qtdN++;
+                                if (carT3.GetMax() == "N")
+                                    qtdN++;
+                                if (qtdN == 2)
+                                {
+                                    tablesAltenative.Add(relaty, "Create Table " + relaty.GetName() + " (\n");
+                                    try
+                                    {
+                                        tablesAltenative[relaty] += PK[tern1].GetName() + " " + PK[tern1].data;
+                                        if (carT1.GetMax() == "N")
+                                            tablesAltenative[relaty] += " PRIMARY KEY";
+                                        tablesAltenative[relaty] += " FOREIGN KEY REFERENCES " + tern1.GetName() +
+                                            "(" + PK[tern1].GetName() + "),\n";
+                                    }
+                                    catch
+                                    {
+                                        tablesAltenative[relaty] += tern1.GetName() + "ID  integer";
+                                        if (carT1.GetMax() == "N")
+                                            tablesAltenative[relaty] += " PRIMARY KEY";
+                                        tablesAltenative[relaty] += " FOREIGN " + tern1.GetName() +
+                                            "(" + tern1.GetName() + "ID),\n";
+                                        Attr newd = new Attr(-50, -50, tern1);
+                                        newd.SetName(tern1.GetName() + "ID");
+                                        PK.Add(tern1, newd);
+                                        if (tern1.GetAttrs() > 0)
+                                            sql[tern1] += ",\n" + tern1.GetName() + "ID Integer PRIMARY KEY";
+                                        else
+                                            sql[tern1] += tern1.GetName() + "ID Integer PRIMARY KEY";
+                                    }
+                                    try
+                                    {
+                                        tablesAltenative[relaty] += PK[tern2].GetName() + " " + PK[tern2].data;
+                                        if (carT1.GetMax() == "N")
+                                            tablesAltenative[relaty] += " PRIMARY KEY";
+                                        tablesAltenative[relaty] += " FOREIGN KEY REFERENCES " + tern2.GetName() +
+                                            "(" + PK[tern2].GetName() + "),\n";
+                                    }
+                                    catch
+                                    {
+                                        tablesAltenative[relaty] += tern2.GetName() + "ID  integer";
+                                        if (carT1.GetMax() == "N")
+                                            tablesAltenative[relaty] += " PRIMARY KEY";
+                                        tablesAltenative[relaty] += " FOREIGN " + tern2.GetName() +
+                                            "(" + tern2.GetName() + "ID),\n";
+                                        Attr newd = new Attr(-50, -50, tern2);
+                                        newd.SetName(tern2.GetName() + "ID");
+                                        PK.Add(tern2, newd);
+                                        if (tern2.GetAttrs() > 0)
+                                            sql[tern2] += ",\n" + tern2.GetName() + "ID Integer PRIMARY KEY";
+                                        else
+                                            sql[tern2] += tern2.GetName() + "ID Integer PRIMARY KEY";
+                                    }
+                                    try
+                                    {
+                                        tablesAltenative[relaty] += PK[tern3].GetName() + " " + PK[tern3].data;
+                                        if (carT1.GetMax() == "N")
+                                            tablesAltenative[relaty] += " PRIMARY KEY";
+                                        tablesAltenative[relaty] += " FOREIGN KEY REFERENCES " + tern3.GetName() +
+                                            "(" + PK[tern3].GetName() + ")";
+                                    }
+                                    catch
+                                    {
+                                        tablesAltenative[relaty] += tern3.GetName() + "ID  integer";
+                                        if (carT1.GetMax() == "N")
+                                            tablesAltenative[relaty] += " PRIMARY KEY";
+                                        tablesAltenative[relaty] += " FOREIGN " + tern3.GetName() +
+                                            "(" + tern3.GetName() + "ID)";
+                                        Attr newd = new Attr(-50, -50, tern3);
+                                        newd.SetName(tern3.GetName() + "ID");
+                                        PK.Add(tern3, newd);
+                                        if (tern3.GetAttrs() > 0)
+                                            sql[tern3] += ",\n" + tern3.GetName() + "ID Integer PRIMARY KEY";
+                                        else
+                                            sql[tern3] += tern3.GetName() + "ID Integer PRIMARY KEY";
+                                    }
+                                    int atr = relaty.GetAttrs();
+                                    if (atr > 0)
+                                    {
+                                        tablesAltenative[relaty] += ",\n";
+                                        foreach (Drawable f in drawables)
+                                        {
+                                            if (f.GetType() == typeof(Attr))
+                                            {
+                                                Attr maybe = (Attr)f;
+                                                if (maybe.GetOwner() == relaty)
+                                                {
+                                                    tablesAltenative[relaty] += maybe.GetSql();
+                                                    atr--;
+                                                    if (atr > 0)
+                                                        tablesAltenative[relaty] += ",\n";
+                                                    else
+                                                        break;
+
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                                else
+                                {
+                                    if (carT1.GetMax() == "N")
+                                    {
+                                        if (tern1.GetAttrs() > 0)
+                                            sql[tern1] += ",\n";
+                                        try
+                                        {
+                                            sql[tern1] += PK[tern2].GetName() + "FK FOREIGN KEY REFERENCES " + tern2.GetName() +
+                                                "(" + PK[tern2].GetName() + "),\n";
+                                        }
+                                        catch
+                                        {
+                                            sql[tern1] += tern2.GetName() + "ID  integer FOREIGN " + tern2.GetName() +
+                                                "(" + tern2.GetName() + "ID),\n";
+                                            Attr newd = new Attr(-50, -50, tern2);
+                                            newd.SetName(tern2.GetName() + "ID");
+                                            PK.Add(tern2, newd);
+                                            if (tern2.GetAttrs() > 0)
+                                                sql[tern2] += ",\n" + tern2.GetName() + "ID Integer PRIMARY KEY";
+                                            else
+                                                sql[tern2] += tern2.GetName() + "ID Integer PRIMARY KEY";
+                                        }
+                                        try
+                                        {
+                                            sql[tern1] += PK[tern3].GetName() + "FK FOREIGN KEY REFERENCES " + tern3.GetName() +
+                                                "(" + PK[tern3].GetName() + ")";
+                                        }
+                                        catch
+                                        {
+                                            sql[tern1] += tern3.GetName() + "ID  integer FOREIGN " + tern3.GetName() +
+                                                "(" + tern3.GetName() + "ID)";
+                                            Attr newd = new Attr(-50, -50, tern3);
+                                            newd.SetName(tern3.GetName() + "ID");
+                                            PK.Add(tern3, newd);
+                                            if (tern3.GetAttrs() > 0)
+                                                sql[tern3] += ",\n" + tern3.GetName() + "ID Integer PRIMARY KEY";
+                                            else
+                                                sql[tern3] += tern3.GetName() + "ID Integer PRIMARY KEY";
+                                        }
+                                        int atr = relaty.GetAttrs();
+                                        if (atr > 0)
+                                        {
+                                            sql[tern1] += ",\n";
+                                            foreach (Drawable f in drawables)
+                                            {
+                                                if (f.GetType() == typeof(Attr))
+                                                {
+                                                    Attr maybe = (Attr)f;
+                                                    if (maybe.GetOwner() == relaty)
+                                                    {
+                                                        sql[tern1] += maybe.GetSql();
+                                                        atr--;
+                                                        if (atr > 0)
+                                                            sql[tern1] += ",\n";
+                                                        else
+                                                            break;
+
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                    else if (carT2.GetMax() == "N")
+                                    {
+                                        if (tern2.GetAttrs() > 0)
+                                            sql[tern2] += ",\n";
+                                        try
+                                        {
+                                            sql[tern2] += PK[tern1].GetName() + "FK FOREIGN KEY REFERENCES " + tern1.GetName() +
+                                                "(" + PK[tern1].GetName() + "),\n";
+                                        }
+                                        catch
+                                        {
+                                            sql[tern2] += tern1.GetName() + "ID  integer FOREIGN " + tern1.GetName() +
+                                                "(" + tern1.GetName() + "ID),\n";
+                                            Attr newd = new Attr(-50, -50, tern1);
+                                            newd.SetName(tern1.GetName() + "ID");
+                                            PK.Add(tern1, newd);
+                                            if (tern1.GetAttrs() > 0)
+                                                sql[tern1] += ",\n" + tern1.GetName() + "ID Integer PRIMARY KEY";
+                                            else
+                                                sql[tern1] += tern1.GetName() + "ID Integer PRIMARY KEY";
+                                        }
+                                        try
+                                        {
+                                            sql[tern2] += PK[tern3].GetName() + "FK FOREIGN KEY REFERENCES " + tern3.GetName() +
+                                                "(" + PK[tern3].GetName() + ")";
+                                        }
+                                        catch
+                                        {
+                                            sql[tern2] += tern3.GetName() + "ID  integer FOREIGN " + tern3.GetName() +
+                                                "(" + tern3.GetName() + "ID)";
+                                            Attr newd = new Attr(-50, -50, tern3);
+                                            newd.SetName(tern3.GetName() + "ID");
+                                            PK.Add(tern3, newd);
+                                            if (tern3.GetAttrs() > 0)
+                                                sql[tern3] += ",\n" + tern3.GetName() + "ID Integer PRIMARY KEY";
+                                            else
+                                                sql[tern3] += tern3.GetName() + "ID Integer PRIMARY KEY";
+                                        }
+                                        int atr = relaty.GetAttrs();
+                                        if (atr > 0)
+                                        {
+                                            sql[tern2] += ",\n";
+                                            foreach (Drawable f in drawables)
+                                            {
+                                                if (f.GetType() == typeof(Attr))
+                                                {
+                                                    Attr maybe = (Attr)f;
+                                                    if (maybe.GetOwner() == relaty)
+                                                    {
+                                                        sql[tern2] += maybe.GetSql();
+                                                        atr--;
+                                                        if (atr > 0)
+                                                            sql[tern2] += ",\n";
+                                                        else
+                                                            break;
+
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                    else
+                                    {
+                                        if (tern2.GetAttrs() > 0)
+                                            sql[tern2] += ",\n";
+                                        try
+                                        {
+                                            sql[tern3] += PK[tern1].GetName() + "FK FOREIGN KEY REFERENCES " + tern1.GetName() +
+                                                "(" + PK[tern1].GetName() + "),\n";
+                                        }
+                                        catch
+                                        {
+                                            sql[tern3] += tern1.GetName() + "ID  integer FOREIGN " + tern1.GetName() +
+                                                "(" + tern1.GetName() + "ID),\n";
+                                            Attr newd = new Attr(-50, -50, tern1);
+                                            newd.SetName(tern1.GetName() + "ID");
+                                            PK.Add(tern1, newd);
+                                            if (tern1.GetAttrs() > 0)
+                                                sql[tern1] += ",\n" + tern1.GetName() + "ID Integer PRIMARY KEY";
+                                            else
+                                                sql[tern1] += tern1.GetName() + "ID Integer PRIMARY KEY";
+                                        }
+                                        try
+                                        {
+                                            sql[tern3] += PK[tern2].GetName() + "FK FOREIGN KEY REFERENCES " + tern2.GetName() +
+                                                "(" + PK[tern2].GetName() + ")";
+                                        }
+                                        catch
+                                        {
+                                            sql[tern3] += tern2.GetName() + "ID  integer FOREIGN " + tern2.GetName() +
+                                                "(" + tern2.GetName() + "ID)";
+                                            Attr newd = new Attr(-50, -50, tern2);
+                                            newd.SetName(tern2.GetName() + "ID");
+                                            PK.Add(tern2, newd);
+                                            if (tern2.GetAttrs() > 0)
+                                                sql[tern2] += ",\n" + tern2.GetName() + "ID Integer PRIMARY KEY";
+                                            else
+                                                sql[tern2] += tern2.GetName() + "ID Integer PRIMARY KEY";
+                                        }
+                                        int atr = relaty.GetAttrs();
+                                        if (atr > 0)
+                                        {
+                                            sql[tern3] += ",\n";
+                                            foreach (Drawable f in drawables)
+                                            {
+                                                if (f.GetType() == typeof(Attr))
+                                                {
+                                                    Attr maybe = (Attr)f;
+                                                    if (maybe.GetOwner() == relaty)
+                                                    {
+                                                        sql[tern3] += maybe.GetSql();
+                                                        atr--;
+                                                        if (atr > 0)
+                                                            sql[tern3] += ",\n";
+                                                        else
+                                                            break;
+
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                            break;
+                    }
+                }
+            }
+            foreach (KeyValuePair<Entity, string> linha in sql)
+                generate += linha.Value + "\n);\n";
+            foreach (KeyValuePair<Drawable, string> linha in tablesAltenative)
+                generate += linha.Value + "\n);\n";
+
+            return generate;
         }
     }
 }

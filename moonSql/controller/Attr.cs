@@ -66,12 +66,28 @@ namespace moonSql.Controller
         {
             return this.name;
         }
-        private int GetIndex()
+        public int GetIndex()
         {
             if (this.owner.GetType() == typeof(Entity))
                 return ((Entity)owner).GetAttrs();
 
             return ((Relationship)owner).GetAttrs();
+        }
+        public Drawable GetOwner()
+        {
+            return owner;
+        }
+        public string GetSql()
+        {
+            string str = "";
+            str += this.GetName().Split(' ')[0] + " ";
+            str += this.data + " ";
+            if(this.primary)
+               str += "PRIMARY KEY";
+            else if(!this.optional)
+                str += "NOT NULL";
+
+            return str;
         }
         public bool IsThere(int x, int y)
         {

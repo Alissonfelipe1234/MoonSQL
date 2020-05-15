@@ -45,6 +45,10 @@ namespace moonSql.Controller
 
             return counter;
         }
+        public string GetName()
+        {
+            return this.name;
+        }
         public bool IsThere(int x, int y)
         {
             int horizontal = x - this.x;

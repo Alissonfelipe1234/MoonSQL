@@ -45,9 +45,21 @@ namespace moonSql.Controller
         {
             return this.y ;
         }
+        public string GetName()
+        {
+            return this.name;
+        }
         public int GetAttrs()
         {
             return Attributes.Count;
+        }
+        public List<Tuple<Drawable, Cardinality>> GetChilds()
+        {
+            return this.childs;
+        }
+        public int GetSize()
+        {
+            return this.childs.Count;
         }
         public bool IsThere(int x, int y)
         {
