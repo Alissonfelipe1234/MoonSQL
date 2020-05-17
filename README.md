@@ -1,4 +1,4 @@
-<p align=center><a href="https://github.com/Alissonfelipe1234/MoonSQL/releases"><img src="https://raw.githubusercontent.com/Alissonfelipe1234/MoonSQL/master/images/moonLOgo.png" title="Moon SQL" alt="Moon SQL"></a></p>
+<p align=center><a href="https://github.com/Alissonfelipe1234/MoonSQL/releases"><img src="https://github.com/Alissonfelipe1234/MoonSQL/raw/master/images/moonLogo.png" title="Moon SQL" alt="Moon SQL"></a></p>
 
 # Simplest way to create databases
 
@@ -55,7 +55,7 @@ $ explorer moonSql.sln
 
 | <a href="https://github.com/afattobene" target="_blank">**Adila Fattobene**</a> | <a href="https://github.com/motavitoria" target="_blank">**Vitória Mota**</a> | <a href="https://alissonfelipe1234.github.io/" target="_blank">**Alisson Felipe**</a> |
 | :---: |:---:| :---:|
-| [![Adila Fattobene](https://avatars1.githubusercontent.com/u/45149297?s=200)](https://github.com/afattobene) | [![Vitória Mota](https://avatars0.githubusercontent.com/u/38865707?s=200)](https://github.com/motavitoria) | [![Alisson Felipe](https://alissonfelipe1234.github.io/assets/img/profile.jpg?s=200)](https://alissonfelipe1234.github.io/) |
+| [![Adila Fattobene](https://avatars1.githubusercontent.com/u/45149297?s=498)](https://github.com/afattobene) | [![Vitória Mota](https://avatars0.githubusercontent.com/u/38865707?s=200)](https://github.com/motavitoria) | [![Alisson Felipe](https://alissonfelipe1234.github.io/assets/img/profile.jpg?s=498)](https://alissonfelipe1234.github.io/) |
 | <a href="https://github.com/afattobene" target="_blank">`github.com/afattobene`</a> | <a href="https://github.com/motavitoria" target="_blank">`github.com/motavitoria`</a> | <a href="https://github.com/Alissonfelipe1234" target="_blank">`github.com/Alissonfelipe1234`</a> |
 ---
 
