@@ -55,7 +55,7 @@ $ explorer moonSql.sln
 
 | <a href="https://github.com/afattobene" target="_blank">**Adila Fattobene**</a> | <a href="https://github.com/motavitoria" target="_blank">**Vitória Mota**</a> | <a href="https://alissonfelipe1234.github.io/" target="_blank">**Alisson Felipe**</a> |
 | :---: |:---:| :---:|
-| [![Adila Fattobene](https://avatars1.githubusercontent.com/u/45149297?s=200)](https://github.com/afattobene) | [![Vitória Mota](https://avatars0.githubusercontent.com/u/38865707?s=200)](https://github.com/motavitoria) | [![Alisson Felipe](https://avatars0.githubusercontent.com/u/28987791?s=200)](https://alissonfelipe1234.github.io/) |
+| [![Adila Fattobene](https://avatars1.githubusercontent.com/u/45149297?s=400)](https://github.com/afattobene) | [![Vitória Mota](https://avatars0.githubusercontent.com/u/38865707?s=400)](https://github.com/motavitoria) | [![Alisson Felipe](https://avatars0.githubusercontent.com/u/28987791?s=400)](https://alissonfelipe1234.github.io/) |
 | <a href="https://github.com/afattobene" target="_blank">`github.com/afattobene`</a> | <a href="https://github.com/motavitoria" target="_blank">`github.com/motavitoria`</a> | <a href="https://github.com/Alissonfelipe1234" target="_blank">`github.com/Alissonfelipe1234`</a> |
 ---
 
